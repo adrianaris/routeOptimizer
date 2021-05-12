@@ -1,0 +1,27 @@
+Route planner web app requirements:
+
+1 Shortest path algorithm:
+	- dijkstra
+	- bellman-ford
+	- Floyd-Warshall Algo: good for multi-stops
+	- Johnson's Algo: uses bellman-ford to detect negative cycles and ge		generates a new graph: on the new graph uses dijkstra for the sh	    shortest path
+	- Viterbi algo
+	- A* heuristic algo (is an advanced form of Breadth First Search)
+
+(read-up on contraction hierarchies: wikipedia.org/wiki/Contraction_hierarchies) 
+two-dimensional Euclidian plane
+
+2 Type of graph:
+!!! google uses aa hierarchical structure on top of the graph.
+!!! they also probably use some algo that can be made more efficient by keeping segments of popular routes in a cache.
+	- Single source shortest path:
+		- Undirected graph
+		- Unweighted graph
+		- Directed acyclic
+		- Directed with nonnegative weights
+		- Directed with arbitrary weights without negative cycles
+		- Planar directed graphs with arbitrary weights
+	- All pairs shortest paths:
+		- Undirected
+		- Directed
+
