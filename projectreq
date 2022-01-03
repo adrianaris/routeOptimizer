@@ -1,10 +1,53 @@
+Project description
+
+	The idea for this app came from me needing to optimise a route of 350 addresses for a job.
+
+	The app will function like this:
+		1. Frontend: 
+			1. The user will have two posibilities to provide us with a list of address that he needs optimisation for:
+				1. A web form in which he can fill in locations. This web form will have the google maps api behind (I'm reconsidering this
+					and looking for alternatives since it's pretty expensive) so that the user can find the exact location and at the same 
+					time giving us the exact set of descriptors we require for each location(node in the matrix).
+
+				2. Upload a standardized .xls file with a list of addresses (I think in the beginning we will provide
+					just the first possibility)
+
+			2. After route optimisation the frontend will display the list of addresses with buttons on each one. The buttons
+				will have three functionalities at least: 
+					1. Set the address as visited (if the visited address is not in the order of the optimised route give the possibility of reoptimisation) 
+					2. Set the address as skiped/notFound or something
+					3. Redirect to google-maps for directions towards that address (this will require for the user to have location enabled)
+
+			3. Create an xls with deep links to waze or google maps (not sure if this is possible)
+
+			4. After all the addresses have been visited give the user the possibility to download a pdf report.
+
+				I'm having doupts if google maps should be displayed somehow into the frontend due to performance
+				I haven't made any decision about the frontend actual layout yet
+
+		2. Backend:
+			1. A mongoDB that will save the different routes the user will be sending us for optimisation. In the db
+				only one instance of the list will exist (ie after each modification/optimization the note in the db will
+				be updated) + address to the pdf report which will be stored on the file system of the server +
+				+ user details and payments history/invoices (if we monetize this)
+
+			2. When the user logsin and redirects to user panel display a welcome/loading page during which the server prerenders 
+				some components which contain user details(like last route etc.)
+
+			3. I think theres only one endpoind needed to be exposed towards the frontend. That which feeds to user panel
+			 I am not ye sure how we comunicate with the google api
+			 
+			4. The logic for optimisation is provided open source by google through OR Tools: https://github.com/google/or-tools/
+
+
 Route planner web app requirements:
 
 1 Shortest path algorithm:
 	- dijkstra
 	- bellman-ford
 	- Floyd-Warshall Algo: good for multi-stops
-	- Johnson's Algo: uses bellman-ford to detect negative cycles and ge		generates a new graph: on the new graph uses dijkstra for the sh	    shortest path
+	- Johnson's Algo: uses bellman-ford to detect negative cycles and ge		generates a new graph: on the new graph uses dijkstra 
+		for the shortest path
 	- Viterbi algo
 	- A* heuristic algo (is an advanced form of Breadth First Search)
 
@@ -25,3 +68,31 @@ two-dimensional Euclidian plane
 		- Undirected
 		- Directed
 3 Optimization algorithm:
+
+
+
+Basically everything I wrote under requirements, untill this, is solved by google OR Tools: 
+	https://developers.google.com/optimization/routing/tsp#python
+	-I'm not sure if this will be TSP or VRP problem. 
+		This question should find answer after starting the work(it shouldn't be hard to transition between them)
+
+
+Since I spent the better part of 2021 learning about MERN stack this is what I will use for this project.
+	- The issue with this decision is that OR Tools is developed in C++ and it has wrappers for python and java,
+		so no JS:
+			- from what I searched online there are several possible solutions to this:
+				1. Unix sockets
+				2. http restul api
+				3. webAssembly (maybe)
+				4. npm install python-shell
+				5. npm install node-python
+
+4. Google distance matrix api: https://developers.google.com/maps/documentation/distance-matrix/start
+	this is with money
+	Or https://distancematrixapi.com/
+	Or https://distancematrix.ai/
+	OR https://developer.mapquest.com/documentation/directions-api/#matrix (this one could also give alternative to OR tools)
+	OR https://traveltime.com/blog/google-distance-matrix-api-traveltime-search-api
+	OR https://openrouteservice.org/ -- I feel like this is the answere
+
+	https://www.mapbox.com/
