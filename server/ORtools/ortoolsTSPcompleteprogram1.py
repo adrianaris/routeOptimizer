@@ -1,12 +1,19 @@
 """Simple travelling salesman problem between cities."""
 
-from requests.models import Response
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
-import requests
+# import requests
+import sys
+import json
 
-response = requests.get('http://localhost:4000')
-matrix = response.json()
+try:
+    matrix = json.loads(sys.argv[1])
+except:
+    raise Exception("problem with arg")
+
+
+# response = requests.get('http://localhost:4000')
+# matrix = response.json()
 
 def create_data_model():
     """Stores the data for the problem."""
@@ -69,6 +76,7 @@ def main():
     # Print solution on console.
     if solution:
         print_solution(manager, routing, solution)
+        return solution
 
 
 if __name__ == '__main__':
