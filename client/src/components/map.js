@@ -5,6 +5,10 @@ import styled from 'styled-components'
 
 const MapContainer = styled.div`
     height: 400px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
   `
 const Sidebar = styled.div`
   background-color: rgba(35, 55, 75, 0.9);
@@ -25,9 +29,9 @@ const Map = () => {
 
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(-70.9)
-  const [lat, setLat] = useState(42.35)
-  const [zoom, setZoom] = useState(9)
+  const [lng, setLng] = useState(4.5201)
+  const [lat, setLat] = useState(50.8195)
+  const [zoom, setZoom] = useState(11.67)
   
   useEffect(() => {
     if (map.current !== null) return
