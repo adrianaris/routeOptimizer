@@ -76,7 +76,6 @@ def main():
     # Print solution on console.
     if solution:
         print_solution(manager, routing, solution)
-        return solution
 
 
 if __name__ == '__main__':

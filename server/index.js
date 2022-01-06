@@ -30,7 +30,7 @@ app.get('/', (request, response) => {
     response.status(201).json(matrix)
 })
 
-app.get('/stdin', async (request, response) => {
+app.get('/stdin', (request, response) => {
 const matrix = [
         [0, 2451, 713, 1018, 1631, 1374, 2408, 213, 2571, 875, 1420, 2145, 1972],
         [2451, 0, 1745, 1524, 831, 1240, 959, 2596, 403, 1589, 1374, 357, 579],
@@ -47,7 +47,7 @@ const matrix = [
         [1972, 579, 1260, 987, 371, 999, 701, 2099, 600, 1162, 1200, 504, 0]
     ]
     const { spawn } = require('child_process')
-    const optimRoute = await spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix)])
+    const optimRoute = spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix)])
     
     optimRoute.stdout.on('data', data => {
         console.log(data.toString())
