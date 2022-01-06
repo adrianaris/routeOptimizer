@@ -1,6 +1,23 @@
 import React, { useRef, useEffect, useState } from "react"
 import mapboxgl from "mapbox-gl"
 import 'mapbox-gl/dist/mapbox-gl.css'
+import styled from 'styled-components'
+
+const MapContainer = styled.div`
+    height: 400px;
+  `
+const Sidebar = styled.div`
+  background-color: rgba(35, 55, 75, 0.9);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: monospace;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  border-radius: 4px;
+`
 
 const Map = () => {
   const token = 'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
@@ -13,16 +30,31 @@ const Map = () => {
   const [zoom, setZoom] = useState(9)
   
   useEffect(() => {
+    if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [lng, lat],
       zoom: zoom
-    }, [map.current])
+    })
   })
   
-  return (
-      <div ref={mapContainer} className="map-container" />
+  useEffect(() => {
+    if (map.current === null) return
+    map.current.on('move', () => {
+      setLng(map.current.getCenter().lng.toFixed(4))
+      setLat(map.current.getCenter().lat.toFixed(4))
+      setZoom(map.current.getZoom().toFixed(2))
+    })
+  })
+  
+    return (
+      <div>
+        <Sidebar>
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </Sidebar>
+        <MapContainer ref={mapContainer} />
+      </div>
   )
 }
 
