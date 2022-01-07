@@ -23,6 +23,14 @@ const Sidebar = styled.div`
   margin: 12px;
   border-radius: 4px;
 `
+const Geocoder = styled.div`
+  position: absolute;
+  z-index: 1;
+  width: 50%;
+  left: 50%;
+  margin-left: -10%;
+  top: 380px;
+`
 
 const Map = () => {
   const token = 'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
@@ -47,7 +55,8 @@ const Map = () => {
       center: [lng, lat],
       zoom: zoom
     })
-    map.current.addControl(geocoder)
+    // map.current.addControl(geocoder)
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current))
   })
   
   useEffect(() => {
@@ -65,6 +74,7 @@ const Map = () => {
           Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
         </Sidebar>
         <MapContainer ref={mapContainer} />
+        <Geocoder id="geocoder" />
       </div>
   )
 }
