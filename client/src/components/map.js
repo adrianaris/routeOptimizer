@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react"
 import mapboxgl from "mapbox-gl"
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import styled from 'styled-components'
 
@@ -33,6 +34,11 @@ const Map = () => {
   const [lat, setLat] = useState(50.8195)
   const [zoom, setZoom] = useState(11.67)
   
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  })
+  
   useEffect(() => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
@@ -41,6 +47,7 @@ const Map = () => {
       center: [lng, lat],
       zoom: zoom
     })
+    map.current.addControl(geocoder)
   })
   
   useEffect(() => {
