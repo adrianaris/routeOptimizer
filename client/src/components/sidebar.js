@@ -15,8 +15,8 @@ const SidebarElem = styled.div`
 `
 
 const Sidebar = ({ map }) => {
-    const [lng, setLng] = useState(4.52)
-    const [lat, setLat] = useState(50.82)
+    const [lng, setLng] = useState(4.5201)
+    const [lat, setLat] = useState(50.8195)
     const [zoom, setZoom] = useState(11.67)
     
     useEffect(() => {

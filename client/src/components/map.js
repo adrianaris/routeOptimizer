@@ -45,6 +45,10 @@ const Map = () => {
     })
     // map.current.addControl(geocoder)
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current))
+    setAddressList([{
+      coordinates: [4.5201, 50.8195],
+      place_name: 'starting position'
+    }]) // just to init sidebar for now
   })
   
   // useEffect(() => {
@@ -66,8 +70,6 @@ const Map = () => {
   })
   
   console.log(addressList)
-  
-  
   
     return (
       <div>
