@@ -15,8 +15,11 @@
   "author": "Adrian Serbanescu",
   "license": "MIT",
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.4",
+    "@mapbox/mapbox-sdk": "^0.13.2",
     "cors": "^2.8.5",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "mapbox-gl": "^2.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

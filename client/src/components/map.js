@@ -24,18 +24,18 @@ const Geocoder = styled.div`
 const Map = () => {
   const token = 'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
   mapboxgl.accessToken = token
-
-  const mapContainer = useRef(null)
-  const map = useRef(null)
-    
-  const [addressList, setAddressList] = useState([])
-  
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl
   })
+ 
+  const mapContainer = useRef(null)
+  const map = useRef(null)
+    
+  const [address, setAddress] = useState([])
+  console.log(address)
   
-  useEffect(() => {
+    useEffect(() => {
     if(map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -45,10 +45,10 @@ const Map = () => {
     })
     // map.current.addControl(geocoder)
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current))
-    setAddressList([{
+    setAddress({
       coordinates: [4.5201, 50.8195],
       place_name: 'starting position'
-    }]) // just to init sidebar for now
+    }) // just to init sidebar for now
   })
   
   // useEffect(() => {
@@ -59,17 +59,15 @@ const Map = () => {
   //     setZoom(map.current.getZoom().toFixed(2))
   //   })
   // })
-  
+ 
   geocoder.on('result', async event => {
-    const newAddressList = addressList.concat([{ 
+    const newAddress= { 
       coordinates: await event.result.center, 
       place_name: await event.result.place_name
-    }])
-    
-    setAddressList(newAddressList)
+    }
+     
+    setAddress(newAddress)
   })
-  
-  console.log(addressList)
   
     return (
       <div>

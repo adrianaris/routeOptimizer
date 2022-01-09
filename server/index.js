@@ -3,6 +3,51 @@ const http = require('http')
 const app = express()
 const cors = require('cors')
 
+const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
+const matrixService = mbxMatrix({ accessToken: 'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA' })
+
+const mapboxMatrix = matrixService.getMatrix({
+        points: [
+            {
+                coordinates: [4.5467, 50.8316],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [4.4071, 50.8858],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [4.4114, 50.9734],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [4.6363, 51.0744],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [4.8881, 51.0527],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [5.2104, 50.9380],
+                approach: 'unrestricted'
+            },
+            {
+                coordinates: [5.0621, 50.7440],
+                approach: 'unrestricted'
+            }
+        ],
+        profile: 'driving',
+        annotations: ['distance'],
+        destinations: 'all'
+    })
+        .send()
+        .then(response => {
+            console.log(response.body)
+            return response.body
+
+        })
+
 app.use(express.json())
 app.use(cors())
 
