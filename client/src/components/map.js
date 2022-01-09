@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl"
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import styled from 'styled-components'
+import Sidebar from "./sidebar"
 
 const MapContainer = styled.div`
     height: 400px;
@@ -11,18 +12,6 @@ const MapContainer = styled.div`
     bottom: 0;
     width: 100%;
   `
-const Sidebar = styled.div`
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
-  padding: 6px 12px;
-  font-family: monospace;
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 12px;
-  border-radius: 4px;
-`
 const Geocoder = styled.div`
   position: absolute;
   z-index: 1;
@@ -38,9 +27,8 @@ const Map = () => {
 
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [lng, setLng] = useState(4.5201)
-  const [lat, setLat] = useState(50.8195)
-  const [zoom, setZoom] = useState(11.67)
+    
+  const [addressList, setAddressList] = useState([])
   
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
@@ -48,31 +36,44 @@ const Map = () => {
   })
   
   useEffect(() => {
-    if (map.current !== null) return
+    if(map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
-      zoom: zoom
+      center: [4.5201, 50.8195],
+      zoom: 11.67 
     })
     // map.current.addControl(geocoder)
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current))
   })
   
-  useEffect(() => {
-    if (map.current === null) return
-    map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4))
-      setLat(map.current.getCenter().lat.toFixed(4))
-      setZoom(map.current.getZoom().toFixed(2))
-    })
+  // useEffect(() => {
+  //   if (map.current === null) return
+  //   map.current.on('move', () => {
+  //     setLng(map.current.getCenter().lng.toFixed(4))
+  //     setLat(map.current.getCenter().lat.toFixed(4))
+  //     setZoom(map.current.getZoom().toFixed(2))
+  //   })
+  // })
+  
+  geocoder.on('result', async event => {
+    const newAddressList = addressList.concat([{ 
+      coordinates: await event.result.center, 
+      place_name: await event.result.place_name
+    }])
+    
+    setAddressList(newAddressList)
   })
+  
+  console.log(addressList)
+  
+  
   
     return (
       <div>
-        <Sidebar>
-          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-        </Sidebar>
+      {map.current &&
+        <Sidebar map={map.current}/>
+      }
         <MapContainer ref={mapContainer} />
         <Geocoder id="geocoder" />
       </div>
