@@ -81,8 +81,7 @@ const matrix = [
     const optimRoute = spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix)])
     
     optimRoute.stdout.on('data', data => {
-        console.log(data.toString())
-        response.json(data.toString())
+        response.json(data.toString().split(/,/).map(str => parseFloat(str)))
     })
     
     optimRoute.stderr.on('data', data => {

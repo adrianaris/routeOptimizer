@@ -18,7 +18,8 @@ matrixRouter.post('/matrixApi', async (request, response) => {
     pythonScript = spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix.distances)])
 
     pythonScript.stdout.on('data', data => {
-        response.json(data.toString())
+        response.json(data.toString().split(/,/).map(str => parseFloat(str)))
+
     })
     
     pythonScript.stderr.on('data', data => {
