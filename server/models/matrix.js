@@ -5,4 +5,4 @@ const querrySchema = {
     destinations: 'all' 
 } 
 
-module.exports = querrySchema 
+module.exports = querrySchema

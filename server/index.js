@@ -3,6 +3,9 @@ const http = require('http')
 const app = express()
 const cors = require('cors')
 const config = require('./utils/config')
+const matrixRouter = require('./controllers/matrixApi')
+
+const querrySchema = require('./models/matrix')
 
 const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
 const matrixService = mbxMatrix({ accessToken: config.TOKEN })
@@ -10,13 +13,14 @@ const matrixService = mbxMatrix({ accessToken: config.TOKEN })
 
 app.use(express.json())
 app.use(cors())
+app.use('/', matrixRouter)
 
 const server = http.createServer(app)
 
 server.listen(4000)
 
 app.get('/', async (request, response) => {
-   const apiResponse = await matrixService.getMatrix({
+    const coord = {...querrySchema,
          points: [
             {
                 coordinates: [4.5467, 50.8316],
@@ -46,12 +50,10 @@ app.get('/', async (request, response) => {
                 coordinates: [5.0621, 50.7440],
                 approach: 'unrestricted'
             }
-        ],
-        profile: 'driving',
-        annotations: ['distance'],
-        destinations: 'all'
-      
-   })
+        ]
+    }
+
+   const apiResponse = await matrixService.getMatrix(coord)
     .send() 
     
     const matrix = apiResponse.body
