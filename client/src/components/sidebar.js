@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
 const SidebarElem = styled.div`
   background-color: rgba(35, 55, 75, 0.9);
@@ -15,23 +15,23 @@ const SidebarElem = styled.div`
 `
 
 const Sidebar = ({ map }) => {
-    const [lng, setLng] = useState(4.5201)
-    const [lat, setLat] = useState(50.8195)
-    const [zoom, setZoom] = useState(11.67)
-    
-    useEffect(() => {
-        map.on('move', () => {
-          setLng(map.getCenter().lng.toFixed(4))
-          setLat(map.getCenter().lat.toFixed(4))
-          setZoom(map.getZoom().toFixed(2))
-        })
-    })
+  const [lng, setLng] = useState(4.5201)
+  const [lat, setLat] = useState(50.8195)
+  const [zoom, setZoom] = useState(11.67)
 
-    return (
-        <SidebarElem>
+  useEffect(() => {
+    map.on('move', () => {
+      setLng(map.getCenter().lng.toFixed(4))
+      setLat(map.getCenter().lat.toFixed(4))
+      setZoom(map.getZoom().toFixed(2))
+    })
+  })
+
+  return (
+    <SidebarElem>
            Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-        </SidebarElem>
-    )
+    </SidebarElem>
+  )
 }
 
 export default Sidebar

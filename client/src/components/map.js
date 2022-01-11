@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from "react"
-import mapboxgl from "mapbox-gl"
+import React, { useRef, useEffect, useState } from 'react'
+import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import styled from 'styled-components'
-import Sidebar from "./sidebar"
+import Sidebar from './sidebar'
 
 const MapContainer = styled.div`
     height: 400px;
@@ -28,20 +28,20 @@ const Map = () => {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl
   })
- 
+
   const mapContainer = useRef(null)
   const map = useRef(null)
-    
+
   const [address, setAddress] = useState([])
   console.log(address)
-  
-    useEffect(() => {
+
+  useEffect(() => {
     if(map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [4.5201, 50.8195],
-      zoom: 11.67 
+      zoom: 11.67
     })
     // map.current.addControl(geocoder)
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map.current))
@@ -50,7 +50,7 @@ const Map = () => {
       place_name: 'starting position'
     }) // just to init sidebar for now
   })
-  
+
   // useEffect(() => {
   //   if (map.current === null) return
   //   map.current.on('move', () => {
@@ -59,24 +59,24 @@ const Map = () => {
   //     setZoom(map.current.getZoom().toFixed(2))
   //   })
   // })
- 
+
   geocoder.on('result', async event => {
-    const newAddress= { 
-      coordinates: await event.result.center, 
+    const newAddress= {
+      coordinates: await event.result.center,
       place_name: await event.result.place_name
     }
-     
+
     setAddress(newAddress)
   })
-  
-    return (
-      <div>
+
+  return (
+    <div>
       {map.current &&
         <Sidebar map={map.current}/>
       }
-        <MapContainer ref={mapContainer} />
-        <Geocoder id="geocoder" />
-      </div>
+      <MapContainer ref={mapContainer} />
+      <Geocoder id="geocoder" />
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-POST http://localhost:4000/matrixApi
+POST http://localhost:4000/api/matrix
 Content-Type: application/json
 
 {
@@ -31,6 +31,5 @@ Content-Type: application/json
                     "coordinates": [5.2104, 50.9380],
                     "approach": "unrestricted"
                 }
-                
             ]
 }

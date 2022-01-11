@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint" : "eslint ."
   },
   "keywords": [
     "route",
@@ -23,6 +24,7 @@
     "mapbox-gl": "^2.6.1"
   },
   "devDependencies": {
+    "eslint": "^8.6.0",
     "nodemon": "^2.0.15"
   }
 }

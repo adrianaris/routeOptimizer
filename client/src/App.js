@@ -1,8 +1,8 @@
-import React from "react"
-import Map from "./components/map"
+import React from 'react'
+import Map from './components/map'
 
 const App = () => {
-  
+
   return (
     <div>
       <Map />
