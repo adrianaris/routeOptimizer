@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 const config = require('./utils/config')
 const matrixRouter = require('./controllers/matrixApi')
+const errors = require('./utils/errors')
+const logger = require('./utils/logger')
 
 const querrySchema = require('./models/matrix')
 
@@ -17,7 +19,9 @@ app.use('/api/matrix', matrixRouter)
 
 const server = http.createServer(app)
 
-server.listen(4000)
+server.listen(config.PORT, () => {
+  logger(`Server is running on port ${config.PORT}`)
+})
 
 app.get('/', async (request, response) => {
   const coord = { ...querrySchema,
@@ -88,3 +92,6 @@ app.get('/stdin', (request, response) => {
     console.log(data.toString())
   })
 })
+
+app.use(errors.errorHandler)
+app.use(errors.unknownEndpoint)
