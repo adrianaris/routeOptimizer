@@ -27,6 +27,7 @@ function Map({ setCurrent }) {
   });
 
   useEffect(() => {
+    console.log("Called");
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -36,6 +37,8 @@ function Map({ setCurrent }) {
     });
 
     map.current.on("load", async () => {
+      geoCoderContainer.current.appendChild(geoCoder.onAdd(map.current));
+
       const marker = document.createElement("div");
       marker.classList = "truck";
 
@@ -141,17 +144,27 @@ function Map({ setCurrent }) {
 
       // Listen for a click on the map
       await map.current.on("click", addWaypoints);
+      geoCoder.on("result", async (e) => {
+        console.log(e.result.center);
+        await addWaypointsFromSearch(e.result.center);
+        setCurrent((state) => [...state, e.result.center]);
+      });
     });
-    geoCoderContainer.current.appendChild(geoCoder.onAdd(map.current));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  geoCoder.on("result", (e) =>
-    setCurrent((state) => [...state, e.result.center])
-  );
   async function addWaypoints(event) {
+    console.log(event.point);
     // When the map is clicked, add a new drop off point
     // and update the `dropoffs-symbol` layer
     await newDropoff(map.current.unproject(event.point));
+    updateDropoffs(dropoffs);
+  }
+
+  async function addWaypointsFromSearch(coordinate) {
+    // When the map is clicked, add a new drop off point
+    // and update the `dropoffs-symbol` layer
+    const [lng, lat] = coordinate;
+    await newDropoff({ lng, lat });
     updateDropoffs(dropoffs);
   }
 
