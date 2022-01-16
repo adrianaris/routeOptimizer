@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import { REACT_APP_MAPBOX_API } from "../utils/config";
 import turf from "turf";
 
-const CENTER_INIT = [10.019393, 45.140938];
-const OTHER_INIT = [10.035786, 45.135729];
+const CENTER_INIT = [10.25, 45.21667];
+const OTHER_INIT = [10.30167, 45.21139];
 const ZOOM_INIT = 12;
 
 mapboxgl.accessToken = REACT_APP_MAPBOX_API;
-function Map({ setCurrent }) {
+function Map({ setCurrent, current }) {
   const lastAtRestaurant = 0;
   let keepTrack = [];
   const pointHopper = {};
@@ -145,9 +145,10 @@ function Map({ setCurrent }) {
       // Listen for a click on the map
       await map.current.on("click", addWaypoints);
       geoCoder.on("result", async (e) => {
-        console.log(e.result.center);
         await addWaypointsFromSearch(e.result.center);
-        setCurrent((state) => [...state, e.result.center]);
+        console.log(e.result);
+        const isAdded = current.find((obj) => obj.id === e.result.id);
+        isAdded || setCurrent((state) => [...state, e.result]);
       });
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -247,7 +248,15 @@ function Map({ setCurrent }) {
         }
       }
     }
-
+    console.log(
+      `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${coordinates.join(
+        ";"
+      )}?distributions=${distributions.join(
+        ";"
+      )}&overview=full&steps=true&geometries=geojson&source=first&access_token=${
+        mapboxgl.accessToken
+      }`
+    );
     // Set the profile to `driving`
     // Coordinates will include the current location of the truck,
     return `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${coordinates.join(
