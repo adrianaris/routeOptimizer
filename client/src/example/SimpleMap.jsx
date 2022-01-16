@@ -14,8 +14,6 @@ function Map() {
   const [current, setCurrent] = useState({});
   const [googleMapsUrl, setGoogleMapsUrl] = useState("");
 
-  console.log(current);
-
   const mapRef = useRef(null);
   const centerRef = useRef(null);
   const geocoderRef = useRef(null);
@@ -124,7 +122,7 @@ function Map() {
     // coordinates = { center, id, place_name, ...more }
     setCurrent((state) => ({ ...state, [coordinates.id]: coordinates }));
     const point = turf.point(coordinates.center);
-    addresses.features.push(point, { key: coordinates.id });
+    addresses.features.push({ point, id: coordinates.id });
     map.current.getSource("dropoffs-symbol").setData(addresses);
   }
 
@@ -151,7 +149,6 @@ function Map() {
     const waypoints = data.waypoints
       .sort((a, b) => a.waypoint_index - b.waypoint_index)
       .map(({ location }) => location[1] + "," + location[0]);
-    console.log("waypoint", waypoints);
 
     setGoogleMapsUrl(
       `https://www.google.com/maps/dir/?api=1&waypoints=${encodeURI(
@@ -230,6 +227,9 @@ function Map() {
                   const newCurrent = {};
                   for (const key of updatedKeys) newCurrent[key] = current[key];
                   setCurrent(newCurrent);
+                  addresses.features = addresses.features.filter(
+                    (address) => address.id !== id
+                  );
                 }}
               >
                 Remove
