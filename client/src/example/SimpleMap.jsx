@@ -104,6 +104,7 @@ function Map() {
       "waterway-label"
     );
   }
+  console.log(current);
 
   // this is the same addAddress but using pinning
   // I comment this out since we're not using this,
@@ -163,6 +164,16 @@ function Map() {
     map.current?.getSource("route").setData(routeGeoJSON);
   }
 
+  function removeAddress(id) {
+    const updatedKeys = Object.keys(current).filter((key) => key !== id);
+    const newCurrent = {};
+    for (const key of updatedKeys) newCurrent[key] = current[key];
+    setCurrent(newCurrent);
+    addresses.features = addresses.features.filter(
+      (address) => address.id !== id
+    );
+  }
+
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -215,32 +226,18 @@ function Map() {
         />
       </div>
       <div>
-        <ul>
-          {Object.values(current).map(({ id, place_name }) => (
-            <li key={id}>
-              <p>{place_name}</p>
-              <button
-                onClick={() => {
-                  const updatedKeys = Object.keys(current).filter(
-                    (key) => key !== id
-                  );
-                  const newCurrent = {};
-                  for (const key of updatedKeys) newCurrent[key] = current[key];
-                  setCurrent(newCurrent);
-                  addresses.features = addresses.features.filter(
-                    (address) => address.id !== id
-                  );
-                }}
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
         <button onClick={optimize}>optimize</button>
         <button>
           <a href={googleMapsUrl}>open in maps</a>
         </button>
+        <ul>
+          {Object.values(current).map(({ id, place_name }) => (
+            <li key={id}>
+              <p>{place_name}</p>
+              <button onClick={() => removeAddress(id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
