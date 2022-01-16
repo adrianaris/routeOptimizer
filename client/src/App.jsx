@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "./example/SimpleMap";
+import Map from "./components/SimpleMap";
 
 const App = () => {
   return <Map />;
