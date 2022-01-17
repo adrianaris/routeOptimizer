@@ -1,3 +1,10 @@
-.mapboxgl-ctrl-geocoder {
-    min-width: 100%;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
 }
