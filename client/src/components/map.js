@@ -6,12 +6,12 @@ import styled from 'styled-components'
 import Sidebar from './sidebar'
 
 const MapContainer = styled.div`
-    height: 400px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-  `
+  height: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+`
 const Geocoder = styled.div`
   position: absolute;
   z-index: 1;
@@ -50,15 +50,6 @@ const Map = () => {
       place_name: 'starting position'
     }) // just to init sidebar for now
   })
-
-  // useEffect(() => {
-  //   if (map.current === null) return
-  //   map.current.on('move', () => {
-  //     setLng(map.current.getCenter().lng.toFixed(4))
-  //     setLat(map.current.getCenter().lat.toFixed(4))
-  //     setZoom(map.current.getZoom().toFixed(2))
-  //   })
-  // })
 
   geocoder.on('result', async event => {
     const newAddress= {

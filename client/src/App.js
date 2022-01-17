@@ -1,5 +1,5 @@
 import React from 'react'
-import Map from './components/map'
+import Map from './components/SimpleMap'
 import getOptimRoute from './services/matrix'
 import styled from 'styled-components'
 
@@ -13,7 +13,7 @@ const App = () => {
   // for testing the optimization endpoint
   const handleTestButton = () => {
     const testReq = {
-    points: [
+      points: [
         {
           coordinates: [4.5467, 50.8316],
         },
@@ -45,7 +45,7 @@ const App = () => {
     <div>
       <Map />
       <div>
-      <Button onClick={() => handleTestButton()}>TESTreq</Button>
+        <Button onClick={() => handleTestButton()}>TESTreq</Button>
       </div>
     </div>
   )
