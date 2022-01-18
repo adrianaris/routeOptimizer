@@ -5,7 +5,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import axios from 'axios'
 import styled from 'styled-components'
-import Sidebar from './sidebar'
+import Sidebar from './Sidebar'
 
 const MapContainer = styled.div`
   height: 400px;
@@ -22,7 +22,7 @@ const Geocoder = styled.div`
 `
 const FlexContainer = styled.div`
   display: flex;
-  alignItems: flex-start;
+  align-items: flex-start;
   flex-direction: column;
   gap: 1em;
 `
@@ -33,21 +33,21 @@ const LocationsContainer = styled.div`
 `
 
 const Map = () => {
-  const token = 'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
+  const token =
+    'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
   mapboxgl.accessToken = token
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
+    mapboxgl: mapboxgl,
   })
   const CENTER_INIT = [4.5201, 50.8195]
   const ZOOM_INIT = 11.67
 
-  const [locations, setLocations] = useState({})
+  const [locations, setLocations] = useState([])
   const [googleMapsUrl, setGoogleMapsUrl] = useState('')
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
-  const centerRef = useRef(null)
   const map = useRef(null)
 
   /**
@@ -58,12 +58,6 @@ const Map = () => {
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
-
-    // pin the center point
-    new mapboxgl.Marker(centerRef.current)
-      .setLngLat(CENTER_INIT)
-      .addTo(map.current)
-    centerRef.current.classList = ['truck']
 
     // create a point map for path
     map.current.addLayer({
@@ -132,8 +126,17 @@ const Map = () => {
     )
   }
 
-  const addSearchLocation = coordinates => {
-    setLocations(state => ({ ...state, [coordinates.id]: coordinates }))
+  const addSearchLocation = (coordinates) => {
+    // for some unknown reason I can't modify the state directly
+    let locationExist = false
+    setLocations((state) => {
+      locationExist = state.find(
+        ({ center }) => coordinates.center.join(',') === center.join(',')
+      )
+      return locationExist ? state : [...state, coordinates]
+    })
+
+    if (locationExist) return
 
     const point = turf.point(coordinates.center)
 
@@ -142,13 +145,11 @@ const Map = () => {
   }
 
   const optimize = async () => {
-    const coordinates = Object.values(locations).map(({ center }) =>
-      center.join(',')
-    )
+    const coordinates = locations.map(({ center }) => center.join(','))
 
     const { data } = await axios.get(
       `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${coordinates.join(
-        ''
+        ';'
       )}?overview=full&steps=true&geometries=geojson&source=first&destination=last&roundtrip=false&access_token=${
         mapboxgl.accessToken
       }`
@@ -167,7 +168,6 @@ const Map = () => {
       .sort((a, b) => a.waypoint_index - b.waypoint_index)
       .map(({ location }) => location[1] + ',' + location[0])
 
-
     setGoogleMapsUrl(
       `https://www.google.com/maps/dir/?api=1&waypoints=${encodeURI(
         waypoints.join('|')
@@ -181,37 +181,32 @@ const Map = () => {
     map.current.getSource('route').setData(routeGeoJSON)
   } //end of optimize function
 
-  const removeAddress = id => {
-    const updatedKeys = Object.keys(locations).filter((key) => key !== id)
-    const newLocations = {}
-    for (const key of updatedKeys) newLocations[key] = locations[key]
-    setLocations(newLocations)
+  const removeAddress = (id) => {
+    setLocations(locations.filter(({ id: locationId }) => locationId !== id))
     addresses.features = addresses.features.filter(
       (address) => address.id !== id
     )
   }
 
   useEffect(() => {
-    if(map.current !== null) return
+    if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: CENTER_INIT,
-      zoom: ZOOM_INIT
+      zoom: ZOOM_INIT,
     })
     map.current.on('load', createMapLayers)
   })
 
-  geocoder.on('result', async event => {
+  geocoder.on('result', async (event) => {
     addSearchLocation(event.result)
-    })
+  })
 
   return (
     <FlexContainer>
       <div style={{ position: 'relative', width: '100%' }}>
-        {map.current &&
-          <Sidebar map={map.current}/>
-        }
+        {map.current && <Sidebar map={map.current} />}
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />
       </div>
@@ -221,7 +216,7 @@ const Map = () => {
           <a href={googleMapsUrl}>open in gmaps</a>
         </button>
         <ol>
-          {Object.values(locations).map(({ id, place_name }) => (
+          {locations.map(({ id, place_name }) => (
             <li key={id}>
               <p>{place_name}</p>
               <button onClick={() => removeAddress(id)}>Remove</button>
