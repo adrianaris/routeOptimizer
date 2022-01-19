@@ -18,10 +18,12 @@
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.4",
     "@mapbox/mapbox-sdk": "^0.13.2",
+    "axios": "^0.25.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
-    "mapbox-gl": "^2.6.1"
+    "mapbox-gl": "^2.6.1",
+    "turf": "^3.0.14"
   },
   "devDependencies": {
     "eslint": "^8.6.0",

@@ -156,7 +156,7 @@ const Map = () => {
     )
 
     if (data.code !== 'Ok') {
-      console.log('Error')
+      console.log('Error retrieving optimized route')
       return
     }
 
