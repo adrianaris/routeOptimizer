@@ -22,4 +22,19 @@ const mapInit = (center, zoom, mapContainer, geoContainer) => {
 
   map.on('load', createMapLayers(map))  
   geoContainer.appendChild(geocoder.onAdd(map))
+
+  return map
 }
+
+mapRouter.post('/', (request, response) => {
+  const { center, zoom, mapContainer, geoContainer } = request.body 
+  const map = mapInit(center, zoom, mapContainer, geoContainer)
+  console.log(map)
+  response.status(201).send(map)
+})
+
+mapRouter.post('/geo', (request, response) => {
+  response.send(geocoder)
+})
+
+module.exports = mapRouter

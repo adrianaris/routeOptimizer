@@ -1,3 +1,7 @@
+const turf = require('turf')
+
+let route = turf.featureCollection([])
+
 const createMapLayers = map => {
 
   // create a point map for path

@@ -1,0 +1,9 @@
+POST http://localhost:4000/api/map
+Content-Type: application/json
+
+{
+   "mapContainer": "<div></div>",
+   "center": "[4.52, 50.82]",
+   "zoom": "12",
+   "geoContainer": "<div></div>"
+}
