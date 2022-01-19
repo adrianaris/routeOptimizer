@@ -199,7 +199,7 @@ const Map = () => {
     map.current.on('load', createMapLayers)
   })
 
-  geocoder.on('result', async (event) => {
+  geocoder.on('result', (event) => {
     addSearchLocation(event.result)
   })
 
