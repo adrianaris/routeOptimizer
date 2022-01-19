@@ -1,5 +1,5 @@
 import React from 'react'
-import Map from './components/map'
+import Map from './components/Map'
 // import getOptimRoute from './services/matrix'
 // import styled from 'styled-components'
 
@@ -9,7 +9,6 @@ import Map from './components/map'
 // `
 
 const App = () => {
-
   // for testing the optimization endpoint
   // const handleTestButton = () => {
   //   const testReq = {
@@ -47,6 +46,5 @@ const App = () => {
     </div>
   )
 }
-
 
 export default App
