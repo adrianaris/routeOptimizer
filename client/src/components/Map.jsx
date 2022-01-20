@@ -1,16 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react'
-import { addLocation, removeLocation, optimLocations, addDepot } from '../reducers/locationsReducer'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useRef, useEffect } from 'react'
+import {
+  addLocation,
+  removeLocation,
+  addDepot
+} from '../reducers/locationsReducer'
+import { useDispatch } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
   point as turfPoint,
-  feature as turfFeature
 } from '@turf/turf'
 
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import axios from 'axios'
 import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
@@ -46,10 +48,7 @@ const Map = () => {
   const CENTER_INIT = [4.499122, 50.822624]
   const ZOOM_INIT = 11.67
 
-  const [googleMapsUrl, setGoogleMapsUrl] = useState('')
-
   const dispatch = useDispatch()
-  const locations = useSelector(state => state.locations)
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
@@ -64,7 +63,9 @@ const Map = () => {
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
 
-    // create a point map for path
+    /**
+     * create a point map for path
+     */
     map.current.addLayer({
       id: 'dropoffs-symbol',
       type: 'symbol',
@@ -139,48 +140,6 @@ const Map = () => {
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
 
-  const optimize = async () => {
-    const coordinates = locations.map(({ center }) => center.join(','))
-
-    const { data } = await axios.get(
-      `https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${coordinates.join(
-        ';'
-      )}?overview=full&steps=true&geometries=geojson&source=first&destination=last&roundtrip=false&access_token=${
-        mapboxgl.accessToken
-      }`
-    )
-
-    if (data.code !== 'Ok') {
-      console.log('Error retrieving optimized route')
-      return
-    }
-
-    let orderedIndexArray = []
-    for (let i in data.waypoints) {
-      orderedIndexArray.push(data.waypoints[i].waypoint_index)
-    }
-    dispatch(optimLocations(orderedIndexArray))
-
-    /**
-     * the location is reversed bacause
-     * in Google maps the coordinates are reversed
-     */
-    const waypoints = data.waypoints
-      .sort((a, b) => a.waypoint_index - b.waypoint_index)
-      .map(({ location }) => location[1] + ',' + location[0])
-    setGoogleMapsUrl(
-      `https://www.google.com/maps/dir/?api=1&waypoints=${encodeURI(
-        waypoints.join('|')
-      )}`
-    )
-
-    const routeGeoJSON = turfFeatureCollection([
-      turfFeature(data.trips[0].geometry),
-    ])
-
-    map.current.getSource('route').setData(routeGeoJSON)
-  } //end of optimize function
-
   const removeAddress = (id) => {
     dispatch(removeLocation(id))
     addresses.features = addresses.features.filter(
@@ -215,8 +174,7 @@ const Map = () => {
         <Geocoder ref={geocoderContainer} />
       </div>
       <Locations
-        optimize={optimize}
-        googleMapsUrl={googleMapsUrl}
+        map={map}
         removeAddress={removeAddress}
       />
     </FlexContainer>
