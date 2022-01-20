@@ -4,7 +4,7 @@ import {
   removeLocation,
   addDepot
 } from '../reducers/locationsReducer'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
   point as turfPoint,
@@ -32,6 +32,7 @@ const Geocoder = styled.div`
   top: 380px;
 `
 const FlexContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -57,7 +58,8 @@ const Map = () => {
   /**
    * route sources
    */
-  const addresses = turfFeatureCollection([])
+  const addresses = useSelector(state => state.addresses)
+  console.log(addresses)
   let route = turfFeatureCollection([])
 
   const createMapLayers = () => {
@@ -133,10 +135,11 @@ const Map = () => {
   }
 
   const addSearchLocation = (coordinates) => {
-    dispatch(addLocation(coordinates))
+    dispatch(addLocation([coordinates]))
 
     const point = turfPoint(coordinates.center)
     addresses.features.push({ point, id: coordinates.id })
+    console.log(addresses)
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
 
@@ -158,7 +161,7 @@ const Map = () => {
     map.current.on('load', createMapLayers);
     (async() => {
       const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
-      dispatch(addDepot(DEPOT))
+      console.log(addDepot(DEPOT))
     })()
   })
 
@@ -168,7 +171,7 @@ const Map = () => {
 
   return (
     <FlexContainer>
-      <div style={{ position: 'relative', width: '100%' }}>
+      <div style={{ position: 'absolute', width: '100%' }}>
         <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />

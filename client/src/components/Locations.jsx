@@ -4,9 +4,10 @@ import { optimLocations } from '../reducers/locationsReducer'
 import { createGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
+// import { setNotification } from '../reducers/notificationReducer'
 
 const LocationsContainer = styled.div`
-  position: relative;
+  position: absolute;
   top: 420px;
 `
 
@@ -15,7 +16,7 @@ const Locations = ({ map, removeAddress }) => {
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const dispatch = useDispatch()
   if (!locations) return
-  console.log(locations)
+
   const handleOptimizeClick = async () => {
     const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(locations)
     dispatch(optimLocations(orderedIndexArray))

@@ -1,5 +1,7 @@
 import React from 'react'
 import Map from './components/Map'
+import Notification from './components/Notification'
+
 // import getOptimRoute from './services/matrix'
 // import styled from 'styled-components'
 
@@ -43,6 +45,7 @@ const App = () => {
   return (
     <div>
       <Map />
+      <Notification />
     </div>
   )
 }
