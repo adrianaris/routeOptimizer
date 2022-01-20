@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { addLocation, removeLocation, optimLocations, addDepot } from '../reducers/locationsReducer'
 import { useSelector, useDispatch } from 'react-redux'
-import turf from 'turf'
+import {
+  featureCollection as turfFeatureCollection,
+  point as turfPoint,
+  feature as turfFeature
+} from '@turf/turf'
+
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -9,6 +14,7 @@ import axios from 'axios'
 import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
+import Locations from './Locations'
 
 const MapContainer = styled.div`
   height: 400px;
@@ -30,11 +36,6 @@ const FlexContainer = styled.div`
   gap: 1em;
 `
 
-const LocationsContainer = styled.div`
-  position: relative;
-  top 420px;
-`
-
 const Map = () => {
   const token = process.env.REACT_APP_MAPBOX_TOKEN
   mapboxgl.accessToken = token
@@ -48,7 +49,7 @@ const Map = () => {
   const [googleMapsUrl, setGoogleMapsUrl] = useState('')
 
   const dispatch = useDispatch()
-  const locations = useSelector(state => state)
+  const locations = useSelector(state => state.locations)
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
@@ -57,8 +58,8 @@ const Map = () => {
   /**
    * route sources
    */
-  const addresses = turf.featureCollection([])
-  let route = turf.featureCollection([])
+  const addresses = turfFeatureCollection([])
+  let route = turfFeatureCollection([])
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
@@ -133,7 +134,7 @@ const Map = () => {
   const addSearchLocation = (coordinates) => {
     dispatch(addLocation(coordinates))
 
-    const point = turf.point(coordinates.center)
+    const point = turfPoint(coordinates.center)
     addresses.features.push({ point, id: coordinates.id })
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
@@ -173,8 +174,8 @@ const Map = () => {
       )}`
     )
 
-    const routeGeoJSON = turf.featureCollection([
-      turf.feature(data.trips[0].geometry),
+    const routeGeoJSON = turfFeatureCollection([
+      turfFeature(data.trips[0].geometry),
     ])
 
     map.current.getSource('route').setData(routeGeoJSON)
@@ -213,24 +214,11 @@ const Map = () => {
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />
       </div>
-      <LocationsContainer>
-        {locations.length < 3 ||
-          <div>
-            <button onClick={optimize}>optimize</button>
-            <button>
-              <a href={googleMapsUrl}>open in gmaps</a>
-            </button>
-          </div>
-        }
-        <ol>
-          {locations.map(({ id, place_name }, index) => (
-            <li key={id + index}>
-              <p>{place_name}</p>
-              <button onClick={() => removeAddress(id)}>Remove</button>
-            </li>
-          ))}
-        </ol>
-      </LocationsContainer>
+      <Locations
+        optimize={optimize}
+        googleMapsUrl={googleMapsUrl}
+        removeAddress={removeAddress}
+      />
     </FlexContainer>
   )
 }

@@ -4,10 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import App from './App'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import locationsReducer from './reducers/locationsReducer'
-
-const store = createStore(locationsReducer)
+import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
