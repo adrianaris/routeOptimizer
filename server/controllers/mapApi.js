@@ -1,25 +1,26 @@
-const turf = require('turf')
-const mapboxgl = require('mapbox-gl')
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder')
 const config = require('../utils/config')
 const mapRouter = require('express').Router()
-const createMapLayers = require('../utils/mapLayers')
+const staticClient = require('@mapbox/mapbox-sdk/services/static')
 
+const mapClient = staticClient({ accessToken: config.TOKEN })
 
-mapboxgl.accessToken = config.TOKEN
-const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
+mapRouter.get('/', (requset, response) => {
+  const apiResponse = mapClient.getStaticImage({
+    ownerId: 'mapbox',
+    styleId: 'streets-v11',
+    width: 200,
+    height: 300,
+    position: {
+      coordinates: [5.5201, 50.8195],
+      zoom: 11.67
+    }
+  })
+    
+
+  const url = apiResponse.url()
+
+  console.log(url)
+  response.send(url)
 })
 
-const mapInit = (center, zoom, mapContainer, geoContainer) => {
-  const map = new mapboxgl.Map({
-      container: mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: center,
-      zoom: zoom
-  })
-
-  map.on('load', createMapLayers(map))  
-  geoContainer.appendChild(geocoder.onAdd(map))
-}
+module.exports = mapRouter

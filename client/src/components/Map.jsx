@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
+import { addLocation, removeLocation, optimLocations } from '../reducers/locationsReducer'
+import { useSelector, useDispatch } from 'react-redux'
 import turf from 'turf'
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
@@ -43,8 +45,10 @@ const Map = () => {
   const CENTER_INIT = [4.5201, 50.8195]
   const ZOOM_INIT = 11.67
 
-  const [locations, setLocations] = useState([])
   const [googleMapsUrl, setGoogleMapsUrl] = useState('')
+
+  const dispatch = useDispatch()
+  const locations = useSelector(state => state)
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
@@ -127,19 +131,9 @@ const Map = () => {
   }
 
   const addSearchLocation = (coordinates) => {
-    // for some unknown reason I can't modify the state directly
-    let locationExist = false
-    setLocations((state) => {
-      locationExist = state.find(
-        ({ center }) => coordinates.center.join(',') === center.join(',')
-      )
-      return locationExist ? state : [...state, coordinates]
-    })
-
-    if (locationExist) return
+    dispatch(addLocation(coordinates))
 
     const point = turf.point(coordinates.center)
-
     addresses.features.push({ point, id: coordinates.id })
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
@@ -160,6 +154,13 @@ const Map = () => {
       return
     }
 
+    let orderedIndexArray = []
+    for (let i in data.waypoints) {
+      orderedIndexArray.push(data.waypoints[i].waypoint_index)
+    }
+    console.log(orderedIndexArray)
+    dispatch(optimLocations(orderedIndexArray))
+
     /**
      * the location is reversed bacause
      * in Google maps the coordinates are reversed
@@ -167,7 +168,6 @@ const Map = () => {
     const waypoints = data.waypoints
       .sort((a, b) => a.waypoint_index - b.waypoint_index)
       .map(({ location }) => location[1] + ',' + location[0])
-
     setGoogleMapsUrl(
       `https://www.google.com/maps/dir/?api=1&waypoints=${encodeURI(
         waypoints.join('|')
@@ -182,7 +182,7 @@ const Map = () => {
   } //end of optimize function
 
   const removeAddress = (id) => {
-    setLocations(locations.filter(({ id: locationId }) => locationId !== id))
+    dispatch(removeLocation(id))
     addresses.features = addresses.features.filter(
       (address) => address.id !== id
     )
@@ -206,18 +206,22 @@ const Map = () => {
   return (
     <FlexContainer>
       <div style={{ position: 'relative', width: '100%' }}>
-        {map.current && <Sidebar map={map.current} />}
+        <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />
       </div>
       <LocationsContainer>
-        <button onClick={optimize}>optimize</button>
-        <button>
-          <a href={googleMapsUrl}>open in gmaps</a>
-        </button>
+        {locations.length < 3 ||
+          <div>
+            <button onClick={optimize}>optimize</button>
+            <button>
+              <a href={googleMapsUrl}>open in gmaps</a>
+            </button>
+          </div>
+        }
         <ol>
-          {locations.map(({ id, place_name }) => (
-            <li key={id}>
+          {locations.map(({ id, place_name }, index) => (
+            <li key={id + index}>
               <p>{place_name}</p>
               <button onClick={() => removeAddress(id)}>Remove</button>
             </li>

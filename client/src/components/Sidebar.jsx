@@ -20,6 +20,7 @@ const Sidebar = ({ map }) => {
   const [zoom, setZoom] = useState(11.67)
 
   useEffect(() => {
+    if(map === null) return
     map.on('move', () => {
       setLng(map.getCenter().lng.toFixed(4))
       setLat(map.getCenter().lat.toFixed(4))
