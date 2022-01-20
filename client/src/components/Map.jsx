@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import {
   addLocation,
-  removeLocation,
   addDepot
 } from '../reducers/locationsReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -144,10 +143,6 @@ const Map = () => {
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
 
-  const removeAddress = (id) => {
-    dispatch(removeLocation(id))
-  }
-
   useEffect(() => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
@@ -176,10 +171,7 @@ const Map = () => {
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />
       </div>
-      <Locations
-        map={map.current}
-        removeAddress={removeAddress}
-      />
+      <Locations map={map.current} />
     </FlexContainer>
   )
 }
