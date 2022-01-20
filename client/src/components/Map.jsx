@@ -7,9 +7,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
-  point as turfPoint,
+  //point as turfPoint,
 } from '@turf/turf'
-
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -17,6 +16,8 @@ import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
+
+import { initState } from './init10locations' //init 10 locations for testing
 
 const MapContainer = styled.div`
   height: 400px;
@@ -59,7 +60,6 @@ const Map = () => {
    * route sources
    */
   const addresses = useSelector(state => state.addresses)
-  console.log(addresses)
   let route = turfFeatureCollection([])
 
   const createMapLayers = () => {
@@ -135,19 +135,17 @@ const Map = () => {
   }
 
   const addSearchLocation = (coordinates) => {
+    /**
+     * The addLocation action receives an array so that
+     * it can also accept multiple locations as argument
+     * (like from a file)
+     */
     dispatch(addLocation([coordinates]))
-
-    const point = turfPoint(coordinates.center)
-    addresses.features.push({ point, id: coordinates.id })
-    console.log(addresses)
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
 
   const removeAddress = (id) => {
     dispatch(removeLocation(id))
-    addresses.features = addresses.features.filter(
-      (address) => address.id !== id
-    )
   }
 
   useEffect(() => {
@@ -163,6 +161,8 @@ const Map = () => {
       const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
       console.log(addDepot(DEPOT))
     })()
+
+    dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
   geocoder.on('result', (event) => {
