@@ -174,7 +174,7 @@ const Map = () => {
         <Geocoder ref={geocoderContainer} />
       </div>
       <Locations
-        map={map}
+        map={map.current}
         removeAddress={removeAddress}
       />
     </FlexContainer>

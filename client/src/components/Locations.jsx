@@ -1,5 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { optimLocations } from '../reducers/locationsReducer'
+import { createGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
 
@@ -11,10 +13,13 @@ const LocationsContainer = styled.div`
 const Locations = ({ map, removeAddress }) => {
   const locations = useSelector(state => state.locations)
   const googleMapsUrl = useSelector(state => state.googleUrl)
+  const dispatch = useDispatch()
   if (!locations) return
-
+  console.log(locations)
   const handleOptimizeClick = async () => {
-    const routeGeoJSON = await optimize()
+    const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(locations)
+    dispatch(optimLocations(orderedIndexArray))
+    dispatch(createGoogleUrl(waypoints))
     map.getSource('route').setData(routeGeoJSON)
   }
 
