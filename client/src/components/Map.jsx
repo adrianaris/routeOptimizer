@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { addLocation, removeLocation, optimLocations } from '../reducers/locationsReducer'
+import { addLocation, removeLocation, optimLocations, addDepot } from '../reducers/locationsReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import turf from 'turf'
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import axios from 'axios'
+import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 
@@ -35,14 +36,13 @@ const LocationsContainer = styled.div`
 `
 
 const Map = () => {
-  const token =
-    'pk.eyJ1IjoiYWRyaWFuYXJpcyIsImEiOiJja3kzOTl0YzkwdGZuMm5xdHJzMHJ5b2p4In0.kXH2cOyOUq6WIOmYH5sKAA'
+  const token = process.env.REACT_APP_MAPBOX_TOKEN
   mapboxgl.accessToken = token
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
   })
-  const CENTER_INIT = [4.5201, 50.8195]
+  const CENTER_INIT = [4.499122, 50.822624]
   const ZOOM_INIT = 11.67
 
   const [googleMapsUrl, setGoogleMapsUrl] = useState('')
@@ -158,7 +158,6 @@ const Map = () => {
     for (let i in data.waypoints) {
       orderedIndexArray.push(data.waypoints[i].waypoint_index)
     }
-    console.log(orderedIndexArray)
     dispatch(optimLocations(orderedIndexArray))
 
     /**
@@ -196,7 +195,11 @@ const Map = () => {
       center: CENTER_INIT,
       zoom: ZOOM_INIT,
     })
-    map.current.on('load', createMapLayers)
+    map.current.on('load', createMapLayers);
+    (async() => {
+      const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
+      dispatch(addDepot(DEPOT))
+    })()
   })
 
   geocoder.on('result', (event) => {

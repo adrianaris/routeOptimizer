@@ -1,7 +1,7 @@
 const locationsReducer = (state = [], action) => {
   switch(action.type) {
   case 'ADD_DEPOT':
-    return action.data
+    return action.data // TO DO
   case 'ADD_LOCATION': {
     if (state.some(loc => loc === action.data)) return state
     return [...state, action.data]
