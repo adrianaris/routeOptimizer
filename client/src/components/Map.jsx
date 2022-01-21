@@ -1,8 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import {
-  addLocation,
-  addDepot
-} from '../reducers/locationsReducer'
+import { addLocation, addDepot } from '../reducers/locationsReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
@@ -46,7 +43,8 @@ const Map = () => {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
   })
-  const CENTER_INIT = [4.499122, 50.822624]
+  let CENTER_INIT
+
   const ZOOM_INIT = 11.67
 
   const dispatch = useDispatch()
@@ -58,8 +56,17 @@ const Map = () => {
   /**
    * route sources
    */
-  const addresses = useSelector(state => state.addresses)
+  const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
+
+  navigator.geolocation.getCurrentPosition(
+    ({ coords }) =>
+      (CENTER_INIT = coords
+        ? [coords.longitude, coords.latitude]
+        : [4.499122, 50.822624]),
+    console.error,
+    { maximumAge: 0, enableHighAccuracy: true }
+  )
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
@@ -151,8 +158,8 @@ const Map = () => {
       center: CENTER_INIT,
       zoom: ZOOM_INIT,
     })
-    map.current.on('load', createMapLayers);
-    (async() => {
+    map.current.on('load', createMapLayers)
+    ;(async () => {
       const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
       console.log(addDepot(DEPOT))
     })()
