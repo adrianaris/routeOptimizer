@@ -43,7 +43,8 @@ const Map = () => {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
   })
-  const CENTER_INIT = [4.499122, 50.822624]
+  let CENTER_INIT
+
   const ZOOM_INIT = 11.67
 
   const dispatch = useDispatch()
@@ -57,6 +58,15 @@ const Map = () => {
    */
   const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
+
+  navigator.geolocation.getCurrentPosition(
+    ({ coords }) =>
+      (CENTER_INIT = coords
+        ? [coords.longitude, coords.latitude]
+        : [4.499122, 50.822624]),
+    console.error,
+    { maximumAge: 0, enableHighAccuracy: true }
+  )
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
