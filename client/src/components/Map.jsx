@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import {
   addLocation,
   removeLocation,
-  addDepot
+  addDepot,
 } from '../reducers/locationsReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -59,7 +59,7 @@ const Map = () => {
   /**
    * route sources
    */
-  const addresses = useSelector(state => state.addresses)
+  const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
 
   const createMapLayers = () => {
@@ -156,8 +156,8 @@ const Map = () => {
       center: CENTER_INIT,
       zoom: ZOOM_INIT,
     })
-    map.current.on('load', createMapLayers);
-    (async() => {
+    map.current.on('load', createMapLayers)
+    ;(async () => {
       const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
       console.log(addDepot(DEPOT))
     })()
@@ -176,10 +176,7 @@ const Map = () => {
         <MapContainer ref={mapContainer} />
         <Geocoder ref={geocoderContainer} />
       </div>
-      <Locations
-        map={map.current}
-        removeAddress={removeAddress}
-      />
+      <Locations map={map.current} removeAddress={removeAddress} />
     </FlexContainer>
   )
 }
