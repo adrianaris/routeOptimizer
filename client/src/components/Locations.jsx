@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { optimLocations } from '../reducers/locationsReducer'
+import { optimLocations, removeLocation } from '../reducers/locationsReducer'
 import { createGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
@@ -11,7 +11,7 @@ const LocationsContainer = styled.div`
   top: 420px;
 `
 
-const Locations = ({ map, removeAddress }) => {
+const Locations = ({ map }) => {
   const locations = useSelector(state => state.locations)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const dispatch = useDispatch()
@@ -38,7 +38,7 @@ const Locations = ({ map, removeAddress }) => {
         {locations.map(({ id, place_name }, index) => (
           <li key={id + index}>
             <p>{place_name}</p>
-            <button onClick={() => removeAddress(id)}>Remove</button>
+            <button onClick={() => dispatch(removeLocation(id))}>Remove</button>
           </li>
         ))}
       </ol>
