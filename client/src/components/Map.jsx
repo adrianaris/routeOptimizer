@@ -3,7 +3,6 @@ import { addLocation, addDepot } from '../reducers/locationsReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
-  //point as turfPoint,
 } from '@turf/turf'
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
@@ -43,7 +42,7 @@ const Map = () => {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
   })
-  let CENTER_INIT
+  let CENTER_INIT = [4.499122, 50.822624]
 
   const ZOOM_INIT = 11.67
 
@@ -159,8 +158,9 @@ const Map = () => {
       zoom: ZOOM_INIT,
     })
     map.current.on('load', createMapLayers)
+
     ;(async () => {
-      const DEPOT = [await getDepot(CENTER_INIT[0], CENTER_INIT[1])]
+      const DEPOT = await getDepot(CENTER_INIT[0], CENTER_INIT[1])
       console.log(addDepot(DEPOT))
     })()
 
