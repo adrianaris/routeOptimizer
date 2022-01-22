@@ -46,7 +46,7 @@ const Map = () => {
 
   const userDATA = useSelector((state) => state.userDATA)
 
-  let CENTER_INIT = [4.499122, 50.822624]
+  let CENTER_INIT = [userDATA.longitude, userDATA.latitude]
   let ZOOM_INIT = 11.67
 
   const dispatch = useDispatch()
@@ -62,15 +62,21 @@ const Map = () => {
   const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => CENTER_INIT = [coords.longitude, coords.latitude],
-      console.error,
-      { maximumAge: 0, enableHighAccuracy: true }
-    )
-  } else {
-    console.log('browser doesn\'t allow geolocation')
-  }
+  /**
+   * Since I implemented the IP geolocation I'm not sure
+   * we still need the navigator. 
+   * I find the solution with the ipgeolocation more pleasant since it 
+   * doesn't bother the user with prompts
+   * /
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(
+  //     ({ coords }) => CENTER_INIT = [coords.longitude, coords.latitude],
+  //     console.error,
+  //     { maximumAge: 0, enableHighAccuracy: true }
+  //   )
+  // } else {
+  //   console.log('browser doesn\'t allow geolocation')
+  // }
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
