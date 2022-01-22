@@ -4,6 +4,7 @@ import googleUrlReducer from './reducers/googleUrlReducer'
 import startendReducer from './reducers/startendReducer'
 import notificationReducer from './reducers/notificationReducer'
 import turfAddressesReducer from './reducers/turfAddressesReducer'
+import userDataReducer from './reducers/userDataReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -12,7 +13,8 @@ const reducer = combineReducers({
   googleUrl: googleUrlReducer,
   startend: startendReducer,
   notification: notificationReducer,
-  addresses: turfAddressesReducer
+  addresses: turfAddressesReducer,
+  userDATA: userDataReducer
 })
 
 const store = createStore(

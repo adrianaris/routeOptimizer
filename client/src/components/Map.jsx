@@ -8,6 +8,7 @@ import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { getDepot } from '../services/getDepot'
+import { getUserIPaction } from '../reducers/userDataReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
@@ -42,9 +43,11 @@ const Map = () => {
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
   })
-  let CENTER_INIT = [4.499122, 50.822624]
 
-  const ZOOM_INIT = 11.67
+  const userDATA = useSelector((state) => state.userDATA)
+
+  let CENTER_INIT = [4.499122, 50.822624]
+  let ZOOM_INIT = 11.67
 
   const dispatch = useDispatch()
 
@@ -52,20 +55,22 @@ const Map = () => {
   const geocoderContainer = useRef(null)
   const map = useRef(null)
 
+  console.log(userDATA)
   /**
    * route sources
    */
   const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
 
-  navigator.geolocation.getCurrentPosition(
-    ({ coords }) =>
-      (CENTER_INIT = coords
-        ? [coords.longitude, coords.latitude]
-        : [4.499122, 50.822624]),
-    console.error,
-    { maximumAge: 0, enableHighAccuracy: true }
-  )
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => CENTER_INIT = [coords.longitude, coords.latitude],
+      console.error,
+      { maximumAge: 0, enableHighAccuracy: true }
+    )
+  } else {
+    console.log('browser doesn\'t allow geolocation')
+  }
 
   const createMapLayers = () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
@@ -164,6 +169,7 @@ const Map = () => {
       console.log(addDepot(DEPOT))
     })()
 
+    dispatch(getUserIPaction())
     dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
