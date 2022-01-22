@@ -1,7 +1,5 @@
 const locationsReducer = (state = [], action) => {
   switch(action.type) {
-  case 'ADD_DEPOT':
-    return action.data // TO DO
   case 'ADD_LOCATION': {
     return [...state, ...action.data]
   }
@@ -23,12 +21,6 @@ const locationsReducer = (state = [], action) => {
   }
 }
 
-export const addDepot = coordinates => {
-  return {
-    type: 'ADD_DEPOT',
-    data: coordinates
-  }
-}
 export const addLocation = coordinates => {
   return {
     type: 'ADD_LOCATION',

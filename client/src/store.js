@@ -11,7 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const reducer = combineReducers({
   locations: locationsReducer,
   googleUrl: googleUrlReducer,
-  startend: startendReducer,
+  DEPOT: startendReducer,
   notification: notificationReducer,
   addresses: turfAddressesReducer,
   userDATA: userDataReducer

@@ -1,4 +1,4 @@
-import getUserIP from '../services/getUserIP'
+import getUserIP from '../services/getUserData'
 
 const userDataReducer = (state='', action) => {
   switch(action.type) {

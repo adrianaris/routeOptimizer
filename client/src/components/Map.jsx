@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react'
-import { addLocation, addDepot } from '../reducers/locationsReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   featureCollection as turfFeatureCollection,
@@ -8,6 +7,8 @@ import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { getDepot } from '../services/getDepot'
+import { addStart, addEnd } from '../reducers/startendReducer'
+import { addLocation } from '../reducers/locationsReducer'
 import { getUserIPaction } from '../reducers/userDataReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
@@ -19,14 +20,17 @@ const MapContainer = styled.div`
   height: 400px;
   position: absolute;
   width: 100%;
+  margin: auto;
 `
 const Geocoder = styled.div`
-  position: absolute;
+  position: relative;
   z-index: 1;
-  width: 50%;
-  left: 50%;
-  margin-left: -10%;
-  top: 380px;
+  width: 50;
+  margin: auto;
+  &:nth-child(1) {
+      border: 1px solid black;
+    }  
+  top: 400px;
 `
 const FlexContainer = styled.div`
   position: relative;
@@ -45,29 +49,32 @@ const Map = () => {
   })
 
   const userDATA = useSelector((state) => state.userDATA)
+  console.log(userDATA)
 
   let CENTER_INIT = [userDATA.longitude, userDATA.latitude]
-  let ZOOM_INIT = 11.67
+  let ZOOM_INIT = 8
 
+  if (!userDATA) {
+    CENTER_INIT = [4.19, 50.8]
+  }
   const dispatch = useDispatch()
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
   const map = useRef(null)
 
-  console.log(userDATA)
   /**
    * route sources
-   */
+   **/
   const addresses = useSelector((state) => state.addresses)
   let route = turfFeatureCollection([])
 
   /**
    * Since I implemented the IP geolocation I'm not sure
-   * we still need the navigator. 
-   * I find the solution with the ipgeolocation more pleasant since it 
+   * we still need the navigator.
+   * I find the solution with the ipgeolocation more pleasant since it
    * doesn't bother the user with prompts
-   * /
+   **/
   // if (navigator.geolocation) {
   //   navigator.geolocation.getCurrentPosition(
   //     ({ coords }) => CENTER_INIT = [coords.longitude, coords.latitude],
@@ -170,12 +177,14 @@ const Map = () => {
     })
     map.current.on('load', createMapLayers)
 
+    dispatch(getUserIPaction())
+
     ;(async () => {
       const DEPOT = await getDepot(CENTER_INIT[0], CENTER_INIT[1])
-      console.log(addDepot(DEPOT))
+      dispatch(addStart(DEPOT))
+      dispatch(addEnd(DEPOT))
     })()
 
-    dispatch(getUserIPaction())
     dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 

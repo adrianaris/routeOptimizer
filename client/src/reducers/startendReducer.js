@@ -17,4 +17,30 @@ const startendReducer = (state = { start: {}, end: {} }, action) => {
   }
 }
 
+export const addStart = (coordinates) => {
+  return {
+    type: 'ADD_START',
+    data: coordinates
+  }
+}
+
+export const addEnd = (coordinates) => {
+  return {
+    type: 'ADD_END',
+    data: coordinates
+  }
+}
+
+export const removeStart = () => {
+  return {
+    type: 'REMOVE_START'
+  }
+}
+
+export const removeEnd = () => {
+  return {
+    type: 'REMOVE_END'
+  }
+}
+
 export default startendReducer
