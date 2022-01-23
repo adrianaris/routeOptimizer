@@ -23,19 +23,16 @@ const MapContainer = styled.div`
   margin: auto;
 `
 const Geocoder = styled.div`
-  position: relative;
-  z-index: 1;
-  width: 50;
+  position: absolute;
   margin: auto;
-  &:nth-child(1) {
-      border: 1px solid black;
-    }  
+  z-index: 1;
   top: 400px;
 `
 const FlexContainer = styled.div`
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 1em;
 `
@@ -197,8 +194,8 @@ const Map = () => {
       <div style={{ position: 'absolute', width: '100%' }}>
         <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
-        <Geocoder ref={geocoderContainer} />
       </div>
+      <Geocoder ref={geocoderContainer} />
       <Locations map={map.current} />
     </FlexContainer>
   )

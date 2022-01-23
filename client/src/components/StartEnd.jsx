@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeStart, removeEnd } from '../reducers/startendReducer'
-import _ from 'lodash'
+import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
+//import _ from 'lodash'
 
 const Layout = styled.div`
   position: relative;
@@ -17,50 +16,56 @@ const Layout = styled.div`
     border-style: outset;
   }
 `
-const GeocoderContainer = styled.div`
+const StartGeo = styled.div`
+  margin: 2px;
+`
+const EndGeo = styled.div`
   margin: 2px;
 `
 const StartEnd = () => {
-  mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-  const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    types: 'country,region,place,postcode,locality,neighborhood'
+  const startGeocoder = new MapboxGeocoder({
+    accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+    types: 'address,country,region,place,postcode,locality,neighborhood'
   })
-  const geocoderContainer = useRef(null)
-  const resultsContainer = useRef(null)
+  const endGeocoder = new MapboxGeocoder({
+    accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+    types: 'address,country,region,place,postcode,locality,neighborhood'
+  })
+  const startGeocoderContainer = useRef(null)
+  const endGeocoderContainer = useRef(null)
+
 
   const dispatch = useDispatch()
   const DEPOT = useSelector(state => state.DEPOT)
-  console.log(DEPOT)
 
   useEffect(() => {
-    if (geocoderContainer.current === null) return
-    geocoder.addTo(geocoderContainer.current)
+    if (startGeocoderContainer.current === null || endGeocoderContainer.current === null) return
+    startGeocoder.addTo(startGeocoderContainer.current)
+    endGeocoder.addTo(endGeocoderContainer.current)
   }, [])
 
-  geocoder.on('result', event => {
-    resultsContainer.current.innerText = JSON.stringify(event.result, null, 2)
+  startGeocoder.on('result', event => {
+    dispatch(addStart(event.result))
   })
-
-  geocoder.on('clear', () => {
-    resultsContainer.current.innerText = ''
+  endGeocoder.on('result', event => {
+    dispatch(addEnd(event.result))
   })
 
   return (
     <Layout>
       <div><p>Start location: {DEPOT.start.place_name}</p>
-        {_.isEmpty(DEPOT.start)
-          ? <div>
-            <GeocoderContainer ref={geocoderContainer} />
-            <pre ref={resultsContainer} />
-          </div>
-          : <button onClick={() => dispatch(removeStart())}>Remove</button>
-        }
+        <StartGeo ref={startGeocoderContainer} />
+        <button
+          onClick={() => dispatch(removeStart())}
+        >Remove
+        </button>
       </div>
       <div><p>End location: {DEPOT.end.place_name}</p>
-        {_.isEmpty(DEPOT.end) ||
-          <button onClick={() => dispatch(removeEnd())}>Remove</button>
-        }
+        <EndGeo ref={endGeocoderContainer} />
+        <button
+          onClick={() => dispatch(removeEnd())}
+        >Remove
+        </button>
       </div>
     </Layout>
   )

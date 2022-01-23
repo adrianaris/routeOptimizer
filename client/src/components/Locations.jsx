@@ -5,6 +5,7 @@ import { optimLocations, removeLocation } from '../reducers/locationsReducer'
 import { createGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
+import _ from 'lodash'
 // import { setNotification } from '../reducers/notificationReducer'
 
 const LocationsContainer = styled.div`
@@ -35,13 +36,18 @@ const Button = styled.button`
 `
 const Locations = ({ map }) => {
   const locations = useSelector(state => state.locations)
+  const DEPOT = useSelector(state => state.DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const dispatch = useDispatch()
   if (!locations) return
 
   const handleOptimizeClick = async () => {
-    const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(locations)
-    dispatch(optimLocations(orderedIndexArray))
+    if (_.isEmpty(DEPOT.start)) return console.log('Please add a starting location')
+    if (_.isEmpty(DEPOT.end)) return console.log('Please add an end location')
+    const allLocations = [DEPOT.start, ...locations, DEPOT.end]
+    const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
+    const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
+    dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
     map.getSource('route').setData(routeGeoJSON)
   }

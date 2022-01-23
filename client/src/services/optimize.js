@@ -8,7 +8,6 @@ import {
 const optimize = async (locations) => {
   const token = process.env.REACT_APP_MAPBOX_TOKEN
   const coordinates = locations.map(({ center }) => center.join(','))
-  if(!locations) return console.log('nolocations')
 
   const { data } = await axios.get(`https://api.mapbox.com/optimized-trips/v1/mapbox/driving/${coordinates.join(';')}?overview=full&steps=true&geometries=geojson&source=first&destination=last&roundtrip=false&access_token=${token}`)
   if (data.code !== 'Ok') {
