@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUserIPaction } from './reducers/userDataReducer'
 import Map from './components/Map'
 import Notification from './components/Notification'
 
@@ -11,6 +13,7 @@ import Notification from './components/Notification'
 // `
 
 const App = () => {
+  const dispatch = useDispatch()
   // for testing the optimization endpoint
   // const handleTestButton = () => {
   //   const testReq = {
@@ -41,6 +44,10 @@ const App = () => {
 
   //   getOptimRoute(testReq)
   // }
+
+  useEffect(() => {
+    dispatch(getUserIPaction())
+  }, [])
 
   return (
     <div>

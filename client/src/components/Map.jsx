@@ -9,7 +9,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { getDepot } from '../services/getDepot'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { addLocation } from '../reducers/locationsReducer'
-import { getUserIPaction } from '../reducers/userDataReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
@@ -48,13 +47,6 @@ const Map = () => {
   const userDATA = useSelector((state) => state.userDATA)
   console.log(userDATA)
 
-  let CENTER_INIT = [userDATA.longitude, userDATA.latitude]
-  let ZOOM_INIT = 12
-
-  if (userDATA === undefined || userDATA === null) {
-    CENTER_INIT = [4.3755, 50.8550]
-    ZOOM_INIT = 7
-  }
   const dispatch = useDispatch()
 
   const mapContainer = useRef(null)
@@ -166,27 +158,25 @@ const Map = () => {
   }
 
   useEffect(() => {
-    dispatch(getUserIPaction())
-  }, [])
-
-  useEffect(() => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: CENTER_INIT,
-      zoom: ZOOM_INIT,
+      center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
+      zoom: userDATA ? 12 : 7
     })
     map.current.on('load', createMapLayers)
 
-    ;(async () => {
-      const DEPOT = await getDepot(CENTER_INIT[0], CENTER_INIT[1])
+    dispatch(addLocation(initState)) //init 10 addresses for testing
+  })
+
+  useEffect(() => {
+    (async () => {
+      const DEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
       dispatch(addStart(DEPOT))
       dispatch(addEnd(DEPOT))
     })()
-
-    dispatch(addLocation(initState)) //init 10 addresses for testing
-  })
+  }, [userDATA])
 
   geocoder.on('result', (event) => {
     addSearchLocation(event.result)
