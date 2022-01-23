@@ -5,6 +5,9 @@ const googleUrlReducer = (state = '', action) => {
       ${encodeURI(action.data.waypoints.join('|'))}`
     return url
   }
+  case 'REMOVE_GOOGLE_URL': {
+    return ''
+  }
   default:
     return state
   }
@@ -21,6 +24,12 @@ export const createGoogleUrl = waypoints => {
       origin: origin,
       destination: destination
     }
+  }
+}
+
+export const removeGoogleUrl = () => {
+  return {
+    type: 'REMOVE_GOOGLE_URL'
   }
 }
 

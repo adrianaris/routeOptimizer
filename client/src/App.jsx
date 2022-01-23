@@ -51,8 +51,8 @@ const App = () => {
 
   return (
     <div>
-      <Map />
       <Notification />
+      <Map />
     </div>
   )
 }

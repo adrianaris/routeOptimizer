@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
 import { optimLocations, removeLocation } from '../reducers/locationsReducer'
-import { createGoogleUrl } from '../reducers/googleUrlReducer'
+import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
 import _ from 'lodash'
@@ -13,21 +13,19 @@ const LocationsContainer = styled.div`
   top: 450px;
   overflow-y: auto;
   margin: auto;
+  > div > button {
+    display: inline-block;
+    position: relative;
+  }
 `
 const Olist = styled.ol`
-  margin: 0.3em;
+  margin: auto;
   border: 1px solid;
   border-style: outset;
   > li {
     border: 3px solid;
     border-style: outset;
     margin: 0.3em;
-    > button {
-      display: block;
-      position: relative;
-      margin-left: auto;
-      margin-right: 0;
-    }
   }
 `
 
@@ -48,9 +46,9 @@ const Locations = ({ map }) => {
   }
 
   useEffect(() => {
-    if (googleMapsUrl === 0) return
+    if (googleMapsUrl.length === 0) setVisible(false)
     if (googleMapsUrl.length > 0) setVisible(true)
-  })
+  }, [googleMapsUrl])
 
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start)) return console.log('Please add a starting location')
@@ -61,6 +59,11 @@ const Locations = ({ map }) => {
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
     map.getSource('route').setData(routeGeoJSON)
+  }
+
+  const handleRemove = id => {
+    dispatch(removeLocation(id))
+    dispatch(removeGoogleUrl())
   }
 
   return (
@@ -78,7 +81,7 @@ const Locations = ({ map }) => {
         {locations.map(({ id, place_name }, index) => (
           <li key={id + index}>
             <p>{place_name}</p>
-            <button onClick={() => dispatch(removeLocation(id))}>Remove</button>
+            <button onClick={() => handleRemove(id)}>Remove</button>
           </li>
         ))}
       </Olist>

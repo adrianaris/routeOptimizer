@@ -25,7 +25,7 @@ const Geocoder = styled.div`
   position: absolute;
   margin: auto;
   z-index: 1;
-  top: 400px;
+  top: 410px;
 `
 const FlexContainer = styled.div`
   position: relative;
@@ -162,8 +162,8 @@ const Map = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
-      zoom: userDATA ? 12 : 7
+      center: [4.3755, 50.8550],
+      zoom: 7
     })
     map.current.on('load', createMapLayers)
 
@@ -171,11 +171,14 @@ const Map = () => {
   })
 
   useEffect(() => {
+    if (!userDATA) return
     (async () => {
       const DEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
       dispatch(addStart(DEPOT))
       dispatch(addEnd(DEPOT))
     })()
+    map.current.setZoom(12)
+    map.current.setCenter({ lng: userDATA.longitude, lat: userDATA.latitude })
   }, [userDATA])
 
   geocoder.on('result', (event) => {
