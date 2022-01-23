@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
 import { optimLocations, removeLocation } from '../reducers/locationsReducer'
@@ -41,6 +41,17 @@ const Locations = ({ map }) => {
   const dispatch = useDispatch()
   if (!locations) return
 
+  const [visible, setVisible] = useState(false)
+
+  const style = {
+    display: visible ? '' : 'none'
+  }
+
+  useEffect(() => {
+    if (googleMapsUrl === 0) return
+    if (googleMapsUrl.length > 0) setVisible(true)
+  })
+
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start)) return console.log('Please add a starting location')
     if (_.isEmpty(DEPOT.end)) return console.log('Please add an end location')
@@ -57,7 +68,7 @@ const Locations = ({ map }) => {
       {locations.length < 3 ||
       <div>
         <Button onClick={handleOptimizeClick}>optimize</Button>
-        <Button>
+        <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
       </div>
