@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
-//import _ from 'lodash'
+import _ from 'lodash'
 
 const Layout = styled.div`
   position: relative;
@@ -34,9 +34,33 @@ const StartEnd = () => {
   const startGeocoderContainer = useRef(null)
   const endGeocoderContainer = useRef(null)
 
+  const [startVisible, setStartVisible] = useState(false)
+  const [endVisible, setEndVisible] = useState(false)
+
+  const startStyle = {
+    display: startVisible ? '' : 'none'
+  }
+  const startGeoStyle = {
+    display: startVisible ? 'none' : ''
+  }
+  const endStyle = {
+    display: endVisible ? '' : 'none'
+  }
+  const endGeoStyle = {
+    display: endVisible ? 'none' : ''
+  }
 
   const dispatch = useDispatch()
   const DEPOT = useSelector(state => state.DEPOT)
+
+  useEffect(() => {
+    if (_.isEmpty(DEPOT.start)) {
+      setStartVisible(false)
+    } else setStartVisible(true)
+    if (_.isEmpty(DEPOT.end)) {
+      setEndVisible(false)
+    } else setEndVisible(true)
+  })
 
   useEffect(() => {
     if (startGeocoderContainer.current === null || endGeocoderContainer.current === null) return
@@ -54,15 +78,21 @@ const StartEnd = () => {
   return (
     <Layout>
       <div><p>Start location: {DEPOT.start.place_name}</p>
-        <StartGeo ref={startGeocoderContainer} />
+        <StartGeo
+          style={startGeoStyle}
+        ref={startGeocoderContainer} />
         <button
+          style={startStyle}
           onClick={() => dispatch(removeStart())}
         >Remove
         </button>
       </div>
       <div><p>End location: {DEPOT.end.place_name}</p>
-        <EndGeo ref={endGeocoderContainer} />
+        <EndGeo
+          style={endGeoStyle}
+        ref={endGeocoderContainer} />
         <button
+          style={endStyle}
           onClick={() => dispatch(removeEnd())}
         >Remove
         </button>

@@ -49,10 +49,11 @@ const Map = () => {
   console.log(userDATA)
 
   let CENTER_INIT = [userDATA.longitude, userDATA.latitude]
-  let ZOOM_INIT = 8
+  let ZOOM_INIT = 12
 
-  if (!userDATA) {
-    CENTER_INIT = [4.19, 50.8]
+  if (userDATA === undefined || userDATA === null) {
+    CENTER_INIT = [4.3755, 50.8550]
+    ZOOM_INIT = 7
   }
   const dispatch = useDispatch()
 
@@ -165,6 +166,10 @@ const Map = () => {
   }
 
   useEffect(() => {
+    dispatch(getUserIPaction())
+  }, [])
+
+  useEffect(() => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -173,8 +178,6 @@ const Map = () => {
       zoom: ZOOM_INIT,
     })
     map.current.on('load', createMapLayers)
-
-    dispatch(getUserIPaction())
 
     ;(async () => {
       const DEPOT = await getDepot(CENTER_INIT[0], CENTER_INIT[1])

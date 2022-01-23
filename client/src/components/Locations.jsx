@@ -16,7 +16,7 @@ const LocationsContainer = styled.div`
 `
 const Olist = styled.ol`
   margin: 0.3em;
-  border: 1px solid black;
+  border: 1px solid;
   border-style: outset;
   > li {
     border: 3px solid;
