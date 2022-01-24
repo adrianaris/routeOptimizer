@@ -55,6 +55,8 @@ const Locations = ({ map }) => {
     if (_.isEmpty(DEPOT.end)) return console.log('Please add an end location')
     const allLocations = [DEPOT.start, ...locations, DEPOT.end]
     const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
+    console.log(waypoints)
+    console.log(routeGeoJSON)
     const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
