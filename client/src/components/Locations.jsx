@@ -6,6 +6,10 @@ import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
 import _ from 'lodash'
+import {
+  lineString as turfLineString,
+  bbox as turfBbox,
+} from '@turf/turf'
 // import { setNotification } from '../reducers/notificationReducer'
 
 const LocationsContainer = styled.div`
@@ -61,6 +65,9 @@ const Locations = ({ map }) => {
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
     map.getSource('route').setData(routeGeoJSON)
+
+    const bbox = turfBbox(turfLineString(allLocations.map(elem => elem.center)))
+    map.fitBounds(bbox)
   }
 
   const handleRemove = id => {
