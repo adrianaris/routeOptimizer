@@ -83,7 +83,7 @@ const StartEnd = () => {
       Start:<div><p>{DEPOT.start.place_name}</p>
         <StartGeo
           style={startGeoStyle}
-        ref={startGeocoderContainer} />
+          ref={startGeocoderContainer} />
         <button
           style={startStyle}
           onClick={() => {
@@ -96,7 +96,7 @@ const StartEnd = () => {
       End:<div><p>{DEPOT.end.place_name}</p>
         <EndGeo
           style={endGeoStyle}
-        ref={endGeocoderContainer} />
+          ref={endGeocoderContainer} />
         <button
           style={endStyle}
           onClick={() => {

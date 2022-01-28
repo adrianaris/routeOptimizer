@@ -45,7 +45,6 @@ const Map = () => {
   })
 
   const userDATA = useSelector((state) => state.userDATA)
-  console.log(userDATA)
 
   const dispatch = useDispatch()
 

@@ -57,23 +57,43 @@ const Locations = ({ map }) => {
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start)) return console.log('Please add a starting location')
     if (_.isEmpty(DEPOT.end)) return console.log('Please add an end location')
+
     const allLocations = [DEPOT.start, ...locations, DEPOT.end]
     const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
-    console.log(waypoints)
-    console.log(routeGeoJSON)
     const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
+
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
     map.getSource('route').setData(routeGeoJSON)
 
+    /**
+     * use turf to create a bounding box out of all
+     * locations and feed it to fitBounds()
+     */
     const bbox = turfBbox(turfLineString(allLocations.map(elem => elem.center)))
-    map.fitBounds(bbox)
+    map.fitBounds(bbox, { padding: 50 })
   }
 
   const handleRemove = id => {
     dispatch(removeLocation(id))
     dispatch(removeGoogleUrl())
   }
+
+  /**
+   * I'm thinking about a way to persist the clients route
+   * between sessions. This method seams to conflict with mapbox setting
+   * its own localStorage, which I'm not sure I can stop
+   **/
+  const handleGoogleButton = () => {
+    window.localStorage.clear()
+    window.localStorage.setItem('route', JSON.stringify({
+      locations: locations,
+      depot: DEPOT,
+    }))
+
+    console.log(window.localStorage.getItem('route'))
+  }
+
 
   return (
     <LocationsContainer>
@@ -83,6 +103,7 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
+        <Button onClick={handleGoogleButton}>button</Button>
       </div>
       }
       <StartEnd />

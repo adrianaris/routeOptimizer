@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.4",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
     "@turf/turf": "^6.5.0",
     "axios": "^0.24.0",
     "lodash": "^4.17.21",
@@ -47,7 +44,10 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.6.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "eslint": "^8.7.0",
     "redux-devtools-extension": "^2.13.9"
   },
   "proxy": "http://localhost:4000"
