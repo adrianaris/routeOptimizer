@@ -12,8 +12,9 @@ import { addLocation } from '../reducers/locationsReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
+import _ from 'lodash'
 
-import { initState } from './init10locations' //init 10 locations for testing
+// import { initState } from './init10locations' //init 10 locations for testing
 
 const MapContainer = styled.div`
   height: 400px;
@@ -45,6 +46,7 @@ const Map = () => {
   })
 
   const userDATA = useSelector((state) => state.userDATA)
+  const DEPOT = useSelector((state) => state.DEPOT)
 
   const dispatch = useDispatch()
 
@@ -166,15 +168,16 @@ const Map = () => {
     })
     map.current.on('load', createMapLayers)
 
-    dispatch(addLocation(initState)) //init 10 addresses for testing
+    // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
   useEffect(() => {
+    if (!_.isEmpty(DEPOT.start) && !_.isEmpty(DEPOT.end)) return
     if (!userDATA) return
     (async () => {
-      const DEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
-      dispatch(addStart(DEPOT))
-      dispatch(addEnd(DEPOT))
+      const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
+      dispatch(addStart(setDEPOT))
+      dispatch(addEnd(setDEPOT))
     })()
     map.current.setZoom(12)
     map.current.setCenter({ lng: userDATA.longitude, lat: userDATA.latitude })

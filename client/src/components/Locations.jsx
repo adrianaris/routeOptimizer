@@ -83,16 +83,18 @@ const Locations = ({ map }) => {
    * I'm thinking about a way to persist the clients route
    * between sessions. This method seams to conflict with mapbox setting
    * its own localStorage, which I'm not sure I can stop
+   *
+   * For now I implemented redux-persist and seams to work !!!
    **/
-  const handleGoogleButton = () => {
-    window.localStorage.clear()
-    window.localStorage.setItem('route', JSON.stringify({
-      locations: locations,
-      depot: DEPOT,
-    }))
+  // const handleGoogleButton = () => {
+  //   window.localStorage.clear()
+  //   window.localStorage.setItem('route', JSON.stringify({
+  //     locations: locations,
+  //     depot: DEPOT,
+  //   }))
 
-    console.log(window.localStorage.getItem('route'))
-  }
+  //   console.log(window.localStorage.getItem('route'))
+  // }
 
 
   return (
@@ -103,7 +105,6 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
-        <Button onClick={handleGoogleButton}>button</Button>
       </div>
       }
       <StartEnd />

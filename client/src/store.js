@@ -8,6 +8,9 @@ import userDataReducer from './reducers/userDataReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
 const reducer = combineReducers({
   locations: locationsReducer,
   googleUrl: googleUrlReducer,
@@ -17,9 +20,18 @@ const reducer = combineReducers({
   userDATA: userDataReducer
 })
 
+const persistConfig = {
+  key: 'root',
+  storage
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 const store = createStore(
-  reducer,
+  persistedReducer,
   composeWithDevTools(applyMiddleware(thunk))
 )
 
-export default store
+const persistor = persistStore(store)
+
+export default { store, persistor }

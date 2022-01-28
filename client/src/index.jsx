@@ -4,13 +4,18 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import App from './App'
 import { Provider } from 'react-redux'
-import store from './store'
+import storeConfig from './store'
+import { PersistGate } from 'redux-persist/integration/react'
+
+const { store, persistor } = storeConfig
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 )
