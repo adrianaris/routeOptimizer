@@ -5,6 +5,7 @@ import startendReducer from './reducers/startendReducer'
 import notificationReducer from './reducers/notificationReducer'
 import turfAddressesReducer from './reducers/turfAddressesReducer'
 import userDataReducer from './reducers/userDataReducer'
+import routeReducer from './reducers/routeReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   DEPOT: startendReducer,
   notification: notificationReducer,
   addresses: turfAddressesReducer,
-  userDATA: userDataReducer
+  userDATA: userDataReducer,
+  route: routeReducer
 })
 
 const persistConfig = {

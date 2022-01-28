@@ -3,6 +3,7 @@ import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
 import { optimLocations, removeLocation } from '../reducers/locationsReducer'
 import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
+import { createRoute } from '../reducers/routeReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
 import _ from 'lodash'
@@ -64,6 +65,7 @@ const Locations = ({ map }) => {
 
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
+    dispatch(createRoute(routeGeoJSON))
     map.getSource('route').setData(routeGeoJSON)
 
     /**

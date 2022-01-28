@@ -1,8 +1,5 @@
 import React, { useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  featureCollection as turfFeatureCollection,
-} from '@turf/turf'
 import mapboxgl from 'mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -57,8 +54,8 @@ const Map = () => {
   /**
    * route sources
    **/
+  const route = useSelector((state) => state.route)
   const addresses = useSelector((state) => state.addresses)
-  let route = turfFeatureCollection([])
 
   /**
    * Since I implemented the IP geolocation I'm not sure
