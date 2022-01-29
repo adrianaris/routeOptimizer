@@ -14,7 +14,7 @@ import _ from 'lodash'
 // import { initState } from './init10locations' //init 10 locations for testing
 
 const MapContainer = styled.div`
-  height: 400px;
+  height: 360px;
   position: absolute;
   width: 100%;
   margin: auto;
@@ -23,7 +23,7 @@ const Geocoder = styled.div`
   position: absolute;
   margin: auto;
   z-index: 1;
-  top: 410px;
+  top: 370px;
 `
 const FlexContainer = styled.div`
   position: relative;
@@ -36,7 +36,7 @@ const FlexContainer = styled.div`
     position: relative;
     width: 100%;
   }
-  @media (min-aspect-ratio: 3/4) {
+  @media (min-aspect-ratio: 29/30) {
     align-items: flex-start;
     justify-content: start;
     flex-direction: row;
@@ -45,7 +45,7 @@ const FlexContainer = styled.div`
       width: 60%;
       height: 100%;
       > div: last-of-type {
-        height: 100vh;
+        height: 98vh;
       }
     }
     > div: nth-of-type(2) {

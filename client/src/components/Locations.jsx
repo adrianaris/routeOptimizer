@@ -11,11 +11,12 @@ import {
   lineString as turfLineString,
   bbox as turfBbox,
 } from '@turf/turf'
+import { removeRoute } from '../reducers/routeReducer'
 // import { setNotification } from '../reducers/notificationReducer'
 
 const Layout = styled.div`
   position: relative;
-  top: 450px;
+  top: 410px;
   overflow-y: auto;
   margin: auto;
   > div > button {
@@ -77,6 +78,7 @@ const Locations = ({ map }) => {
   const handleRemove = id => {
     dispatch(removeLocation(id))
     dispatch(removeGoogleUrl())
+    dispatch(removeRoute())
   }
 
   /**
@@ -84,7 +86,7 @@ const Locations = ({ map }) => {
    * between sessions. This method seams to conflict with mapbox setting
    * its own localStorage, which I'm not sure I can stop
    *
-   * For now I implemented redux-persist and seams to work !!!
+   * For now I implemented redux-persist and it seams to work !!!
    **/
   // const handleGoogleButton = () => {
   //   window.localStorage.clear()
