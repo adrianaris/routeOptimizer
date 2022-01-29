@@ -28,8 +28,6 @@ const Olist = styled.ol`
   border: 1px solid;
   border-style: outset;
   > li {
-    border: 3px solid;
-    border-style: outset;
     margin: 0.3em;
   }
 `

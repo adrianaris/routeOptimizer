@@ -12,11 +12,12 @@ const Layout = styled.div`
   border: 1px solid;
   border-style: outset;
   > div {
-    margin-left: 3em;
+    margin-left: 2em;
     margin-bottom: 0,3em;
     margin-right: 0.3em;
-    border: 3px solid;
-    border-style: outset;
+    > button {
+    margin-left: 1em;
+    }
   }
 `
 const StartGeo = styled.div`
@@ -80,7 +81,7 @@ const StartEnd = () => {
 
   return (
     <Layout>
-      Start:<div><p>{DEPOT.start.place_name}</p>
+      <div><p><b>Start: </b>{DEPOT.start.place_name}</p>
         <StartGeo
           style={startGeoStyle}
           ref={startGeocoderContainer} />
@@ -93,7 +94,7 @@ const StartEnd = () => {
         >Remove
         </button>
       </div>
-      End:<div><p>{DEPOT.end.place_name}</p>
+      <div><p><b>End: </b>{DEPOT.end.place_name}</p>
         <EndGeo
           style={endGeoStyle}
           ref={endGeocoderContainer} />
