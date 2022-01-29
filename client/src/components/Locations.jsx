@@ -13,7 +13,7 @@ import {
 } from '@turf/turf'
 // import { setNotification } from '../reducers/notificationReducer'
 
-const LocationsContainer = styled.div`
+const Layout = styled.div`
   position: absolute;
   top: 450px;
   overflow-y: auto;
@@ -98,7 +98,7 @@ const Locations = ({ map }) => {
 
 
   return (
-    <LocationsContainer>
+    <Layout>
       {locations.length < 3 ||
       <div>
         <Button onClick={handleOptimizeClick}>optimize</Button>
@@ -116,7 +116,7 @@ const Locations = ({ map }) => {
           </li>
         ))}
       </Olist>
-    </LocationsContainer>
+    </Layout>
   )
 }
 

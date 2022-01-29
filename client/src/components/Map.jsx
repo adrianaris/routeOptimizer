@@ -32,6 +32,10 @@ const FlexContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 1em;
+  > div:first-of-type {
+    position: relative;
+    width: 100%;
+  }
 `
 
 const Map = () => {
@@ -186,7 +190,7 @@ const Map = () => {
 
   return (
     <FlexContainer>
-      <div style={{ position: 'absolute', width: '100%' }}>
+      <div>
         <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
       </div>
