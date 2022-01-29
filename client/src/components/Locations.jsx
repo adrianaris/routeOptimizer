@@ -14,7 +14,7 @@ import {
 // import { setNotification } from '../reducers/notificationReducer'
 
 const Layout = styled.div`
-  position: absolute;
+  position: relative;
   top: 450px;
   overflow-y: auto;
   margin: auto;

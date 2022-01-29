@@ -36,6 +36,22 @@ const FlexContainer = styled.div`
     position: relative;
     width: 100%;
   }
+  @media (min-aspect-ratio: 9/16) {
+    align-items: flex-start;
+    justify-content: start;
+    flex-direction: row;
+    > div: first-of-type {
+      position: relative;
+      width: 60%;
+    }
+    > div: nth-of-type(2) {
+      top: 0px;
+      right 10%;
+    }
+    > div: last-of-type {
+      top: 40px;
+    }
+  }
 `
 
 const Map = () => {
