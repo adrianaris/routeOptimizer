@@ -36,13 +36,17 @@ const FlexContainer = styled.div`
     position: relative;
     width: 100%;
   }
-  @media (min-aspect-ratio: 9/16) {
+  @media (min-aspect-ratio: 3/4) {
     align-items: flex-start;
     justify-content: start;
     flex-direction: row;
     > div: first-of-type {
       position: relative;
       width: 60%;
+      height: 100%;
+      > div: last-of-type {
+        height: 100vh;
+      }
     }
     > div: nth-of-type(2) {
       top: 0px;
