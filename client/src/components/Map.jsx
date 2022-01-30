@@ -14,7 +14,7 @@ import _ from 'lodash'
 // import { initState } from './init10locations' //init 10 locations for testing
 
 const MapContainer = styled.div`
-  height: 360px;
+  height: 38vh;
   position: relative;
   width: 98%;
   margin: auto;

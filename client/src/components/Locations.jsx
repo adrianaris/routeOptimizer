@@ -18,8 +18,7 @@ const Layout = styled.div`
   position: relative;
   overflow-y: auto;
   border-top: 1px solid black;
-  margin-top: 1rem;
-  padding: 2rem;
+  padding: 1rem;
   > div > button {
     display: inline-block;
     position: relative;
