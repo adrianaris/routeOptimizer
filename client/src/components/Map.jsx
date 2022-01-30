@@ -30,6 +30,10 @@ const Geocoder = styled.div`
   z-index: 1;
   top: 370px;
   aligh-content: left;
+  > div {
+    border: 1px solid black;
+    border-radius: 8px;
+  }
   @media (max-width: 640px) {
     width: 100%;
     padding-left: 0;

@@ -26,13 +26,21 @@ const Layout = styled.div`
     position: relative;
   }
 `
-const Olist = styled.ol`
-  margin-top: 1rem;
-  > li {
+const Olist = styled.div`
+  padding: 2rem;
+  > div {
     border: 2px solid black;
     border-radius: 8px;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
+    > button {
+      margin-left: 3em;
+    }
+    > p > b {
+      border-right: 1px solid black;
+      padding: 0.3rem;
+      margin-right: 0.3rem;
+    }
   }
 `
 
@@ -115,10 +123,10 @@ const Locations = ({ map }) => {
       <StartEnd />
       <Olist>
         {locations.map(({ id, place_name }, index) => (
-          <li key={id + index}>
-            <p>{place_name}</p>
+          <div key={id + index}>
+            <p><b>{index}: </b>{place_name}</p>
             <button onClick={() => handleRemove(id)}>Remove</button>
-          </li>
+          </div>
         ))}
       </Olist>
     </Layout>

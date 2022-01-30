@@ -27,10 +27,18 @@ const Layout = styled.div`
 const StartGeo = styled.div`
   display: inline-block;
   padding: 0.5rem;
+  > div {
+    border: 1px solid black;
+    border-radius: 8px;
+  }
 `
 const EndGeo = styled.div`
- display: inline-block;
- padding: 0.5rem;
+  display: inline-block;
+  padding: 0.5rem;
+  > div {
+    border: 1px solid black;
+    border-radius: 8px;
+  }
 `
 const StartEnd = () => {
   const startGeocoder = new MapboxGeocoder({
