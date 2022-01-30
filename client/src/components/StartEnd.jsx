@@ -40,6 +40,19 @@ const EndGeo = styled.div`
     border-radius: 8px;
   }
 `
+const Button = styled.button`
+  margin: 0.5em;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  > a {
+      color: inherit;
+  }
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`
 const StartEnd = () => {
   const startGeocoder = new MapboxGeocoder({
     accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
@@ -99,27 +112,27 @@ const StartEnd = () => {
         <StartGeo
           style={startGeoStyle}
             ref={startGeocoderContainer} /></p>
-        <button
+        <Button
           style={startStyle}
           onClick={() => {
             dispatch(removeStart())
             dispatch(removeGoogleUrl())
           }}
         >Remove
-        </button>
+        </Button>
       </div>
       <div><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo
           style={endGeoStyle}
             ref={endGeocoderContainer} /></p>
-        <button
+        <Button
           style={endStyle}
           onClick={() => {
             dispatch(removeEnd())
             dispatch(removeGoogleUrl())
           }}
         >Remove
-        </button>
+        </Button>
       </div>
     </Layout>
   )

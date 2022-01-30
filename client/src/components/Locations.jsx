@@ -45,6 +45,16 @@ const Olist = styled.div`
 
 const Button = styled.button`
   margin: 0.5em;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  > a {
+      color: inherit;
+  }
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `
 const Locations = ({ map }) => {
   const locations = useSelector(state => state.locations)
@@ -124,7 +134,7 @@ const Locations = ({ map }) => {
         {locations.map(({ id, place_name }, index) => (
           <div key={id + index}>
             <p><b>{index}: </b>{place_name}</p>
-            <button onClick={() => handleRemove(id)}>Remove</button>
+            <Button onClick={() => handleRemove(id)}>Remove</Button>
           </div>
         ))}
       </Olist>
