@@ -17,12 +17,19 @@ const Layout = styled.div`
     > button {
     margin-left: 3em;
     }
+    > p > b {
+      border-right: 1px solid black;
+      padding: 0.3rem;
+      margin-right: 0.3rem;
+    }
   }
 `
 const StartGeo = styled.div`
+  display: inline-block;
   padding: 0.5rem;
 `
 const EndGeo = styled.div`
+ display: inline-block;
  padding: 0.5rem;
 `
 const StartEnd = () => {
@@ -80,10 +87,10 @@ const StartEnd = () => {
 
   return (
     <Layout>
-      <div><p><b>Start:  </b>{DEPOT.start.place_name}</p>
+      <div><p><b>Start:  </b>{DEPOT.start.place_name}
         <StartGeo
           style={startGeoStyle}
-          ref={startGeocoderContainer} />
+            ref={startGeocoderContainer} /></p>
         <button
           style={startStyle}
           onClick={() => {
@@ -93,10 +100,10 @@ const StartEnd = () => {
         >Remove
         </button>
       </div>
-      <div><p><b>End:  </b>{DEPOT.end.place_name}</p>
+      <div><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo
           style={endGeoStyle}
-          ref={endGeocoderContainer} />
+            ref={endGeocoderContainer} /></p>
         <button
           style={endStyle}
           onClick={() => {

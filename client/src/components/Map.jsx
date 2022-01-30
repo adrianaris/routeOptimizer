@@ -18,15 +18,22 @@ const MapContainer = styled.div`
   position: absolute;
   width: 100%;
   margin: auto;
+  border: 2px solid black;
+  border-radius: 8px;
 `
 const Geocoder = styled.div`
   position: absolute;
-  border-bottom: 1px solid black;
+  padding-top: 0.5rem;
   padding-left: 3.5rem;
   padding-bottom: 1rem;
-  margin: auto;
+  margin: 3px auto;
   z-index: 1;
   top: 370px;
+  aligh-content: left;
+  @media (max-width: 640px) {
+    width: 100%;
+    padding-left: 0;
+  }
 `
 const FlexContainer = styled.div`
   position: relative;
@@ -54,6 +61,7 @@ const FlexContainer = styled.div`
     > div: nth-of-type(2) {
       top: 0px;
       right 5%;
+      padding-top: 0;
     }
     > div: last-of-type {
       top: 40px;
