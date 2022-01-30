@@ -16,7 +16,7 @@ import _ from 'lodash'
 const MapContainer = styled.div`
   height: 360px;
   position: relative;
-  width: 100%;
+  width: 98%;
   margin: auto;
   border: 2px solid black;
   border-radius: 8px;
@@ -41,6 +41,7 @@ const FlexContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 100vh
   gap: 1em;
   > div:first-of-type {
     position: relative;
@@ -51,22 +52,22 @@ const FlexContainer = styled.div`
     justify-content: start;
     flex-direction: row;
     > div: first-of-type {
-      position: relative;
       width: 60%;
       height: 100%;
       > div: last-of-type {
+        background: $primary;
         height: 98vh;
       }
     }
+    > div: last-of-type {
+    height: 98vh;
   }
 `
 const StyledDiv = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 100%;
-  overflow: auto;
+  height: 60vh;
 `
 
 const Map = () => {

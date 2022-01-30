@@ -26,7 +26,7 @@ const Layout = styled.div`
   }
 `
 const Olist = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   > div {
     border: 2px solid black;
     border-radius: 8px;
