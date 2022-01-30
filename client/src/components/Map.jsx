@@ -15,21 +15,17 @@ import _ from 'lodash'
 
 const MapContainer = styled.div`
   height: 360px;
-  position: absolute;
+  position: relative;
   width: 100%;
   margin: auto;
   border: 2px solid black;
   border-radius: 8px;
 `
 const Geocoder = styled.div`
-  position: absolute;
-  padding-top: 0.5rem;
-  padding-left: 3.5rem;
-  padding-bottom: 1rem;
+  position: relative;
+  padding: 0.5rem;
   margin: 3px auto;
   z-index: 1;
-  top: 370px;
-  aligh-content: left;
   > div {
     border: 1px solid black;
     border-radius: 8px;
@@ -62,15 +58,13 @@ const FlexContainer = styled.div`
         height: 98vh;
       }
     }
-    > div: nth-of-type(2) {
-      top: 0px;
-      right 5%;
-      padding-top: 0;
-    }
-    > div: last-of-type {
-      top: 40px;
-    }
   }
+`
+const StyledDiv = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `
 
 const Map = () => {
@@ -229,8 +223,10 @@ const Map = () => {
         <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
       </div>
-      <Geocoder ref={geocoderContainer} />
-      <Locations map={map.current} />
+      <StyledDiv>
+        <Geocoder ref={geocoderContainer} />
+        <Locations map={map.current} />
+      </StyledDiv>
     </FlexContainer>
   )
 }

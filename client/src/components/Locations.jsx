@@ -16,7 +16,6 @@ import { removeRoute } from '../reducers/routeReducer'
 
 const Layout = styled.div`
   position: relative;
-  top: 410px;
   overflow-y: auto;
   border-top: 1px solid black;
   margin-top: 1rem;
