@@ -194,7 +194,7 @@ const Map = () => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [4.3755, 50.8550],
       zoom: 7
     })

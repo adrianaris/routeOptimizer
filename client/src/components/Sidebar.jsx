@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const SidebarElem = styled.div`
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
   padding: 6px 12px;
   font-family: monospace;
   z-index: 1;
