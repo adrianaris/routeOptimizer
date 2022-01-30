@@ -18,18 +18,19 @@ const Layout = styled.div`
   position: relative;
   top: 410px;
   overflow-y: auto;
-  margin: auto;
+  margin-top: 1rem;
   > div > button {
     display: inline-block;
     position: relative;
   }
 `
 const Olist = styled.ol`
-  margin: auto;
-  border: 1px solid;
-  border-style: outset;
+  margin-top: 1rem;
   > li {
-    margin: 0.3em;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 `
 

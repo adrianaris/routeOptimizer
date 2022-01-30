@@ -9,22 +9,21 @@ import _ from 'lodash'
 const Layout = styled.div`
   position: relative;
   margin: auto;
-  border: 1px solid;
-  border-style: outset;
   > div {
-    margin-left: 2em;
-    margin-bottom: 0,3em;
-    margin-right: 0.3em;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
     > button {
-    margin-left: 1em;
+    margin-left: 3em;
     }
   }
 `
 const StartGeo = styled.div`
-  margin: 2px;
+  padding: 0.5rem;
 `
 const EndGeo = styled.div`
-  margin: 2px;
+ padding: 0.5rem;
 `
 const StartEnd = () => {
   const startGeocoder = new MapboxGeocoder({
@@ -81,7 +80,7 @@ const StartEnd = () => {
 
   return (
     <Layout>
-      <div><p><b>Start: </b>{DEPOT.start.place_name}</p>
+      <div><p><b>Start:  </b>{DEPOT.start.place_name}</p>
         <StartGeo
           style={startGeoStyle}
           ref={startGeocoderContainer} />
@@ -94,7 +93,7 @@ const StartEnd = () => {
         >Remove
         </button>
       </div>
-      <div><p><b>End: </b>{DEPOT.end.place_name}</p>
+      <div><p><b>End:  </b>{DEPOT.end.place_name}</p>
         <EndGeo
           style={endGeoStyle}
           ref={endGeocoderContainer} />

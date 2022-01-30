@@ -21,6 +21,9 @@ const MapContainer = styled.div`
 `
 const Geocoder = styled.div`
   position: absolute;
+  border-bottom: 1px solid black;
+  padding-left: 3.5rem;
+  padding-bottom: 1rem;
   margin: auto;
   z-index: 1;
   top: 370px;
@@ -50,7 +53,7 @@ const FlexContainer = styled.div`
     }
     > div: nth-of-type(2) {
       top: 0px;
-      right 10%;
+      right 5%;
     }
     > div: last-of-type {
       top: 40px;
