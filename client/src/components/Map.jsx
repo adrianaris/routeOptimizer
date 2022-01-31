@@ -55,17 +55,18 @@ const FlexContainer = styled.div`
       height: 100%;
       > div: last-of-type {
         height: 98vh;
-        width: 60vw;
+        width: 58vw;
       }
     }
     > div: last-of-type {
-      padding-left: 1rem;
+      margin: auto;
       height: 98vh;
   }
 `
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
+  aligh-items: center;
   flex-direction: column;
   height: 60vh;
 `
