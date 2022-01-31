@@ -17,7 +17,7 @@ import _ from 'lodash'
 const MapContainer = styled.div`
   height: 38vh;
   position: relative;
-  width: 98%;
+  width: 99%;
   margin: auto;
   border: 2px solid black;
   border-radius: 8px;
@@ -62,6 +62,12 @@ const FlexContainer = styled.div`
     > div: last-of-type {
       margin: auto;
       height: 98vh;
+    }
+    @media (max-height: 661px) and (max-width: 640px){
+      > div: first-of-type {
+        display: none;
+      }
+    }
   }
 `
 const StyledDiv = styled.div`
