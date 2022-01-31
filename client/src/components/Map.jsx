@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { getDepot } from '../services/getDepot'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { addLocation } from '../reducers/locationsReducer'
+import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
@@ -188,6 +189,7 @@ const Map = () => {
      * it can also accept multiple locations as argument
      * (like from a file)
      */
+    dispatch(removeGoogleUrl())
     dispatch(addLocation([coordinates]))
     map.current.getSource('dropoffs-symbol').setData(addresses)
   }
