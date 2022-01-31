@@ -29,6 +29,7 @@ const Geocoder = styled.div`
   > div {
     border: 1px solid black;
     border-radius: 8px;
+    margin: auto;
   }
   @media (max-width: 640px) {
     width: 100%;
@@ -41,7 +42,6 @@ const FlexContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh
   gap: 1em;
   > div:first-of-type {
     position: relative;
@@ -55,8 +55,8 @@ const FlexContainer = styled.div`
       width: 60%;
       height: 100%;
       > div: last-of-type {
-        background: $primary;
         height: 98vh;
+        width: 60vw;
       }
     }
     > div: last-of-type {
@@ -67,6 +67,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding-left: 1rem;
   height: 60vh;
 `
 
