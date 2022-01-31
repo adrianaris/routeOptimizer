@@ -42,7 +42,6 @@ const FlexContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 1em;
   > div:first-of-type {
     position: relative;
     width: 100%;
@@ -60,14 +59,14 @@ const FlexContainer = styled.div`
       }
     }
     > div: last-of-type {
-    height: 98vh;
+      padding-left: 1rem;
+      height: 98vh;
   }
 `
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-left: 1rem;
   height: 60vh;
 `
 
