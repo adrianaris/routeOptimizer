@@ -120,7 +120,7 @@ const Locations = ({ map }) => {
 
   return (
     <Layout>
-      {locations.length < 3 ||
+      {locations.length < 2 ||
       <div>
         <Button onClick={handleOptimizeClick}>optimize</Button>
         <Button style={style}>
@@ -132,7 +132,7 @@ const Locations = ({ map }) => {
       <Olist>
         {locations.map(({ id, place_name }, index) => (
           <div key={id + index}>
-            <p><b>{index}: </b>{place_name}</p>
+            <p><b>{index + 1}: </b>{place_name}</p>
             <Button onClick={() => handleRemove(id)}>Remove</Button>
           </div>
         ))}

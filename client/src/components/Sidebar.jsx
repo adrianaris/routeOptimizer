@@ -9,7 +9,7 @@ const SidebarElem = styled.div`
   z-index: 1;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 2rem;
   margin: 0.8rem;
   border-radius: 6px;
 `

@@ -52,7 +52,7 @@ const FlexContainer = styled.div`
     justify-content: start;
     flex-direction: row;
     > div: first-of-type {
-      width: 60%;
+      width: 60vw;
       height: 100%;
       > div: last-of-type {
         height: 98vh;
@@ -67,7 +67,6 @@ const FlexContainer = styled.div`
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
-  aligh-items: center;
   flex-direction: column;
   height: 60vh;
 `
@@ -198,7 +197,7 @@ const Map = () => {
     if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v10',
+      style: 'mapbox://styles/mapbox/light-v10?optimize=true',
       center: [4.3755, 50.8550],
       zoom: 7
     })
