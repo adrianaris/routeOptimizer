@@ -4,14 +4,14 @@ import styled from 'styled-components'
 const SidebarElem = styled.div`
   background-color: rgba(255, 255, 255, 0.8);
   color: black;
-  padding: 6px 12px;
+  padding: 0.5rem 1rem;
   font-family: monospace;
   z-index: 1;
   position: absolute;
   top: 0;
-  left: 0;
-  margin: 12px;
-  border-radius: 4px;
+  right: 0;
+  margin: 0.8rem;
+  border-radius: 6px;
 `
 
 const Sidebar = ({ map }) => {

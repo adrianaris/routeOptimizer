@@ -24,7 +24,7 @@ const Layout = styled.div`
     }
   }
 `
-const StartGeo = styled.div`
+const StartGeo = styled.span`
   display: inline-block;
   padding: 0.5rem;
   > div {
@@ -32,7 +32,7 @@ const StartGeo = styled.div`
     border-radius: 8px;
   }
 `
-const EndGeo = styled.div`
+const EndGeo = styled.span`
   display: inline-block;
   padding: 0.5rem;
   > div {
