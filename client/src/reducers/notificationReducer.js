@@ -25,4 +25,10 @@ export const setNotification = (content, timer) => {
     })
   }
 }
+
+export const removeNotification = () => {
+  return {
+    type: 'REMOVE_NOTIFICATION'
+  }
+}
 export default notificationReducer

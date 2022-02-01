@@ -7,9 +7,11 @@ import { getDepot } from '../services/getDepot'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { addLocation } from '../reducers/locationsReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
+import Notification from './Notification'
 import _ from 'lodash'
 
 // import { initState } from './init10locations' //init 10 locations for testing
@@ -39,8 +41,9 @@ const Geocoder = styled.div`
 `
 const FlexContainer = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
   > div:first-of-type {
@@ -72,9 +75,10 @@ const FlexContainer = styled.div`
 `
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 60vh;
+  margin: auto;
 `
 
 const Map = () => {
@@ -85,8 +89,9 @@ const Map = () => {
     mapboxgl: mapboxgl,
   })
 
-  const userDATA = useSelector((state) => state.userDATA)
-  const DEPOT = useSelector((state) => state.DEPOT)
+  const userDATA = useSelector(state => state.userDATA)
+  const DEPOT = useSelector(state => state.DEPOT)
+  const locations = useSelector(state => state.locations)
 
   const dispatch = useDispatch()
 
@@ -97,8 +102,8 @@ const Map = () => {
   /**
    * route sources
    **/
-  const route = useSelector((state) => state.route)
-  const addresses = useSelector((state) => state.addresses)
+  const route = useSelector(state => state.route)
+  const addresses = useSelector(state => state.addresses)
 
   /**
    * Since I implemented the IP geolocation I'm not sure
@@ -196,7 +201,6 @@ const Map = () => {
      */
     dispatch(removeGoogleUrl())
     dispatch(addLocation([coordinates]))
-    map.current.getSource('dropoffs-symbol').setData(addresses)
   }
 
   useEffect(() => {
@@ -208,6 +212,7 @@ const Map = () => {
       zoom: 7
     })
     map.current.on('load', createMapLayers)
+    if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end for the optimization service to become available!', 20))
 
     // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
@@ -235,6 +240,7 @@ const Map = () => {
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
+        <Notification />
         <Geocoder ref={geocoderContainer} />
         <Locations map={map.current} />
       </StyledDiv>

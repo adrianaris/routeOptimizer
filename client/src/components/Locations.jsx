@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { optimLocations, removeLocation } from '../reducers/locationsReducer'
 import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { createRoute } from '../reducers/routeReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
 import _ from 'lodash'
@@ -59,6 +60,7 @@ const Locations = ({ map }) => {
   const locations = useSelector(state => state.locations)
   const DEPOT = useSelector(state => state.DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
+  const addresses = useSelector(state => state.addresses)
   const dispatch = useDispatch()
   if (!locations) return
 
@@ -74,8 +76,17 @@ const Locations = ({ map }) => {
   }, [googleMapsUrl])
 
   const handleOptimizeClick = async () => {
-    if (_.isEmpty(DEPOT.start)) return console.log('Please add a starting location')
-    if (_.isEmpty(DEPOT.end)) return console.log('Please add an end location')
+    if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
+      return dispatch(setNotification(
+        'Please add a start/end location for the optimization to work!', 10
+      ))
+    }
+
+    if (locations.length > 10)  {
+      return dispatch(setNotification(
+        <span>This version of the planner suports only ten locations plus the start/end.<br/>Remove addresses in order to continue!</span>, 10
+      ))
+    }
 
     const allLocations = [DEPOT.start, ...locations, DEPOT.end]
     const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
@@ -85,6 +96,7 @@ const Locations = ({ map }) => {
     dispatch(createGoogleUrl(waypoints))
     dispatch(createRoute(routeGeoJSON))
     map.getSource('route').setData(routeGeoJSON)
+    map.getSource('dropoffs-symbol').setData(addresses)
 
     /**
      * use turf to create a bounding box out of all
