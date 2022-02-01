@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/routeOptimizer/static/css/main.e3bae418.css",
-    "main.js": "/routeOptimizer/static/js/main.fe558971.js",
+    "main.js": "/routeOptimizer/static/js/main.9162610c.js",
     "index.html": "/routeOptimizer/index.html",
     "main.e3bae418.css.map": "/routeOptimizer/static/css/main.e3bae418.css.map",
-    "main.fe558971.js.map": "/routeOptimizer/static/js/main.fe558971.js.map"
+    "main.9162610c.js.map": "/routeOptimizer/static/js/main.9162610c.js.map"
   },
   "entrypoints": [
     "static/css/main.e3bae418.css",
-    "static/js/main.fe558971.js"
+    "static/js/main.9162610c.js"
   ]
 }
