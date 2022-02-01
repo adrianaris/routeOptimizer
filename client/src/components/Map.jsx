@@ -13,6 +13,7 @@ import Sidebar from './Sidebar'
 import Locations from './Locations'
 import Notification from './Notification'
 import _ from 'lodash'
+import { featureCollection as turfFeatureCollection } from '@turf/turf'
 
 // import { initState } from './init10locations' //init 10 locations for testing
 
@@ -102,9 +103,9 @@ const Map = () => {
   /**
    * route sources
    **/
-  const route = useSelector(state => state.route)
-  const addresses = useSelector(state => state.addresses)
-
+  const route = useSelector((state) => state.route)
+  const addresses = useSelector((state) => state.addresses)
+  const warehouse = turfFeatureCollection([DEPOT.start])
   /**
    * Since I implemented the IP geolocation I'm not sure
    * we still need the navigator.
@@ -127,6 +128,20 @@ const Map = () => {
     /**
      * create a point map for path
      */
+    map.current.addLayer({
+      id: 'warehouse',
+      type: 'symbol',
+      source: {
+        data: warehouse,
+        type: 'geojson'
+      },
+      layout: {
+        'icon-allow-overlap': true,
+        'icon-image': 'castle-15',
+        'icon-size': 2
+      }
+    })
+
     map.current.addLayer({
       id: 'dropoffs-symbol',
       type: 'symbol',
@@ -227,6 +242,7 @@ const Map = () => {
     })()
     map.current.setZoom(12)
     map.current.setCenter({ lng: userDATA.longitude, lat: userDATA.latitude })
+    map.current.getSource('warehouse').setData(warehouse)
   }, [userDATA])
 
   geocoder.on('result', (event) => {

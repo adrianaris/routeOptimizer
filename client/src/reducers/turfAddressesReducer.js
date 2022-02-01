@@ -15,8 +15,11 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
   case 'ADD_LOCATION': {
     const newState = { ...state }
     action.data.forEach(elem => {
-      let point = turfPoint(elem.center)
-      newState.features.push({ point, id: elem.id })
+      let point = turfPoint(elem.center, {
+        orderTime: Date.now(),
+        key: Math.random()
+      })
+      newState.features.push({ ...point, id: elem.id })
     })
     return newState
   }
