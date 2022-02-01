@@ -1,6 +1,6 @@
 {
-  "homepage": "//https:adrianaris.github.io/routePlanner",
-  "name": "routePlanner-front",
+  "homepage": "http://www.adrianserbanescu.com/routeOptimizer",
+  "name": "routeOptimizer-front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
