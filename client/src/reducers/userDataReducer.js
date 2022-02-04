@@ -2,7 +2,7 @@ import getUserIP from '../services/getUserData'
 
 const userDataReducer = (state='', action) => {
   switch(action.type) {
-  case 'GET_USER_DATA': {
+  case 'SET_USER_DATA': {
     return action.data
   }
   default:
@@ -10,12 +10,12 @@ const userDataReducer = (state='', action) => {
   }
 }
 
-export const getUserIPaction = () => {
+export const setUserData = () => {
   return async dispatch => {
     try {
       const data = await getUserIP()
       dispatch({
-        type: 'GET_USER_DATA',
+        type: 'SET_USER_DATA',
         data: data
       })
     } catch (error) {

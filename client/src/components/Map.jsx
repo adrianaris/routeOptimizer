@@ -105,7 +105,7 @@ const Map = () => {
    **/
   const route = useSelector((state) => state.route)
   const addresses = useSelector((state) => state.addresses)
-  const warehouse = turfFeatureCollection([DEPOT.start])
+  const warehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
   /**
    * Since I implemented the IP geolocation I'm not sure
    * we still need the navigator.
@@ -223,31 +223,27 @@ const Map = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10?optimize=true',
-      center: [4.3755, 50.8550],
-      zoom: 7
+      center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
+      zoom: userDATA ? 12 : 7
     })
     map.current.on('load', createMapLayers)
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end for the optimization service to become available!', 20))
+    if (!userDATA) return
+    if (_.isEmpty(DEPOT.start) && _.isEmpty(DEPOT.end)) {
+      (async () => {
+        const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
+        dispatch(addStart(setDEPOT))
+        dispatch(addEnd(setDEPOT))
+      })()
+    }
 
     // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
-  useEffect(() => {
-    if (!_.isEmpty(DEPOT.start) && !_.isEmpty(DEPOT.end)) return
-    if (!userDATA) return
-    (async () => {
-      const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
-      dispatch(addStart(setDEPOT))
-      dispatch(addEnd(setDEPOT))
-    })()
-    map.current.setZoom(12)
-    map.current.setCenter({ lng: userDATA.longitude, lat: userDATA.latitude })
-    map.current.getSource('warehouse').setData(warehouse)
-  }, [userDATA])
-
   geocoder.on('result', (event) => {
     addSearchLocation(event.result)
   })
+
 
   return (
     <FlexContainer>
