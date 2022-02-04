@@ -30,6 +30,15 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     ) }
     return newState
   }
+  case 'OPTIMIZE_LOCATIONS': {
+    const array = action.data
+    let orderedLocations = []
+    for (let i in array) {
+      orderedLocations.push(state.features[array[i]])
+    }
+    const newState = { ...state, features: orderedLocations }
+    return newState
+  }
   default:
     return state
   }

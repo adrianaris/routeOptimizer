@@ -99,8 +99,8 @@ const Map = () => {
   /**
    * route sources
    **/
-  const route = useSelector((state) => state.route)
-  const addresses = useSelector((state) => state.addresses)
+  const route = useSelector(state => state.route)
+  const addresses = useSelector(state => state.addresses)
   const warehouse = turfFeatureCollection([])
   /**
    * Since I implemented the IP geolocation I'm not sure
@@ -223,7 +223,8 @@ const Map = () => {
       zoom: userDATA ? 12 : 7
     })
     map.current.on('load', createMapLayers)
-    if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end for the optimization service to become available!', 20))
+    if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
+      ' for the optimization service to become available!', 20))
     // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
