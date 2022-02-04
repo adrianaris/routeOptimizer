@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { getDepot } from '../services/getDepot'
-import { addStart, addEnd } from '../reducers/startendReducer'
 import { addLocation } from '../reducers/locationsReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -12,7 +10,6 @@ import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
 import Notification from './Notification'
-import _ from 'lodash'
 import { featureCollection as turfFeatureCollection } from '@turf/turf'
 
 // import { initState } from './init10locations' //init 10 locations for testing
@@ -91,7 +88,6 @@ const Map = () => {
   })
 
   const userDATA = useSelector(state => state.userDATA)
-  const DEPOT = useSelector(state => state.DEPOT)
   const locations = useSelector(state => state.locations)
 
   const dispatch = useDispatch()
@@ -105,7 +101,7 @@ const Map = () => {
    **/
   const route = useSelector((state) => state.route)
   const addresses = useSelector((state) => state.addresses)
-  const warehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
+  const warehouse = turfFeatureCollection([])
   /**
    * Since I implemented the IP geolocation I'm not sure
    * we still need the navigator.
@@ -228,15 +224,6 @@ const Map = () => {
     })
     map.current.on('load', createMapLayers)
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end for the optimization service to become available!', 20))
-    if (!userDATA) return
-    if (_.isEmpty(DEPOT.start) && _.isEmpty(DEPOT.end)) {
-      (async () => {
-        const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
-        dispatch(addStart(setDEPOT))
-        dispatch(addEnd(setDEPOT))
-      })()
-    }
-
     // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
