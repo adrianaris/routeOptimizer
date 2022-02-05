@@ -57,6 +57,7 @@ const Button = styled.button`
   }
 `
 const Locations = ({ map }) => {
+  const route = useSelector(state => state.route)
   const DEPOT = useSelector(state => state.DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const addresses = useSelector(state => state.addresses)
@@ -86,6 +87,11 @@ const Locations = ({ map }) => {
     map.getSource('warehouse').setData(newWarehouse)
   }, [DEPOT])
 
+  useEffect(() => {
+    if (!map) return
+    map.getSource('route').setData(route)
+  }, [route])
+
 
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
@@ -107,8 +113,6 @@ const Locations = ({ map }) => {
     dispatch(optimLocations(removedDepotArray))
     dispatch(createGoogleUrl(waypoints))
     dispatch(createRoute(routeGeoJSON))
-    map.getSource('route').setData(routeGeoJSON)
-    map.getSource('dropoffs-symbol').setData(addresses)
 
     /**
      * use turf to create a bounding box out of all
