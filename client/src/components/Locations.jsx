@@ -144,10 +144,10 @@ const Locations = ({ map }) => {
       {locations.length < 2 ||
       <div>
         <Button onClick={handleOptimizeClick}>optimize</Button>
+        <Button onClick={handleClearLocations}>clear locations</Button>
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
-        <Button onClick={handleClearLocations}>clear locations</Button>
       </div>
       }
       <StartEnd />
