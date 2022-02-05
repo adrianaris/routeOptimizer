@@ -13,7 +13,8 @@ import {
   bbox as turfBbox,
 } from '@turf/turf'
 import { removeRoute } from '../reducers/routeReducer'
-// import { setNotification } from '../reducers/notificationReducer'
+
+import { clearLocations } from '../reducers/locationsReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -57,10 +58,12 @@ const Button = styled.button`
   }
 `
 const Locations = ({ map }) => {
-  const locations = useSelector(state => state.locations)
   const DEPOT = useSelector(state => state.DEPOT)
+  console.log(DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const addresses = useSelector(state => state.addresses)
+  const locations = addresses.features
+  console.log(addresses)
   const dispatch = useDispatch()
   if (!locations) return
 
@@ -112,24 +115,6 @@ const Locations = ({ map }) => {
     dispatch(removeRoute())
   }
 
-  /**
-   * I'm thinking about a way to persist the clients route
-   * between sessions. This method seams to conflict with mapbox setting
-   * its own localStorage, which I'm not sure I can stop
-   *
-   * For now I implemented redux-persist and it seams to work !!!
-   **/
-  // const handleGoogleButton = () => {
-  //   window.localStorage.clear()
-  //   window.localStorage.setItem('route', JSON.stringify({
-  //     locations: locations,
-  //     depot: DEPOT,
-  //   }))
-
-  //   console.log(window.localStorage.getItem('route'))
-  // }
-
-
   return (
     <Layout>
       {locations.length < 2 ||
@@ -138,6 +123,7 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
+        <Button onClick={() => dispatch(clearLocations())}>clear locations</Button>
       </div>
       }
       <StartEnd />

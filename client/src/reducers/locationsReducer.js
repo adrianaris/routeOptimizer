@@ -16,6 +16,9 @@ const locationsReducer = (state = [], action) => {
 
     return orderedLocations
   }
+  case 'CLEAR_LOCATIONS': {
+    return []
+  }
   default:
     return state
   }
@@ -39,6 +42,12 @@ export const optimLocations = orderedIndexArray => {
   return {
     type: 'OPTIMIZE_LOCATIONS',
     data: orderedIndexArray
+  }
+}
+
+export const clearLocations = () => {
+  return {
+    type: 'CLEAR_LOCATIONS'
   }
 }
 

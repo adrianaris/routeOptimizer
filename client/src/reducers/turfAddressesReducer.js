@@ -1,6 +1,5 @@
 import {
   featureCollection as turfFeatureCollection,
-  point as turfPoint
 } from '@turf/turf'
 
 /**
@@ -15,11 +14,11 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
   case 'ADD_LOCATION': {
     const newState = { ...state }
     action.data.forEach(elem => {
-      let point = turfPoint(elem.center, {
+      let point = { ...elem,
         orderTime: Date.now(),
         key: Math.random()
-      })
-      newState.features.push({ ...point, id: elem.id })
+      }
+      newState.features.push(point)
     })
     return newState
   }
@@ -38,6 +37,9 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     }
     const newState = { ...state, features: orderedLocations }
     return newState
+  }
+  case 'CLEAR_LOCATIONS': {
+    return turfFeatureCollection([])
   }
   default:
     return state
