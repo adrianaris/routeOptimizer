@@ -104,7 +104,7 @@ const Map = () => {
   const route = useSelector(state => state.route)
   const addresses = useSelector(state => state.addresses)
   const locations = addresses.features
-  const warehouse = turfFeatureCollection([])
+  const warehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
   /**
    * Since I implemented the IP geolocation I'm not sure
    * we still need the navigator.
@@ -236,13 +236,11 @@ const Map = () => {
     if (_.isEmpty(DEPOT.start) && _.isEmpty(DEPOT.end)) {
       (async () => {
         const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
-        console.log(setDEPOT)
         dispatch(addStart(setDEPOT))
         dispatch(addEnd(setDEPOT))
       })()
     }
-  })
-
+  }, [])
 
   geocoder.on('result', (event) => {
     addSearchLocation(event.result)

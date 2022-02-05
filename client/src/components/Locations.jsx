@@ -11,6 +11,7 @@ import _ from 'lodash'
 import {
   lineString as turfLineString,
   bbox as turfBbox,
+  featureCollection as turfFeatureCollection
 } from '@turf/turf'
 import { removeRoute } from '../reducers/routeReducer'
 
@@ -73,6 +74,18 @@ const Locations = ({ map }) => {
     if (googleMapsUrl.length === 0) setVisible(false)
     if (googleMapsUrl.length > 0) setVisible(true)
   }, [googleMapsUrl])
+
+  useEffect(() => {
+    if (!map) return
+    map.getSource('dropoffs-symbol').setData(addresses)
+  },[addresses])
+
+  useEffect(() => {
+    if (!map) return
+    const newWarehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
+    map.getSource('warehouse').setData(newWarehouse)
+  }, [DEPOT])
+
 
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
