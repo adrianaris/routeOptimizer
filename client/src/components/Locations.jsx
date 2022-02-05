@@ -84,7 +84,12 @@ const Locations = ({ map }) => {
   useEffect(() => {
     if (!map) return
     const newWarehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
-    map.getSource('warehouse').setData(newWarehouse)
+    if (!map.getLayer('warehouse')) {
+      map.on('idle', () => {
+        map.getSource('warehouse').setData(newWarehouse)
+      })
+    } else if (map.isSourceLoaded('warehouse')) map.getSource('warehouse').setData(newWarehouse)
+    console.log('i run')
   }, [DEPOT])
 
   useEffect(() => {

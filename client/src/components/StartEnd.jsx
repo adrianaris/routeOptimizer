@@ -4,6 +4,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
+import { removeRoute } from '../reducers/routeReducer'
 import _ from 'lodash'
 
 const Layout = styled.div`
@@ -127,11 +128,11 @@ const StartEnd = () => {
                 dispatch(removeStart())
                 dispatch(removeEnd())
                 dispatch(removeGoogleUrl())
+                dispatch(removeRoute())
               }}
             >Remove
             </Button>
             <Button
-              style={startStyle}
               onClick={toggleCircuit}
             >Non-Circuit
             </Button>
@@ -146,11 +147,11 @@ const StartEnd = () => {
               onClick={() => {
                 dispatch(removeStart())
                 dispatch(removeGoogleUrl())
+                dispatch(removeRoute())
               }}
             >Remove
             </Button>
             <Button
-              style={startStyle}
               onClick={() => {
                 toggleCircuit()
                 dispatch(addEnd(DEPOT.start))
@@ -167,6 +168,7 @@ const StartEnd = () => {
             onClick={() => {
               dispatch(removeEnd())
               dispatch(removeGoogleUrl())
+              dispatch(removeRoute())
             }}
            >Remove
            </Button>

@@ -121,13 +121,13 @@ const Map = () => {
   //   console.log('browser doesn\'t allow geolocation')
   // }
 
-  const createMapLayers = () => {
+  const createMapLayers = async () => {
     geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
 
     /**
      * create a point map for path
      */
-    map.current.addLayer({
+    await map.current.addLayer({
       id: 'warehouse',
       type: 'symbol',
       source: {
@@ -141,7 +141,7 @@ const Map = () => {
       }
     })
 
-    map.current.addLayer({
+    await map.current.addLayer({
       id: 'dropoffs-symbol',
       type: 'symbol',
       source: {
@@ -155,12 +155,12 @@ const Map = () => {
       },
     })
 
-    map.current.addSource('route', {
+    await map.current.addSource('route', {
       type: 'geojson',
       data: route,
     })
 
-    map.current.addLayer(
+    await map.current.addLayer(
       {
         id: 'routeline-active',
         type: 'line',
@@ -177,7 +177,7 @@ const Map = () => {
       'waterway-label'
     )
 
-    map.current.addLayer(
+    await map.current.addLayer(
       {
         id: 'routearrows',
         type: 'symbol',
@@ -225,7 +225,9 @@ const Map = () => {
       center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
       zoom: userDATA ? 12 : 7
     })
-    map.current.on('load', createMapLayers)
+    map.current.on('load', async () => {
+      await createMapLayers()
+    })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
       ' for the optimization service to become available!', 20))
     // dispatch(addLocation(initState)) //init 10 addresses for testing
