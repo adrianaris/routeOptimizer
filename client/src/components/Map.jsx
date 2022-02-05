@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import _ from 'lodash'
 import { addLocation } from '../reducers/addressesReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { addStart, addEnd } from '../reducers/startendReducer'
+import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import Locations from './Locations'
@@ -88,6 +91,7 @@ const Map = () => {
   })
 
   const userDATA = useSelector(state => state.userDATA)
+  const DEPOT = useSelector(state => state.DEPOT)
   const dispatch = useDispatch()
 
   const mapContainer = useRef(null)
@@ -226,6 +230,19 @@ const Map = () => {
       ' for the optimization service to become available!', 20))
     // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
+
+  useEffect(() => {
+    if (!userDATA) return
+    if (_.isEmpty(DEPOT.start) && _.isEmpty(DEPOT.end)) {
+      (async () => {
+        const setDEPOT = await getDepot(userDATA.longitude, userDATA.latitude)
+        console.log(setDEPOT)
+        dispatch(addStart(setDEPOT))
+        dispatch(addEnd(setDEPOT))
+      })()
+    }
+  })
+
 
   geocoder.on('result', (event) => {
     addSearchLocation(event.result)

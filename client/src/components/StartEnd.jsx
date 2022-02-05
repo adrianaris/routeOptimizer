@@ -111,28 +111,28 @@ const StartEnd = () => {
       <div><p><b>Start:  </b>{DEPOT.start.place_name}
         <StartGeo
           style={startGeoStyle}
-            ref={startGeocoderContainer} /></p>
-        <Button
-          style={startStyle}
-          onClick={() => {
-            dispatch(removeStart())
-            dispatch(removeGoogleUrl())
-          }}
-        >Remove
-        </Button>
+          ref={startGeocoderContainer} /></p>
+      <Button
+        style={startStyle}
+        onClick={() => {
+          dispatch(removeStart())
+          dispatch(removeGoogleUrl())
+        }}
+      >Remove
+      </Button>
       </div>
       <div><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo
           style={endGeoStyle}
-            ref={endGeocoderContainer} /></p>
-        <Button
-          style={endStyle}
-          onClick={() => {
-            dispatch(removeEnd())
-            dispatch(removeGoogleUrl())
-          }}
-        >Remove
-        </Button>
+          ref={endGeocoderContainer} /></p>
+      <Button
+        style={endStyle}
+        onClick={() => {
+          dispatch(removeEnd())
+          dispatch(removeGoogleUrl())
+        }}
+      >Remove
+      </Button>
       </div>
     </Layout>
   )
