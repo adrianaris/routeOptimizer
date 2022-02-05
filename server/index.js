@@ -11,7 +11,7 @@ const logger = require('./utils/logger')
 const querrySchema = require('./models/matrix')
 
 const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
-const matrixService = mbxMatrix({ accessToken: config.TOKEN })
+const matrixService = mbxMatrix({ accessToken: config.MAPBOX_TOKEN})
 
 
 app.use(express.json())
