@@ -111,6 +111,12 @@ const Locations = ({ map }) => {
     dispatch(removeRoute())
   }
 
+  const handleClearLocations = () => {
+    dispatch(clearLocations())
+    dispatch(removeGoogleUrl())
+    dispatch(removeRoute())
+  }
+
   return (
     <Layout>
       {locations.length < 2 ||
@@ -119,7 +125,7 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
-        <Button onClick={() => dispatch(clearLocations())}>clear locations</Button>
+        <Button onClick={handleClearLocations}>clear locations</Button>
       </div>
       }
       <StartEnd />
