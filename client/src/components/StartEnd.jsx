@@ -67,6 +67,7 @@ const StartEnd = () => {
 
   const [startVisible, setStartVisible] = useState(false)
   const [endVisible, setEndVisible] = useState(false)
+  const [isCircuit, setIsCircuit] = useState(false)
 
   const startStyle = {
     display: startVisible ? '' : 'none'
@@ -80,6 +81,12 @@ const StartEnd = () => {
   const endGeoStyle = {
     display: endVisible ? 'none' : ''
   }
+
+  const toggleCircuit = () => {
+    setIsCircuit(!isCircuit)
+  }
+  // const showCircuit = { display: isCircuit ? '' : 'none' }
+  // const showNonCircuit = { display: isCircuit ? 'none' : '' }
 
   const dispatch = useDispatch()
   const DEPOT = useSelector(state => state.DEPOT)
@@ -101,6 +108,7 @@ const StartEnd = () => {
 
   startGeocoder.on('result', event => {
     dispatch(addStart(event.result))
+    if (isCircuit) dispatch(addEnd(event.result))
   })
   endGeocoder.on('result', event => {
     dispatch(addEnd(event.result))
@@ -108,32 +116,63 @@ const StartEnd = () => {
 
   return (
     <Layout>
-      <div><p><b>Start:  </b>{DEPOT.start.place_name}
-        <StartGeo
-          style={startGeoStyle}
-          ref={startGeocoderContainer} /></p>
-      <Button
-        style={startStyle}
-        onClick={() => {
-          dispatch(removeStart())
-          dispatch(removeGoogleUrl())
-        }}
-      >Remove
-      </Button>
-      </div>
-      <div><p><b>End:  </b>{DEPOT.end.place_name}
-        <EndGeo
-          style={endGeoStyle}
-          ref={endGeocoderContainer} /></p>
-      <Button
-        style={endStyle}
-        onClick={() => {
-          dispatch(removeEnd())
-          dispatch(removeGoogleUrl())
-        }}
-      >Remove
-      </Button>
-      </div>
+      {isCircuit
+        ? <div><p><b>Start/End:  </b>{DEPOT.start.place_name}
+            <StartGeo
+              style={startGeoStyle}
+              ref={startGeocoderContainer} /></p>
+            <Button
+              style={startStyle}
+              onClick={() => {
+                dispatch(removeStart())
+                dispatch(removeEnd())
+                dispatch(removeGoogleUrl())
+              }}
+            >Remove
+            </Button>
+            <Button
+              style={startStyle}
+              onClick={toggleCircuit}
+            >Non-Circuit
+            </Button>
+          </div>
+        : <>
+          <div><p><b>Start:  </b>{DEPOT.start.place_name}
+            <StartGeo
+              style={startGeoStyle}
+              ref={startGeocoderContainer} /></p>
+            <Button
+              style={startStyle}
+              onClick={() => {
+                dispatch(removeStart())
+                dispatch(removeGoogleUrl())
+              }}
+            >Remove
+            </Button>
+            <Button
+              style={startStyle}
+              onClick={() => {
+                toggleCircuit()
+                dispatch(addEnd(DEPOT.start))
+              }}
+            >Circuit
+            </Button>
+          </div>
+           <div><p><b>End:  </b>{DEPOT.end.place_name}
+             <EndGeo
+              style={endGeoStyle}
+              ref={endGeocoderContainer} /></p>
+           <Button
+            style={endStyle}
+            onClick={() => {
+              dispatch(removeEnd())
+              dispatch(removeGoogleUrl())
+            }}
+           >Remove
+           </Button>
+          </div>
+          </>
+      }
     </Layout>
   )
 }
