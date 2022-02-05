@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
-import { optimLocations, removeLocation } from '../reducers/locationsReducer'
+import { optimLocations, removeLocation, clearLocations } from '../reducers/addressesReducer'
 import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { createRoute } from '../reducers/routeReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -13,8 +13,6 @@ import {
   bbox as turfBbox,
 } from '@turf/turf'
 import { removeRoute } from '../reducers/routeReducer'
-
-import { clearLocations } from '../reducers/locationsReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -59,11 +57,9 @@ const Button = styled.button`
 `
 const Locations = ({ map }) => {
   const DEPOT = useSelector(state => state.DEPOT)
-  console.log(DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const addresses = useSelector(state => state.addresses)
   const locations = addresses.features
-  console.log(addresses)
   const dispatch = useDispatch()
   if (!locations) return
 

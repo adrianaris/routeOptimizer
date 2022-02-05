@@ -46,4 +46,31 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
   }
 }
 
+export const addLocation = coordinates => {
+  return {
+    type: 'ADD_LOCATION',
+    data: coordinates
+  }
+}
+
+export const removeLocation = id => {
+  return {
+    type: 'REMOVE_LOCATION',
+    data: id
+  }
+}
+
+export const optimLocations = orderedIndexArray => {
+  return {
+    type: 'OPTIMIZE_LOCATIONS',
+    data: orderedIndexArray
+  }
+}
+
+export const clearLocations = () => {
+  return {
+    type: 'CLEAR_LOCATIONS'
+  }
+}
+
 export default turfAddressesReducer

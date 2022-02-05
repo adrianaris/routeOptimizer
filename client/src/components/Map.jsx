@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { addLocation } from '../reducers/locationsReducer'
+import { addLocation } from '../reducers/addressesReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
@@ -88,8 +88,6 @@ const Map = () => {
   })
 
   const userDATA = useSelector(state => state.userDATA)
-  const locations = useSelector(state => state.locations)
-
   const dispatch = useDispatch()
 
   const mapContainer = useRef(null)
@@ -101,6 +99,7 @@ const Map = () => {
    **/
   const route = useSelector(state => state.route)
   const addresses = useSelector(state => state.addresses)
+  const locations = addresses.features
   const warehouse = turfFeatureCollection([])
   /**
    * Since I implemented the IP geolocation I'm not sure

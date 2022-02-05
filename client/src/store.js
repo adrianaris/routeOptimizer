@@ -1,9 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import locationsReducer from './reducers/locationsReducer'
 import googleUrlReducer from './reducers/googleUrlReducer'
 import startendReducer from './reducers/startendReducer'
 import notificationReducer from './reducers/notificationReducer'
-import turfAddressesReducer from './reducers/turfAddressesReducer'
+import addressesReducer from './reducers/addressesReducer'
 import userDataReducer from './reducers/userDataReducer'
 import routeReducer from './reducers/routeReducer'
 import thunk from 'redux-thunk'
@@ -13,11 +12,10 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const reducer = combineReducers({
-  locations: locationsReducer,
   googleUrl: googleUrlReducer,
   DEPOT: startendReducer,
   notification: notificationReducer,
-  addresses: turfAddressesReducer,
+  addresses: addressesReducer,
   userDATA: userDataReducer,
   route: routeReducer
 })
