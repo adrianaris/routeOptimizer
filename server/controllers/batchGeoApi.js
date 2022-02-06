@@ -1,7 +1,8 @@
 const geoRouter = require('express').Router()
 const getBatchGeo = require('../services/getBatchGeo')
+const axios = require('axios')
 
-const addresses = [
+const addresses = [ // example request
   "210 brusselsesteenweg, 3080 tervuren, belgium",
   "184 beiaardstraat, 8860 kortrijk, belgium",
   "33 vaartdijkstraat 2235, antwerp, belgium",
@@ -16,7 +17,7 @@ const addresses = [
 
 geoRouter.get('/', async (request, response) => {
   const batchJob = await getBatchGeo(addresses)
-  response.json(batchJob)
+  response.send(batchJob.data)
 })
 
 module.exports = geoRouter

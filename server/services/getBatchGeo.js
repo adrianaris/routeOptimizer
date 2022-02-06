@@ -4,35 +4,49 @@ const url = `https://api.geoapify.com/v1/batch/geocode/search?apiKey=${config.GE
 
 const getBatchGeo = async addresses => {
   try {
-    const retries = 5 
     const config = {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      },
-      timeout: 1000
-    }
-    for (let i=0; i < retries; i++) {
-      try {
-        const response = await axios.post(
-          url,
-          addresses,
-          config
-        )
-        if (response) {
-          console.log('Job ID: ' + response.data.id)
-          console.log('Job URL: ' + response.data.url)
-          return response.data
-        } else {
-          console.log('cannot fetch data')
-        }
-      } catch(error) {
-        console.log(error)
       }
     }
+      const response = await axios.post(
+        url,
+        addresses,
+        config
+      )
+      console.log('Job ID: ' + response.data.id)
+      console.log('Job URL: ' + response.data.url)
+      console.log('Job status: ' + response.data.status)
+      const geoResponse = await getGeoResponse(response.data.url)
+      console.log(geoResponse.status)
+      return geoResponse
   } catch (e) {
     console.log(e)
   }
 }
+
+const getGeoResponse = async url => {
+  try {
+    const retries = 3
+        for (let i = 0; i < retries; i++) {
+          await delay(5)
+          try {
+            const response = await axios.get(url, { timeout: 1000 })
+            if (response.status === 200) {
+              return response
+            } else if (response.status === 202) {
+              console.log('data not ready', + i)
+            }
+          } catch(error) {
+            console.log('cannot fetch data')
+          }
+        }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+const delay = (s) => new Promise(resolve => setTimeout(resolve, s*1000))
 
 module.exports = getBatchGeo
