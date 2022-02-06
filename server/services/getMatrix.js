@@ -23,8 +23,12 @@ const getMatrix = async addresses => {
     `&approaches=${approaches/** unrestricted or curb */}` +
     `&access_token=${config.MAPBOX_TOKEN}`
 
-  const apiResponse = await axios.get(url)
-  return apiResponse.data
+  try {
+    const apiResponse = await axios.get(url)
+    return apiResponse.data
+  } catch (e) {
+    console.log('matrri api failed')
+  }
 }
 
 module.exports = getMatrix
