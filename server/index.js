@@ -3,21 +3,22 @@ const http = require('http')
 const app = express()
 const cors = require('cors')
 const config = require('./utils/config')
-const mapRouter = require('./controllers/mapApi')
-const matrixRouter = require('./controllers/matrixApi')
+// const matrixRouter = require('./controllers/matrixApi')
 const errors = require('./utils/errors')
 const logger = require('./utils/logger')
 
-const querrySchema = require('./models/matrix')
+// const querrySchema = require('./models/matrix')
+// 
+// const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
+// const matrixService = mbxMatrix({ accessToken: config.MAPBOX_TOKEN})
 
-const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
-const matrixService = mbxMatrix({ accessToken: config.MAPBOX_TOKEN})
+const geoRouter = require('./controllers/batchGeoApi')
 
 
 app.use(express.json())
 app.use(cors())
-app.use('/api/matrix', matrixRouter)
-app.use('/api/map', mapRouter)
+// app.use('/api/matrix', matrixRouter)
+app.use('/api/geo', geoRouter)
 
 const server = http.createServer(app)
 
