@@ -18,15 +18,15 @@ const getBatchGeo = async addresses => {
       console.log('Job ID: ' + response.data.id)
       console.log('Job URL: ' + response.data.url)
       console.log('Job status: ' + response.data.status)
-      const geoResponse = await getGeoResponse(response.data.url)
-      console.log(geoResponse.status)
-      return geoResponse
+      const apiResponse = await getApiResponse(response.data.url)
+      console.log(apiResponse.status)
+      return apiResponse
   } catch (e) {
     console.log(e)
   }
 }
 
-const getGeoResponse = async url => {
+const getApiResponse = async url => {
   try {
     const retries = 3
         for (let i = 0; i < retries; i++) {

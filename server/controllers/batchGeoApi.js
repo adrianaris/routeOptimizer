@@ -2,6 +2,9 @@ const geoRouter = require('express').Router()
 const getBatchGeo = require('../services/getBatchGeo')
 const axios = require('axios')
 
+const getMatrix = require('../services/getMatrix')
+const testAddresses = require('../ORtools/testAddresses')
+
 const addresses = [ // example request
   "210 brusselsesteenweg, 3080 tervuren, belgium",
   "184 beiaardstraat, 8860 kortrijk, belgium",
@@ -17,7 +20,13 @@ const addresses = [ // example request
 
 geoRouter.get('/', async (request, response) => {
   const batchJob = await getBatchGeo(addresses)
-  response.send(batchJob.data)
+  response.json(batchJob.data)
+})
+
+geoRouter.get('/matrix', async (req, res) => {
+  const matrix = await getMatrix(testAddresses)
+  console.log(matrix)
+  res.send(matrix)
 })
 
 module.exports = geoRouter

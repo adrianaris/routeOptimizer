@@ -8,7 +8,6 @@ const errors = require('./utils/errors')
 const logger = require('./utils/logger')
 
 // const querrySchema = require('./models/matrix')
-// 
 // const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
 // const matrixService = mbxMatrix({ accessToken: config.MAPBOX_TOKEN})
 
@@ -26,7 +25,7 @@ server.listen(config.PORT, () => {
   logger(`Server is running on port ${config.PORT}`)
 })
 
-app.get('/', async (request, response) => {
+app.get('/', async (request, response) => { // testing
   const coord = { ...querrySchema,
     points: [
       {
@@ -68,7 +67,7 @@ app.get('/', async (request, response) => {
   response.status(201).json(matrix)
 })
 
-app.get('/stdin', (request, response) => {
+app.get('/stdin', (request, response) => { // testing
   const matrix = [
     [0, 2451, 713, 1018, 1631, 1374, 2408, 213, 2571, 875, 1420, 2145, 1972],
     [2451, 0, 1745, 1524, 831, 1240, 959, 2596, 403, 1589, 1374, 357, 579],
