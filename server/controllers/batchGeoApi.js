@@ -25,8 +25,20 @@ geoRouter.get('/', async (request, response) => {
 
 geoRouter.get('/matrix', async (req, res) => {
   const matrix = await getMatrix(testAddresses)
-  console.log(matrix)
-  res.send(matrix)
+  let matrixInt = matrix.distances.map(row => row.map(item => parseInt(item*10)))
+  console.log(matrixInt)
+
+  res.json(matrixInt)
+  //const { spawn } = require('child_process')
+  //const pythonScript = spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix.distances)])
+  //pythonScript.stdout.on('data', data => {
+  //  response.json(data.toString().split(/,/).map(str => parseFloat(str)))
+  //})
+
+  //pythonScript.stderr.on('data', data => {
+  //  console.log(data.toString())
+  //})
+
 })
 
 module.exports = geoRouter

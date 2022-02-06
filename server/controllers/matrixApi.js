@@ -14,8 +14,6 @@ matrixRouter.post('/', async (request, response) => {
   const apiResponse = await matrixService.getMatrix(querry).send()
   const matrix = apiResponse.body
 
-  console.log(matrix.destinations.map(o => o.location))
-
   const { spawn } = require('child_process')
   const pythonScript = spawn('python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrix.distances)])
 
