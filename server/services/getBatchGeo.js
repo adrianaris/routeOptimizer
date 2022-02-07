@@ -28,9 +28,9 @@ const getBatchGeo = async addresses => {
 
 const getApiResponse = async url => {
   try {
-    const retries = 3
+    const retries = 50
         for (let i = 0; i < retries; i++) {
-          await delay(5)
+          await delay(10)
           try {
             const response = await axios.get(url, { timeout: 1000 })
             if (response.status === 200) {

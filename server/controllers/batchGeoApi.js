@@ -5,6 +5,35 @@ const axios = require('axios')
 const getMatrix = require('../services/getMatrix')
 const testAddresses = require('../ORtools/testAddresses')
 
+const Excel = require('exceljs')
+const workbook = new Excel.Workbook()
+const fileName = './ORtools/nog te doen vlaams brabant.xlsx'
+
+const getAddressesFromXL = async () => {
+  await workbook.xlsx.readFile(fileName)
+  let addresslist1 = []
+  let addresslist2 = []
+  let addresslist3 = []
+  let addresslist = []
+  const ws = workbook.getWorksheet('Blad1')
+  const c5 = ws.getColumn(5)
+  const c6 = ws.getColumn(6)
+  const c7 = ws.getColumn(7)
+  c5.eachCell(c => {
+    addresslist1.push(''.concat(c))
+  })
+  c6.eachCell(c => {
+    addresslist2.push(''.concat(c))
+  })
+  c7.eachCell(c => {
+    addresslist3.push(''.concat(c))
+  })
+  for (let i = 0; i < addresslist1.length; i++) {
+    addresslist[i] = addresslist1[i].concat(', '+addresslist2[i]).concat(', '+addresslist3[i]).concat(', Belgium')
+  }
+  return addresslist
+}
+
 const addresses = [ // example request for geoapify
   "210 brusselsesteenweg, 3080 tervuren, belgium",
   "184 beiaardstraat, 8860 kortrijk, belgium",
@@ -19,8 +48,10 @@ const addresses = [ // example request for geoapify
 ]
 
 geoRouter.get('/', async (request, response) => {
-  const batchJob = await getBatchGeo(addresses)
-  response.json(batchJob.data)
+  const addresslist = await getAddressesFromXL()
+  console.log(addresslist)
+  //const batchJob = await getBatchGeo(addresslist)
+  //response.json(batchJob.data)
 })
 
 geoRouter.get('/matrix', async (request, response) => {
