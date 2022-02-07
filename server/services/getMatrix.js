@@ -17,14 +17,24 @@ const getMatrix = async addresses => {
   coordinates = coordinates.substring(0, coordinates.length - 1)
   approaches = approaches.substring(0, approaches.length -1)
 
-  const url = `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/` +
+  /**
+   * apparently the 25 coordinates limit is a big constraint
+   * I have to find an alternative to mapbox and for the moment
+   * osrm seams to be the answere
+   */
+
+  const mapboxUrl = `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/` +
     `${coordinates /**long,lat;*/}` +
     `?annotations=distance` +
     `&approaches=${approaches/** unrestricted or curb */}` +
     `&access_token=${config.MAPBOX_TOKEN}`
 
+  const osrmUrl = `http://router.project-osrm.org/table/v1/driving/` +
+    `${coordinates}` +
+    `?annotations=distance`
+
   try {
-    const apiResponse = await axios.get(url)
+    const apiResponse = await axios.get(osrmUrl)
     return apiResponse.data
   } catch (e) {
     console.log('matrri api failed')

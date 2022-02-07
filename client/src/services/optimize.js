@@ -31,6 +31,7 @@ const optimize = async (locations) => {
   const routeGeoJSON = turfFeatureCollection([
     turfFeature(data.trips[0].geometry),
   ])
+  console.log(data.trips)
 
   return { routeGeoJSON, orderedIndexArray, waypoints }
 }

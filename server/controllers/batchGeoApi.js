@@ -29,11 +29,11 @@ geoRouter.get('/matrix', async (request, response) => {
    * the destination is the last address in the list
    *
    * right now it behaves like a TSP and the last
-   * address is also the first (circuit)
+   * address is also the first (circuit only)
    */
   const matrix = await getMatrix(testAddresses)
+  console.log(matrix)
   let matrixInt = matrix.distances.map(row => row.map(item => parseInt(item*10)))
-  console.log(matrixInt)
 
   const { spawn } = require('child_process')
   const pythonScript = spawn('./venv/bin/python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrixInt)])
