@@ -1,10 +1,36 @@
 const axios = require('axios')
 const config = require('../utils/config')
+const matrixUtils = require('../utils/matrixUtils')
 
 const getMatrix = async addresses => {
+  const callSize = 12 //mapbox call size / 2
+  let matrix = new Array(addresses.length).fill([])
+  const slicedAddressList = matrixUtils.addressListSlicer(addresses, callSize)
+
+  for (let i in slicedAddressList) {
+    for (let j in slicedAddressList) {
+      const apiRes = await callApi(
+        slicedAddressList[i].concat(slicedAddressList[j]),
+        slicedAddressList[i].length
+      )
+      matrix = matrixUtils.matrixFiller(apiRes.distances, matrix, i * callSize)
+    }
+  }
+  
+  return matrix
+
+  //const osrmUrl = `http://router.project-osrm.org/table/v1/driving/` +
+  //  `${coordinates}` +
+  //  `?annotations=distance`
+
+}
+
+const callApi = async (addresses, sourceListLength) => {
   let coordinates = ''
   let approaches = ''
   let stopside = ''
+  let sources = ''
+  let destinations = ''
   for (let i in addresses) {
     coordinates = coordinates + `${addresses[i].lon},${addresses[i].lat};`
     if (addresses[i].stopside) {
@@ -13,32 +39,36 @@ const getMatrix = async addresses => {
       stopside = 'unrestricted'
     }
     approaches = approaches + `${stopside};`
+    if (i < sourceListLength) {
+      sources = sources + `${i};`
+    } else {
+      destinations = destinations + `${i};`
+    }
+
   }
   coordinates = coordinates.substring(0, coordinates.length - 1)
-  approaches = approaches.substring(0, approaches.length -1)
-
-  /**
-   * apparently the 25 coordinates limit is a big constraint
-   * I have to find an alternative to mapbox and for the moment
-   * osrm seams to be the answere
-   */
+  approaches = approaches.substring(0, approaches.length - 1)
+  sources = sources.substring(0, sources.length - 1)
+  destinations = destinations.substring(0, destinations.length - 1)
 
   const mapboxUrl = `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/` +
     `${coordinates /**long,lat;*/}` +
-    `?annotations=distance` +
+    `?sources=${sources}` +
+    `&destinations=${destinations}` +
+    `&annotations=distance` +
     `&approaches=${approaches/** unrestricted or curb */}` +
     `&access_token=${config.MAPBOX_TOKEN}`
 
-  const osrmUrl = `http://router.project-osrm.org/table/v1/driving/` +
-    `${coordinates}` +
-    `?annotations=distance`
-
   try {
-    const apiResponse = await axios.get(osrmUrl)
+    const apiResponse = await axios.get(mapboxUrl)
+    console.log(apiResponse.data)
     return apiResponse.data
   } catch (e) {
-    console.log('matrri api failed')
+    console.log('matrix api failed')
+    console.log(e)
   }
+
+
 }
 
 module.exports = getMatrix

@@ -63,8 +63,8 @@ geoRouter.get('/matrix', async (request, response) => {
    * address is also the first (circuit only)
    */
   const matrix = await getMatrix(testAddresses)
-  console.log(matrix)
-  let matrixInt = matrix.distances.map(row => row.map(item => parseInt(item*10)))
+  let matrixInt = matrix.map(row => row.map(item => parseInt(item*10)))
+  console.log(matrixInt)
 
   const { spawn } = require('child_process')
   const pythonScript = spawn('./venv/bin/python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrixInt)])
