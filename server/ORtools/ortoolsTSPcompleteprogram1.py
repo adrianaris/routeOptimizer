@@ -8,6 +8,7 @@ import json
 
 try:
     matrix = json.loads(sys.argv[1])
+    finalDestination = json.loads(sys.argv[2])
 except:
     raise Exception("problem with arg")
 
@@ -20,7 +21,9 @@ def create_data_model():
     data = {}
     data['distance_matrix'] = matrix  # yapf: disable
     data['num_vehicles'] = 1
-    data['depot'] = 0
+    data['starts'] = [0]
+    data['ends'] = finalDestination
+    print(finalDestination)
     return data
 
 
@@ -46,7 +49,8 @@ def main():
 
     # Create the routing index manager.
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
-                                           data['num_vehicles'], data['depot'])
+                                           data['num_vehicles'], data['starts'],
+                                           data['ends'])
 
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)

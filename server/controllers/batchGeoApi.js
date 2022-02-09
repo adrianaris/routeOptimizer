@@ -4,6 +4,7 @@ const axios = require('axios')
 
 const getMatrix = require('../services/getMatrix')
 const testAddresses = require('../ORtools/testAddresses')
+const exampleMatrix = require('../ORtools/exampleMatrixResult')
 
 const Excel = require('exceljs')
 const workbook = new Excel.Workbook()
@@ -62,12 +63,11 @@ geoRouter.get('/matrix', async (request, response) => {
    * right now it behaves like a TSP and the last
    * address is also the first (circuit only)
    */
-  const matrix = await getMatrix(testAddresses)
-  let matrixInt = matrix.map(row => row.map(item => parseInt(item*10)))
-  console.log(matrixInt)
+  //const matrix = await getMatrix(testAddresses)
+  //let matrixInt = matrix.map(row => row.map(item => parseInt(item*10)))
 
   const { spawn } = require('child_process')
-  const pythonScript = spawn('./venv/bin/python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(matrixInt)])
+  const pythonScript = spawn('./venv/bin/python', ['./ORtools/ortoolsTSPcompleteprogram1.py', JSON.stringify(exampleMatrix), JSON.stringify([exampleMatrix.length-1])])
   pythonScript.stdout.on('data', data => {
     /** 
      * create ordered array out of the python script response
