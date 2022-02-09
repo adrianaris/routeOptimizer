@@ -19,6 +19,8 @@ const getMatrix = async addresses => {
     }
   }
   
+  matrix = matrix.map(row => row.map(item => parseInt(item * 10)))
+
   return matrix
 
   //const osrmUrl = `http://router.project-osrm.org/table/v1/driving/` +

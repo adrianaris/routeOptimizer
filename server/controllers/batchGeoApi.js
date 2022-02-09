@@ -1,8 +1,6 @@
 const axios = require('axios')
 const optimRouter = require('express').Router()
-const getBatchGeo = require('../services/getBatchGeo')
-const getMatrix = require('../services/getMatrix')
-const callORtools = require('../services/callORtools'
+const optimize = require('../services/optimization')
 
 const testAddresses = require('../ORtools/testAddresses')
 const exampleMatrix = require('../ORtools/exampleMatrixResult')
@@ -23,7 +21,7 @@ const exampleMatrix = require('../ORtools/exampleMatrixResult')
 /**
  * for testing
  */
-geoRouter.get('/', async (request, response) => {
+optimRouter.get('/', async (request, response) => {
   const addresslist = await getAddressesFromXL()
   console.log(addresslist)
   //const batchJob = await getBatchGeo(addresslist)
@@ -33,10 +31,11 @@ geoRouter.get('/', async (request, response) => {
 /**
  * for testing
  */
-geoRouter.get('/matrix', async (request, response) => {
-  //const matrix = await getMatrix(testAddresses)
-  //let matrixInt = matrix.map(row => row.map(item => parseInt(item*10)))
+optimRouter.get('/matrix', async (request, response) => {
+  //const addresslist = request.body
+  //const orderedList = await optimize(addresslist)
+  //response.json(orderedList)
 
 })
 
-module.exports = geoRouter
+module.exports = optimRouter 
