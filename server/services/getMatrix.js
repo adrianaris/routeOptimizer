@@ -4,6 +4,7 @@ const matrixUtils = require('../utils/matrixUtils')
 
 const getMatrix = async addresses => {
   const callSize = 12 //mapbox call size / 2
+  // empty matrix to be filled by our function
   let matrix = new Array(addresses.length).fill([])
   // slice the address list into manageabel chuncks
   const slicedAddressList = matrixUtils.addressListSlicer(addresses, callSize)
