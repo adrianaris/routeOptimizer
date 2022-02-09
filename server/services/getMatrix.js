@@ -5,14 +5,16 @@ const matrixUtils = require('../utils/matrixUtils')
 const getMatrix = async addresses => {
   const callSize = 12 //mapbox call size / 2
   let matrix = new Array(addresses.length).fill([])
+  // slice the address list into manageabel chuncks
   const slicedAddressList = matrixUtils.addressListSlicer(addresses, callSize)
 
   for (let i in slicedAddressList) {
     for (let j in slicedAddressList) {
       const apiRes = await callApi(
-        slicedAddressList[i].concat(slicedAddressList[j]),
-        slicedAddressList[i].length
+        slicedAddressList[i].concat(slicedAddressList[j]), // i sources j destinations
+        slicedAddressList[i].length // helper to construct the url
       )
+      // construct the matrix from the api responses
       matrix = matrixUtils.matrixFiller(apiRes.distances, matrix, i * callSize)
     }
   }

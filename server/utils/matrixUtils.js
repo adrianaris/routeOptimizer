@@ -11,7 +11,7 @@ const matrixFiller = (apiResMatrix, ourMatrix, base) => {
  * callSize is 25 coordinates for mapbox as an example
  * this means spliting the address list into chuncks of
  * 12 address so that when combined for the call 
- * (into sources + destinations) it doesn't excede 25 limit 
+ * (into sources + destinations) it doesn't exceede 25 limit 
  * + 1 chunk for remainder
  */
 const addressListSlicer = (addressList, callSize) => {
