@@ -2,13 +2,6 @@ import {
   featureCollection as turfFeatureCollection,
 } from '@turf/turf'
 
-/**
- * This reducer is synchronized with locationsReducer because
- * it shares the same data
- * We dont have one reducer because the data in this one if formated
- * such that it's not usefull for displaying purposes
- */
-
 const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
   switch(action.type) {
   case 'ADD_LOCATION': {

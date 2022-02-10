@@ -93,6 +93,7 @@ const Map = () => {
   const userDATA = useSelector(state => state.userDATA)
   const DEPOT = useSelector(state => state.DEPOT)
   const dispatch = useDispatch()
+  console.log(DEPOT.start)
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
