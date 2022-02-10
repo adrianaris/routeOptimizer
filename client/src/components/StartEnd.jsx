@@ -7,6 +7,8 @@ import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendRe
 import { removeRoute } from '../reducers/routeReducer'
 import _ from 'lodash'
 
+import TestBackendButton from './TestBackendButton'
+
 const Layout = styled.div`
   position: relative;
   margin: auto;
@@ -122,6 +124,7 @@ const StartEnd = () => {
         }}
       >Remove
       </Button>
+      <TestBackendButton />
       </div>
       <div><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo

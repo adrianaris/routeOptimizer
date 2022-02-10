@@ -3,7 +3,7 @@ const callORtools = require('./callORtools')
 const addressParser = require('../utils/addressParser')
 const sorter = require('../utils/arraySorter')
 const getRoute = require('./getRoute')
-
+const { featureCollection, feature } = require('@turf/turf')
 
 const matrixExample = require('../ORtools/exampleMatrixResult')
 
@@ -24,9 +24,12 @@ const optimize = async (addresslist, service) => {
   const sortedCoord = sorter(coordinates, order)
 
   const route = await getRoute(sortedCoord)
+  const routeGeoJSON = featureCollection([
+    feature(route.trips[0].geometry)
+  ])
+  const waypoints = route.waypoints
   
-  console.log(route)
-  return { orderedAddresslist, route }
+  return { orderedAddresslist, routeGeoJSON, waypoints }
 }
 
 module.exports = optimize
