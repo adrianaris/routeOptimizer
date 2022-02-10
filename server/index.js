@@ -17,7 +17,7 @@ const optimRouter = require('./controllers/optimizationRouter')
 app.use(express.json())
 app.use(cors())
 // app.use('/api/matrix', matrixRouter)
-app.use('/api/geo', optimRouter)
+app.use('/api/optim', optimRouter)
 
 const server = http.createServer(app)
 

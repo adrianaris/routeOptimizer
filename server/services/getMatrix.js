@@ -7,7 +7,7 @@ const getMatrix = async coordinates=> {
   // empty matrix to be filled by our function
   let matrix = new Array(coordinates.length).fill([])
   // slice the address list into manageabel chuncks
-  const slicedAddressList = matrixUtils.addressListSlicer(addresses, callSize)
+  const slicedAddressList = matrixUtils.addressListSlicer(coordinates, callSize)
 
   for (let i in slicedAddressList) {
     for (let j in slicedAddressList) {
@@ -39,8 +39,8 @@ const callApi = async (coordinates, sourceListLength) => {
   let stopside = ''
   let sources = ''
   let destinations = ''
-  for (let i in addresses) {
-    coorString = coorString + `${coordinates[i][0]},${coordinates[i][1]};`
+  for (let i in coordinates) {
+    coordString = coordString + `${coordinates[i][0]},${coordinates[i][1]};`
     if (coordinates[i][2]) {
       stopside = coordinates[i][2]
     } else {
@@ -52,9 +52,8 @@ const callApi = async (coordinates, sourceListLength) => {
     } else {
       destinations = destinations + `${i};`
     }
-
   }
-  coordString = coordString.substring(0, coordinates.length - 1)
+  coordString = coordString.substring(0, coordString.length - 1)
   approaches = approaches.substring(0, approaches.length - 1)
   sources = sources.substring(0, sources.length - 1)
   destinations = destinations.substring(0, destinations.length - 1)
@@ -69,11 +68,9 @@ const callApi = async (coordinates, sourceListLength) => {
 
   try {
     const apiResponse = await axios.get(mapboxUrl)
-    console.log(apiResponse.data)
     return apiResponse.data
   } catch (e) {
-    console.log('matrix api failed')
-    console.log(e)
+    console.log('matrix api failed with: ', e.status)
   }
 
 
