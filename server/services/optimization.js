@@ -1,6 +1,8 @@
 const getMatrix = require('./getMatrix')
 const callORtools = require('./callORtools')
 const addressParser = require('../utils/addressParser')
+const sorter = require('../utils/arraySorter')
+const getRoute = require('./getRoute')
 
 
 const matrixExample = require('../ORtools/exampleMatrixResult')
@@ -18,15 +20,13 @@ const optimize = async (addresslist, service) => {
 
 //  const matrix = await getMatrix(coordinates)
   const order =  await callORtools(matrixExample)
-  
-  console.log(order)
-  let orderedAddresslist = []
-  for (let i in order) {
-    orderedAddresslist.push(addresslist[order[i]])
-  }
+  const orderedAddresslist = sorter(addresslist, order)
+  const sortedCoord = sorter(coordinates, order)
 
-  console.log(orderedAddresslist)
-  return orderedAddresslist
+  const route = await getRoute(sortedCoord)
+  
+  console.log(route)
+  return { orderedAddresslist, route }
 }
 
 module.exports = optimize

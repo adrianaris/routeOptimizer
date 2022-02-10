@@ -48,9 +48,10 @@ optimRouter.get('/matrix', async (request, response) => {
 optimRouter.get('/geoapify', async (request, response) => {
   //const addresslist = await getBatchGeo(addresses) 
   const addresslist = testAddresses
-  const optimAddresses = await optimize(addresslist, 'geoapify')
-  const formattedAddressList = addressFormatter(optimAddresses)
-  response.json(formattedAddressList)
+  const data = await optimize(addresslist, 'geoapify')
+  const formattedAddressList = addressFormatter(data.orderedAddresslist)
+  data.orderedAddresslist = formattedAddressList
+  response.json(data)
 })
 
 module.exports = optimRouter 

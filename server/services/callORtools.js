@@ -28,7 +28,6 @@ const callORtools = async matrix => {
   })
 
   await once(pythonScript, 'close')
-  console.log(orderedArray)
   return orderedArray
 }
   

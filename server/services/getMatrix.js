@@ -72,8 +72,6 @@ const callApi = async (coordinates, sourceListLength) => {
   } catch (e) {
     console.log('matrix api failed with: ', e.status)
   }
-
-
 }
 
 module.exports = getMatrix
