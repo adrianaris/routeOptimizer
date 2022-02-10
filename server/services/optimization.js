@@ -1,9 +1,18 @@
 const getBatchGeo = require('./getBatchGeo')
 const getMatrix = require('./getMatrix')
 const callORtools = require('./callORtools')
+const addressParser = require('../utils/addressParser')
 
-const optimize = async addresslist => {
-  const coordinates = await getBatchGeo(addresslist)
+/**
+ * service can be 'mapbox', 'geoapify' etc.
+ */
+const optimize = async (addresslist, service) => {
+  if (service === 'mapbox') {
+    const coordinates = addressParser.mapboxParser(addresslist)
+  } else if (service === 'geoapify') {
+    const coordinates = addressParser.geoapifyParser(addresslist)
+  }
+
   const matrix = await getMatrix(coordinates)
   const order = callORtools(matrix)
   

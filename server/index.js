@@ -11,13 +11,13 @@ const logger = require('./utils/logger')
 // const mbxMatrix = require('@mapbox/mapbox-sdk/services/matrix')
 // const matrixService = mbxMatrix({ accessToken: config.MAPBOX_TOKEN})
 
-const geoRouter = require('./controllers/batchGeoApi')
+const optimRouter = require('./controllers/optimizationRouter')
 
 
 app.use(express.json())
 app.use(cors())
 // app.use('/api/matrix', matrixRouter)
-app.use('/api/geo', geoRouter)
+app.use('/api/geo', optimRouter)
 
 const server = http.createServer(app)
 

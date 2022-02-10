@@ -1,4 +1,8 @@
-//this is just a test at the moment
+/**
+ * this is just a test at the moment
+ * and it returns an array of strings 
+ * formated for geoapify batch geo api
+ */
 const Excel = require('exceljs')
 const fileName = './ORtools/nog te doen vlaams brabant.xlsx'
 

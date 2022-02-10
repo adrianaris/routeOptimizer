@@ -2,10 +2,10 @@ const axios = require('axios')
 const config = require('../utils/config')
 const matrixUtils = require('../utils/matrixUtils')
 
-const getMatrix = async addresses => {
+const getMatrix = async coordinates=> {
   const callSize = 12 //mapbox call size / 2
   // empty matrix to be filled by our function
-  let matrix = new Array(addresses.length).fill([])
+  let matrix = new Array(coordinates.length).fill([])
   // slice the address list into manageabel chuncks
   const slicedAddressList = matrixUtils.addressListSlicer(addresses, callSize)
 
@@ -30,16 +30,19 @@ const getMatrix = async addresses => {
 
 }
 
-const callApi = async (addresses, sourceListLength) => {
-  let coordinates = ''
+/**
+ * coordinates are of format [long, lat, stopside (string and optional)]
+ */
+const callApi = async (coordinates, sourceListLength) => {
+  let coordString = ''
   let approaches = ''
   let stopside = ''
   let sources = ''
   let destinations = ''
   for (let i in addresses) {
-    coordinates = coordinates + `${addresses[i].lon},${addresses[i].lat};`
-    if (addresses[i].stopside) {
-      stopside = addresses[i].stopside
+    coorString = coorString + `${coordinates[i][0]},${coordinates[i][1]};`
+    if (coordinates[i][2]) {
+      stopside = coordinates[i][2]
     } else {
       stopside = 'unrestricted'
     }
@@ -51,13 +54,13 @@ const callApi = async (addresses, sourceListLength) => {
     }
 
   }
-  coordinates = coordinates.substring(0, coordinates.length - 1)
+  coordString = coordString.substring(0, coordinates.length - 1)
   approaches = approaches.substring(0, approaches.length - 1)
   sources = sources.substring(0, sources.length - 1)
   destinations = destinations.substring(0, destinations.length - 1)
 
   const mapboxUrl = `https://api.mapbox.com/directions-matrix/v1/mapbox/driving/` +
-    `${coordinates /**long,lat;*/}` +
+    `${coordString /**long,lat;*/}` +
     `?sources=${sources}` +
     `&destinations=${destinations}` +
     `&annotations=distance` +

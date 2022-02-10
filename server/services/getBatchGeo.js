@@ -2,6 +2,9 @@ const axios = require('axios')
 const config = require('../utils/config')
 const url = `https://api.geoapify.com/v1/batch/geocode/search?apiKey=${config.GEOAPIFY_TOKEN}`
 
+/**
+ * addresses are of format array of strings
+ */
 const getBatchGeo = async addresses => {
   try {
     const config = {
