@@ -10,7 +10,7 @@ import { setNotification } from '../reducers/notificationReducer'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
-import Sidebar from './Sidebar'
+//import Sidebar from './Sidebar'
 import Locations from './Locations'
 import Notification from './Notification'
 import { featureCollection as turfFeatureCollection } from '@turf/turf'
@@ -20,7 +20,7 @@ import { featureCollection as turfFeatureCollection } from '@turf/turf'
 const MapContainer = styled.div`
   height: 38vh;
   position: relative;
-  width: 99%;
+  width: 100%;
   margin: auto;
   border: 2px solid black;
   border-radius: 8px;
@@ -56,7 +56,7 @@ const FlexContainer = styled.div`
     justify-content: start;
     flex-direction: row;
     > div: first-of-type {
-      width: 60vw;
+      width: 60%;
       height: 100%;
       > div: last-of-type {
         height: 98vh;
@@ -70,6 +70,9 @@ const FlexContainer = styled.div`
     @media (max-height: 661px) and (max-width: 640px){
       > div: first-of-type {
         display: none;
+      }
+      > div: last-of-type {
+        z-index: 10;
       }
     }
   }
@@ -252,7 +255,6 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <Sidebar map={map.current} />
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
