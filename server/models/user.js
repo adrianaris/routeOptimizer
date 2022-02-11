@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     routes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Blog'
+            ref: 'Route'
         }
     ],
     passwordHash: String
