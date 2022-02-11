@@ -3,8 +3,11 @@ const app = express()
 require('express-async-errors')
 const cors = require('cors')
 const optimRouter = require('./controllers/optimizationRouter')
+const usersRouter = require('./controllers/usersRouter')
+const loginRouter = require('./controllers/loginRouter')
 const config = require('./utils/config')
 const errors = require('./utils/errors')
+const middleware = require('./utils/middleware')
 const morgan = require('morgan')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
@@ -20,10 +23,15 @@ mongoose.connect(config.MONGODB_URI, {
   logger('error connecting to MongoDB', error.message)
 })
 
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
+
+app.use(middleware.tokenExtractor)
+app.use(middleware.userExtractor)
 
 app.use('/api/optim', optimRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 morgan.token('POST', req => {
   return JSON.stringify(req.body)
