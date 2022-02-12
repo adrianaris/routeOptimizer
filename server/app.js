@@ -3,7 +3,7 @@ const app = express()
 require('express-async-errors')
 const cors = require('cors')
 const optimRouter = require('./controllers/optimizationRouter')
-const usersRouter = require('./controllers/usersRouter')
+const registerRouter = require('./controllers/registerRouter')
 const loginRouter = require('./controllers/loginRouter')
 const config = require('./utils/config')
 const errors = require('./utils/errors')
@@ -30,7 +30,7 @@ app.use(middleware.tokenExtractor)
 app.use(middleware.userExtractor)
 
 app.use('/api/optim', optimRouter)
-app.use('/api/users', usersRouter)
+app.use('/api/register', registerRouter)
 app.use('/api/login', loginRouter)
 
 morgan.token('POST', req => {

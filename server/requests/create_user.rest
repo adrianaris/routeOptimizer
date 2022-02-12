@@ -1,8 +1,8 @@
-POST http://localhost:4000/api/users
+POST http://localhost:4000/api/register
 Content-Type: application/json
 
 {
     "username": "adrianaris",
-    "name": "Adrian, Serbanescu",
+    "name": "Adrian Serbanescu",
     "password": "dollars"
 }
