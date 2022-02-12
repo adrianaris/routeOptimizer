@@ -19,8 +19,7 @@ export const Register = credentials => {
         type: 'REGISTER',
         data: user,
       })
-      window.localStorage.setItem(
-        'foxINCUser', JSON.stringify(user)
+      window.localStorage.setItem('foxINCUser', JSON.stringify(user))
     } catch e {
       console.log('registration failed', e)
     }

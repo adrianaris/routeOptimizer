@@ -97,7 +97,6 @@ const Locations = ({ map }) => {
     map.getSource('route').setData(route)
   }, [route])
 
-
   const handleOptimizeClick = async () => {
     if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
       return dispatch(setNotification(

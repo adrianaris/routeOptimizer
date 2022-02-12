@@ -14,17 +14,6 @@ const Button = styled.button`
     }
   }
 `
-//const ToggableStyle = styled.div`
-//  display: inline-block;
-//  right: 0;
-//`
-//const ToggableContent = styled.div`
-//  position: fixed;
-//  right: 10%;
-//  @media (min-aspect-ratio: 29/30) {
-//    right: 60%;
-//  }
-//`
 
 const Toggable = React.forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false)
