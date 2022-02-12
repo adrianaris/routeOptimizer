@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  NavLink
+  NavLink // I cant make active to work
 } from 'react-router-dom'
 
 const StyledUl = styled.ul`
