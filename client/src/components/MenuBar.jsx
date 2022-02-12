@@ -17,6 +17,9 @@ const NavBar = styled.div`
   @media (min-aspect-ratio: 29/30) {
     width: 54%;
   }
+  @media (max-height: 661px) and (max-width: 640px) {
+    width: 94%;
+  }
 `
 const Welcome = styled.div`
   text-align: center;

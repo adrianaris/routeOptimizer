@@ -4,6 +4,11 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   margin: auto;
+  height: 50px;
+  width: 50px;
+  background: white 0.8;
+  border: solid black;
+  border-radius: 4px;
 `
 //const ToggableStyle = styled.div`
 //  display: inline-block;
