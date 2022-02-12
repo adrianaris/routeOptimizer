@@ -26,6 +26,10 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
 `
+const StyledToggable = styled(Toggable)`
+  display: inline-block;
+  right: 0;
+`
 
 const MenuBar = () => {
   const NavBoxRef = useRef()
@@ -37,9 +41,9 @@ const MenuBar = () => {
     <NavBar>
       <StyledLink to="/">Logo</StyledLink>
       <Welcome>Welcome Adrian</Welcome>
-      <Toggable buttonLabel='NAV' ref={NavBoxRef}>
+      <StyledToggable buttonLabel='NAV' ref={NavBoxRef}>
         <NavBox showDisplay={showDisplay} />
-      </Toggable>
+      </StyledToggable>
     </NavBar>
   )
 }

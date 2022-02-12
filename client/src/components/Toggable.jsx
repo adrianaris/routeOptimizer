@@ -5,10 +5,10 @@ import styled from 'styled-components'
 const Button = styled.button`
   margin: auto;
 `
-const ToggableStyle = styled.div`
-  display: inline-block;
-  right: 0;
-`
+//const ToggableStyle = styled.div`
+//  display: inline-block;
+//  right: 0;
+//`
 //const ToggableContent = styled.div`
 //  position: fixed;
 //  right: 10%;
@@ -33,7 +33,7 @@ const Toggable = React.forwardRef((props, ref) => {
   })
 
   return (
-    <ToggableStyle>
+    <div>
       <Button
         onClick={toggleVisibility}>
         {props.buttonLabel}
@@ -41,7 +41,7 @@ const Toggable = React.forwardRef((props, ref) => {
       <div style={Display}>
         {props.children}
       </div>
-    </ToggableStyle>
+    </div>
   )
 })
 
