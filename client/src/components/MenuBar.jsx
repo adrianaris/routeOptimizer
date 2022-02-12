@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Toggable from './Toggable'
 import NavBox from './NavBox'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 const NavBar = styled.div`
   z-index: 5;
@@ -37,6 +38,7 @@ const StyledToggable = styled(Toggable)`
 `
 
 const MenuBar = () => {
+  const user = useSelector(state => state.user)
   const NavBoxRef = useRef()
   const showDisplay = () => {
     NavBoxRef.current.toggleVisibility()
@@ -45,7 +47,7 @@ const MenuBar = () => {
   return (
     <NavBar>
       <StyledLink to="/">Logo</StyledLink>
-      <Welcome>Welcome Adrian</Welcome>
+      <Welcome>Welcome {user ? user.username : ''}</Welcome>
       <StyledToggable buttonLabel='MENU' ref={NavBoxRef}>
         <NavBox showDisplay={showDisplay} />
       </StyledToggable>

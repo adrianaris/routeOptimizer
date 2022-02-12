@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setUserData } from './reducers/userDataReducer'
 import MenuBar from './components/MenuBar'
 import Map from './components/Map'
+import Login from './components/Login'
 import {
   BrowserRouter as Router,
   Routes, Route
@@ -19,8 +20,8 @@ const App = () => {
     <Router>
       <MenuBar />
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Map />} />
-        <Route path="/login" />
       </Routes>
     </Router>
   )
