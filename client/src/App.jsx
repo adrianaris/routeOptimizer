@@ -16,15 +16,13 @@ const App = () => {
   }, [])
 
   return (
-    <>
+    <Router>
       <MenuBar />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Map />} />
-          <Route path="/login" />
-        </Routes>
-      </Router>
-    </>
+      <Routes>
+        <Route path="/" element={<Map />} />
+        <Route path="/login" />
+      </Routes>
+    </Router>
   )
 }
 

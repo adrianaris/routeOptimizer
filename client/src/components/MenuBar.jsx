@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import Toggable from './Toggable'
+import NavBox from './NavBox'
 import styled from 'styled-components'
 
 const NavBar = styled.div`
@@ -15,20 +18,28 @@ const NavBar = styled.div`
     width: 54%;
   }
 `
-const ToggleButton = styled.button`
-  right: 0;
-`
 const Welcome = styled.div`
-text-align: center;
-margin: auto;
+  text-align: center;
+  margin: auto;
+`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `
 
 const MenuBar = () => {
+  const NavBoxRef = useRef()
+  const showDisplay = () => {
+    NavBoxRef.current.toggleVisibility()
+  }
+
   return (
     <NavBar>
-      <div>Logo</div>
+      <StyledLink to="/">Logo</StyledLink>
       <Welcome>Welcome Adrian</Welcome>
-      <ToggleButton>Nav</ToggleButton>
+      <Toggable buttonLabel='NAV' ref={NavBoxRef}>
+        <NavBox showDisplay={showDisplay} />
+      </Toggable>
     </NavBar>
   )
 }
