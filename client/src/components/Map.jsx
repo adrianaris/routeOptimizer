@@ -20,7 +20,7 @@ import { featureCollection as turfFeatureCollection } from '@turf/turf'
 const MapContainer = styled.div`
   height: 38vh;
   position: relative;
-  width: 100%;
+  width: 98%;
   margin: auto;
   border: 2px solid black;
   border-radius: 8px;
@@ -43,7 +43,7 @@ const Geocoder = styled.div`
 const FlexContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 98%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -57,15 +57,15 @@ const FlexContainer = styled.div`
     flex-direction: row;
     > div: first-of-type {
       width: 60%;
-      height: 100%;
+      height: 92%;
       > div: last-of-type {
-        height: 98vh;
+        height: 90vh;
         width: 58vw;
       }
     }
     > div: last-of-type {
       margin: auto;
-      height: 98vh;
+      height: 90vh;
     }
     @media (max-height: 661px) and (max-width: 640px){
       > div: first-of-type {
@@ -81,7 +81,7 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 60vh;
+  height: 59vh;
   margin: auto;
 `
 

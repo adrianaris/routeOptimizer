@@ -7,17 +7,19 @@ import { useSelector } from 'react-redux'
 
 const NavBar = styled.div`
   z-index: 5;
-  position: relative;
-  top: 0;
-  padding-bottom: 5px;
-  left: 2%;
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  width: 95vw;
+  width: 90%;
   @media (min-aspect-ratio: 29/30) {
-    width: 95vw;
+    margin: auto;
+    position: relative;
   }
   @media (max-height: 661px) and (max-width: 640px) {
     width: 95vw;
