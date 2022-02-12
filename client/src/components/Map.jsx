@@ -73,7 +73,6 @@ const FlexContainer = styled.div`
       }
       > div: last-of-type {
         z-index: 4;
-        margin-top: 50px;
       }
     }
   }

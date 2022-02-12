@@ -23,9 +23,6 @@ const StyledUl = styled.ul`
   > li:last-of-type {
     margin: 15px 0 0;
   }
-  @media (min-aspect-ratio: 29/30) {
-    right: 45%;
-  }
   @media (max-height: 661px) and (max-width: 640px) {
     right: 10%;
   }

@@ -6,17 +6,18 @@ import styled from 'styled-components'
 
 const NavBar = styled.div`
   z-index: 5;
-  position: fixed;
+  position: relative;
   top: 0;
-  padding-top: 25px;
-  left: 3%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  left: 2%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   width: 94vw;
   @media (min-aspect-ratio: 29/30) {
-    width: 54vw;
+    width: 94vw;
   }
   @media (max-height: 661px) and (max-width: 640px) {
     width: 94vw;
