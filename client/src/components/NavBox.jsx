@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  Link
+  NavLink
 } from 'react-router-dom'
 
 const StyledUl = styled.ul`
@@ -30,7 +30,7 @@ const StyledUl = styled.ul`
     right: 10%;
   }
 `
-const StyledLink = styled(Link)`
+const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: white;
 `
@@ -39,7 +39,8 @@ const NavBox = props => {
   const { showDisplay } = props
   return (
     <StyledUl>
-      <li><StyledLink to="/login" onClick={ showDisplay }>login</StyledLink></li>
+      <li><StyledNavLink to="/" onClick={ showDisplay }>MAP</StyledNavLink></li>
+      <li><StyledNavLink to="/login" onClick={ showDisplay }>LOGIN</StyledNavLink></li>
       <li>asdfas</li>
       <li>adfasdfh</li>
     </StyledUl>
