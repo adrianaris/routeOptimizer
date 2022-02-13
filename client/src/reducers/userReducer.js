@@ -43,6 +43,7 @@ export const Login = credentials => {
       )
       dispatch(setNotification(`welcome ${user.name}`, 10))
     } catch (error) {
+      if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))
     }
   }
