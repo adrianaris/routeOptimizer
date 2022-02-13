@@ -59,13 +59,13 @@ const FlexContainer = styled.div`
       width: 60%;
       height: 95%;
       > div: last-of-type {
-        height: 90vh;
+        height: 92vh;
         width: 58vw;
       }
     }
     > div: last-of-type {
       margin: auto;
-      height: 90vh;
+      height: 92vh;
     }
     @media (max-height: 661px) and (max-width: 640px){
       > div: first-of-type {

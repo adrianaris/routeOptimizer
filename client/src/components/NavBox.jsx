@@ -44,7 +44,8 @@ const NavBox = props => {
       <li><StyledNavLink to="/" onClick={ showDisplay }>MAP</StyledNavLink></li>
       {user === null
         ? <li><StyledNavLink to="/login" onClick={ showDisplay }>LOGIN</StyledNavLink></li>
-        : <li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li>
+        : <><li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li>
+          <li><StyledNavLink to="/userpanel" onClick={showDisplay}>USERPANEL</StyledNavLink></li></>
       }
       <li>asdfas</li>
       <li>adfasdfh</li>

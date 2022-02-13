@@ -54,7 +54,6 @@ const MenuBar = () => {
   }
 
   useEffect(() => {
-    console.log(clickRef)
     document.addEventListener('click', handleClickOutside, true)
     return () => {
       document.removeEventListener('click', handleClickOutside, true)

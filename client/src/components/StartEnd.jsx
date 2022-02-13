@@ -86,6 +86,7 @@ const StartEnd = () => {
 
   const dispatch = useDispatch()
   const DEPOT = useSelector(state => state.DEPOT)
+  console.log(DEPOT)
 
   useEffect(() => {
     if (_.isEmpty(DEPOT.start)) {

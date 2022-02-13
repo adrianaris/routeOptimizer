@@ -4,6 +4,7 @@ import { setUserData } from './reducers/userDataReducer'
 import MenuBar from './components/MenuBar'
 import Map from './components/Map'
 import LoginPage from './components/Login'
+import UserPanel from './components/UserPanel'
 import {
   BrowserRouter as Router,
   Routes, Route
@@ -21,6 +22,7 @@ const App = () => {
       <MenuBar />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/userpanel" element={<UserPanel />} />
         <Route path="/" element={<Map />} />
       </Routes>
     </Router>
