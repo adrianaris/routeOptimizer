@@ -21,9 +21,10 @@ export const Register = credentials => {
         type: 'REGISTER',
         data: user,
       })
+      dispatch(setNotification(`welcome ${user.name}`, 10))
       window.localStorage.setItem('foxINCUser', JSON.stringify(user))
-    } catch (e) {
-      console.log('registration failed', e)
+    } catch (error) {
+      dispatch(setNotification(`registration failed with: ${error}`))
     }
   }
 }
@@ -40,10 +41,10 @@ export const Login = credentials => {
       window.localStorage.setItem(
         'foxINCuser', JSON.stringify(user)
       )
-      dispatch(setNotification(`welcome ${user.username}`, 10))
-    } catch (e) {
-      console.log(e)
-      dispatch(setNotification(`${e}`, 10))
+      dispatch(setNotification(`welcome ${user.name}`, 10))
+    } catch (error) {
+      console.log(error)
+      dispatch(setNotification(`login failed with: ${error}`, 10))
     }
   }
 }

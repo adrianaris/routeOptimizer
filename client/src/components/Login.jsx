@@ -46,7 +46,11 @@ const LoginPage = () => {
 
   const handleRegister = event => {
     event.preventDefault()
-    dispatch(Register(username, name, password))
+    dispatch(Register({
+      username: username.value,
+      name: name.value,
+      password: password.value
+    }))
   }
   const handleLogin = event => {
     event.preventDefault()
