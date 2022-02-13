@@ -18,8 +18,8 @@ const optimize = async (addresslist, service) => {
     coordinates = addressParser.geoapifyParser(addresslist)
   } else return console.log('something wrong with parsers')
 
-//  const matrix = await getMatrix(coordinates)
-  const order =  await callORtools(matrixExample)
+  const matrix = await getMatrix(coordinates)
+  const order =  await callORtools(matrix)
   const orderedAddresslist = sorter(addresslist, order)
   const sortedCoord = sorter(coordinates, order)
 

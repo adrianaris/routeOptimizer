@@ -15,8 +15,6 @@ const optimize = async (locations) => {
     return
   }
 
-  console.log(data.waypoints)
-
   let orderedIndexArray = []
   for (let i in data.waypoints) {
     orderedIndexArray.push(data.waypoints[i].waypoint_index)

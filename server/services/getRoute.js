@@ -7,7 +7,6 @@ const getRoute = async coordinates => {
   const remainder = coordinates.length % callSize
   if (remainder > 0) numberOfCalls++
 
-  console.log(numberOfCalls)
   const route = {
     code: '',
     waypoints: [],

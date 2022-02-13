@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
-import { optimLocations, removeLocation, clearLocations } from '../reducers/addressesReducer'
+import { optimLocations, removeLocation, clearLocations, addLocation } from '../reducers/addressesReducer'
 import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { createRoute } from '../reducers/routeReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
+import logedOptimize from '../services/logedOptimize'
 import _ from 'lodash'
 import {
   lineString as turfLineString,
@@ -14,6 +15,7 @@ import {
   featureCollection as turfFeatureCollection
 } from '@turf/turf'
 import { removeRoute } from '../reducers/routeReducer'
+import { addStart, addEnd } from '../reducers/startendReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -56,11 +58,23 @@ const Button = styled.button`
     color: white;
   }
 `
+const LocationCount = styled.div`
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  padding-right: 5%;
+  @media (max-width: 320px) {
+    position: relative;
+    left: 4%;
+    display: block;
+  }
+`
 const Locations = ({ map }) => {
   const route = useSelector(state => state.route)
   const DEPOT = useSelector(state => state.DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)
   const addresses = useSelector(state => state.addresses)
+  const user = useSelector(state => state.user)
   const locations = addresses.features
   const dispatch = useDispatch()
   if (!locations) return
@@ -89,7 +103,6 @@ const Locations = ({ map }) => {
         map.getSource('warehouse').setData(newWarehouse)
       })
     } else if (map.isSourceLoaded('warehouse')) map.getSource('warehouse').setData(newWarehouse)
-    console.log('i run')
   }, [DEPOT])
 
   useEffect(() => {
@@ -104,25 +117,43 @@ const Locations = ({ map }) => {
       ))
     }
 
-    if (locations.length > 10)  {
+    if (locations.length > 10 && user === null)  {
       return dispatch(setNotification(
-        <span>This version of the planner suports only ten locations plus the start/end.<br/>Remove addresses in order to continue!</span>, 10
+        <span>Without an account the planner suports only ten locations plus the start/end.<br/>Remove addresses or register an account in order to continue!</span>, 10
       ))
     }
 
     const allLocations = [DEPOT.start, ...locations, DEPOT.end]
-    const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
-    const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
 
-    dispatch(optimLocations(removedDepotArray))
-    dispatch(createGoogleUrl(waypoints))
-    dispatch(createRoute(routeGeoJSON))
+    if (location.length <= 10) {
+      const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
 
+      const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
+      dispatch(optimLocations(removedDepotArray))
+      dispatch(createGoogleUrl(waypoints))
+      dispatch(createRoute(routeGeoJSON))
+    } else {
+      const {
+        orderedAddresslist,
+        routeGeoJSON,
+        waypoints
+      } = await logedOptimize(allLocations)
+      dispatch(removeGoogleUrl())
+      dispatch(clearLocations())
+      dispatch(removeRoute())
+      dispatch(addStart(orderedAddresslist.shift()))
+      dispatch(addEnd(orderedAddresslist.pop()))
+      dispatch(addLocation(orderedAddresslist))
+      dispatch(createRoute(routeGeoJSON))
+      console.log(waypoints[0])
+    }
+
+    const bboxLoc = [DEPOT.start, ...locations, DEPOT.end]
     /**
      * use turf to create a bounding box out of all
      * locations and feed it to fitBounds()
      */
-    const bbox = turfBbox(turfLineString(allLocations.map(elem => elem.center)))
+    const bbox = turfBbox(turfLineString(bboxLoc.map(elem => elem.center)))
     map.fitBounds(bbox, { padding: 50 })
   }
 
@@ -147,6 +178,7 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
+        <LocationCount>Count: <b>{locations.length}</b></LocationCount>
       </div>
       }
       <StartEnd />

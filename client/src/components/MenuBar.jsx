@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 const NavBar = styled.div`
   z-index: 5;
-  position: fixed;
+  position: absolute;
   margin: auto;
   left: 0;
   right: 0;
@@ -22,7 +22,7 @@ const NavBar = styled.div`
     margin: auto;
     position: relative;
   }
-  @media (max-height: 661px) and (max-width: 640px) {
+  @media (max-height: 480px) and (max-width: 640px) {
     width: 95vw;
   }
 `
