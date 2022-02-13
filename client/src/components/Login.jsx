@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Login, Register } from '../reducers/userReducer'
 import useField from '../hooks/useField'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import Notification from './Notification'
 
 const Layout = styled.div`
   position: relative;
@@ -41,6 +42,8 @@ const LoginPage = () => {
   const password = useField('password')
   const navigate = useNavigate()
 
+  const loggedUser = useSelector(state => state.user)
+
   const handleRegister = event => {
     event.preventDefault()
     dispatch(Register(username, name, password))
@@ -51,10 +54,15 @@ const LoginPage = () => {
       username: username.value,
       password: password.value
     }))
-    navigate('/')
   }
+
+  useEffect(() => {
+    if (loggedUser !== null) return navigate('/')
+  }, [loggedUser])
+
   return (
     <Layout>
+      <Notification />
       {form
         ? <><h1>Login</h1>
           <form onSubmit={handleLogin}>

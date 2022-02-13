@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { Logout } from '../reducers/userReducer'
 import {
   NavLink // I cant make active to work
 } from 'react-router-dom'
@@ -34,10 +36,16 @@ const StyledNavLink = styled(NavLink)`
 
 const NavBox = props => {
   const { showDisplay } = props
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   return (
     <StyledUl>
       <li><StyledNavLink to="/" onClick={ showDisplay }>MAP</StyledNavLink></li>
-      <li><StyledNavLink to="/login" onClick={ showDisplay }>LOGIN</StyledNavLink></li>
+      {user === null
+        ? <li><StyledNavLink to="/login" onClick={ showDisplay }>LOGIN</StyledNavLink></li>
+        : <li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li>
+      }
       <li>asdfas</li>
       <li>adfasdfh</li>
     </StyledUl>

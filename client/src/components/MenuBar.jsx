@@ -59,7 +59,7 @@ const MenuBar = () => {
     return () => {
       document.removeEventListener('click', handleClickOutside, true)
     }
-  }, [NavBoxRef.current.closeOnClickOutside])
+  })
 
   return (
     <NavBar>

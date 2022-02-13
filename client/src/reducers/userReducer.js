@@ -1,6 +1,7 @@
 import userServices from '../services/user'
+import { setNotification } from './notificationReducer'
 
-const loggedUser = window.localStorage.getItem('foxINCUser')
+const loggedUser = window.localStorage.getItem('foxINCuser')
 const initState = loggedUser ? JSON.parse(loggedUser) : null
 
 const userReTucer = (state = initState, action) => {
@@ -39,14 +40,19 @@ export const Login = credentials => {
       window.localStorage.setItem(
         'foxINCuser', JSON.stringify(user)
       )
+      dispatch(setNotification(`welcome ${user.username}`, 10))
     } catch (e) {
-      console.log('wrong credential or whatever', e)
+      console.log(e)
+      dispatch(setNotification(`${e}`, 10))
     }
   }
 }
 export const Logout = () => {
-  return {
-    type: 'LOG_OUT'
+  return dispatch => {
+    window.localStorage.removeItem('foxINCuser')
+    dispatch({
+      type: 'LOG_OUT'
+    })
   }
 }
 
