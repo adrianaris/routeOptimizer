@@ -9,6 +9,8 @@ registerRouter.post('/', async (request, response) => {
         return response.status(400).json({ error: 'password missing' })
     } else if (body.password.length < 3) {
         return response.status(400).json({ error: 'password is too short' })
+    } else if (!body.name) {
+      return response.status(400).json({ error: 'name is missing' })
     }
     
     const passwordHash = await bcrypt.hash(body.password, 10)

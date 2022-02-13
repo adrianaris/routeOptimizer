@@ -27,7 +27,9 @@ userSchema.set('toJSON', {
     }
 })
 
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator, {
+  message: '{VALUE} is already taken'
+})
 
 const User = mongoose.model('User', userSchema)
 

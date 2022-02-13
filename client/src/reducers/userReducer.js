@@ -24,7 +24,7 @@ export const Register = credentials => {
       dispatch(setNotification(`welcome ${user.name}`, 10))
       window.localStorage.setItem('foxINCUser', JSON.stringify(user))
     } catch (error) {
-      dispatch(setNotification(`registration failed with: ${error}`))
+      dispatch(setNotification(`${error.response.data.error}`, 10))
     }
   }
 }
@@ -43,8 +43,7 @@ export const Login = credentials => {
       )
       dispatch(setNotification(`welcome ${user.name}`, 10))
     } catch (error) {
-      console.log(error)
-      dispatch(setNotification(`login failed with: ${error}`, 10))
+      dispatch(setNotification(`${error.response.data.error}`, 10))
     }
   }
 }
