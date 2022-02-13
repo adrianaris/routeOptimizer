@@ -24,9 +24,14 @@ const Toggable = React.forwardRef((props, ref) => {
     setVisible(!visible)
   }
 
+  const closeOnClickOutside = () => {
+    setVisible(false)
+  }
+
   useImperativeHandle(ref, () => {
     return {
-      toggleVisibility
+      toggleVisibility,
+      closeOnClickOutside
     }
   })
 
@@ -36,7 +41,7 @@ const Toggable = React.forwardRef((props, ref) => {
         onClick={toggleVisibility}>
         {props.buttonLabel}
       </Button>
-      <div style={Display}>
+      <div style={Display} ref={props.innerRef}>
         {props.children}
       </div>
     </div>

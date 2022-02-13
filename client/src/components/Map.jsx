@@ -57,7 +57,7 @@ const FlexContainer = styled.div`
     flex-direction: row;
     > div: first-of-type {
       width: 60%;
-      height: 92%;
+      height: 95%;
       > div: last-of-type {
         height: 90vh;
         width: 58vw;

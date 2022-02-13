@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Toggable from './Toggable'
 import NavBox from './NavBox'
@@ -12,6 +12,7 @@ const NavBar = styled.div`
   left: 0;
   right: 0;
   padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -41,15 +42,30 @@ const StyledToggable = styled(Toggable)`
 const MenuBar = () => {
   const user = useSelector(state => state.user)
   const NavBoxRef = useRef()
+  const clickRef = useRef()
   const showDisplay = () => {
     NavBoxRef.current.toggleVisibility()
   }
+
+  const handleClickOutside = event => {
+    if (clickRef.current && !clickRef.current.contains(event.target)) {
+      NavBoxRef.current.closeOnClickOutside()
+    }
+  }
+
+  useEffect(() => {
+    console.log(clickRef)
+    document.addEventListener('click', handleClickOutside, true)
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [NavBoxRef.current.closeOnClickOutside])
 
   return (
     <NavBar>
       <StyledLink to="/">Logo</StyledLink>
       <Welcome>Welcome {user ? user.username : ''}</Welcome>
-      <StyledToggable buttonLabel='MENU' ref={NavBoxRef}>
+      <StyledToggable buttonLabel='MENU' ref={NavBoxRef} innerRef={clickRef}>
         <NavBox showDisplay={showDisplay} />
       </StyledToggable>
     </NavBar>
