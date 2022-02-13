@@ -32,6 +32,9 @@ const StyledUl = styled.ul`
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: white;
+  &:hover {
+    color: red;
+  }
 `
 
 const NavBox = props => {
@@ -41,14 +44,13 @@ const NavBox = props => {
 
   return (
     <StyledUl>
-      <li><StyledNavLink to="/" onClick={ showDisplay }>MAP</StyledNavLink></li>
+      <li><StyledNavLink to="/" onClick={showDisplay}>MAP</StyledNavLink></li>
+      <li><StyledNavLink to="/about" onClick={showDisplay}>ABOUT</StyledNavLink></li>
       {user === null
-        ? <li><StyledNavLink to="/login" onClick={ showDisplay }>LOGIN</StyledNavLink></li>
-        : <><li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li>
-          <li><StyledNavLink to="/userpanel" onClick={showDisplay}>USERPANEL</StyledNavLink></li></>
+        ? <li><StyledNavLink to="/login" onClick={showDisplay}>LOGIN</StyledNavLink></li>
+        : <><li><StyledNavLink to="/userpanel" onClick={showDisplay}>USERPANEL</StyledNavLink></li>
+        <li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li></>
       }
-      <li>asdfas</li>
-      <li>adfasdfh</li>
     </StyledUl>
   )
 }
