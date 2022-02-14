@@ -15,8 +15,6 @@ import Locations from './Locations'
 import Notification from './Notification'
 import { featureCollection as turfFeatureCollection } from '@turf/turf'
 
-// import { initState } from './init10locations' //init 10 locations for testing
-
 const MapContainer = styled.div`
   height: 38vh;
   position: relative;
@@ -124,8 +122,10 @@ const Map = () => {
   //   console.log('browser doesn\'t allow geolocation')
   // }
 
+    /**
+     * Perhapse I should move this into its own module
+     */
   const createMapLayers = async () => {
-    geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
 
     /**
      * create a point map for path
@@ -215,6 +215,7 @@ const Map = () => {
      * The addLocation action receives an array so that
      * it can also accept multiple locations as argument
      * (like from a file)
+     * maybe this is an example of where typescript could have helped
      */
     dispatch(removeGoogleUrl())
     dispatch(addLocation([coordinates]))
@@ -229,11 +230,11 @@ const Map = () => {
       zoom: userDATA ? 12 : 7
     })
     map.current.on('load', async () => {
+      geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
       await createMapLayers()
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
       ' for the optimization service to become available!', 20))
-    // dispatch(addLocation(initState)) //init 10 addresses for testing
   })
 
   useEffect(() => {

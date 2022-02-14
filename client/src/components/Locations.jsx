@@ -87,14 +87,20 @@ const Locations = ({ map }) => {
 
   useEffect(() => {
     if (googleMapsUrl.length === 0) setVisible(false)
-    if (googleMapsUrl.length > 0) setVisible(true)
+    if (googleMapsUrl.length > 0 && locations.length <= 10) setVisible(true)
   }, [googleMapsUrl])
 
+  /**
+   * Sets symbols on map for waypoints
+   */
   useEffect(() => {
     if (!map) return
     map.getSource('dropoffs-symbol').setData(addresses)
   },[addresses])
 
+  /**
+   * Sets symbols on map for start/end positions
+   */
   useEffect(() => {
     if (!map) return
     const newWarehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
@@ -105,6 +111,9 @@ const Locations = ({ map }) => {
     } else if (map.isSourceLoaded('warehouse')) map.getSource('warehouse').setData(newWarehouse)
   }, [DEPOT])
 
+  /**
+   * Sets a route through all waypoints after optimization
+   */
   useEffect(() => {
     if (!map) return
     map.getSource('route').setData(route)
@@ -125,11 +134,18 @@ const Locations = ({ map }) => {
 
     const allLocations = [DEPOT.start, ...locations, DEPOT.end]
 
+    /** basically call frontend optimization if les than 10 locations
+     * backend optimization otherwise
+     */
     if (location.length <= 10) {
       const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
-
       const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
       dispatch(optimLocations(removedDepotArray))
+      /**
+       * I should find a solution for how to create the googleUrl
+       * for when locations are more than 10
+       * I'm thinking of maybe creating incremental links!?!?
+       */
       dispatch(createGoogleUrl(waypoints))
       dispatch(createRoute(routeGeoJSON))
     } else {
@@ -138,6 +154,12 @@ const Locations = ({ map }) => {
         routeGeoJSON,
         waypoints
       } = await logedOptimize(allLocations)
+      /**
+       * I should probably combine those into one single reducer
+       * and create one action for all of them
+       * This grew so ugly because I didn't have a plan or I didn't knew
+       * what should be managed with redux, but it deserves refactoring
+       */
       dispatch(removeGoogleUrl())
       dispatch(clearLocations())
       dispatch(removeRoute())
