@@ -28,11 +28,15 @@ const optimize = async (locations) => {
     .sort((a, b) => a.waypoint_index - b.waypoint_index)
     .map(({ location }) => location[1] + ',' + location[0])
 
-  const routeGeoJSON = turfFeatureCollection([
-    turfFeature(data.trips[0].geometry),
-  ])
-
+  const routeGeoJSON = {
+    ...turfFeatureCollection([
+    turfFeature({ ...data.trips[0].geometry })
+    ]),
+    distance: data.trips[0].distance,
+    duration: data.trips[0].duration
+  }
   console.log(routeGeoJSON)
+
   return { routeGeoJSON, orderedIndexArray, waypoints }
 }
 

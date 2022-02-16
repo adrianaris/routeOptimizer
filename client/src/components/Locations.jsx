@@ -141,8 +141,12 @@ const Locations = ({ map }) => {
     /** basically call frontend optimization if les than 10 locations
      * backend optimization otherwise
      */
-    if (location.length <= 10) {
-      const { routeGeoJSON, orderedIndexArray, waypoints } = await optimize(allLocations)
+    if (locations.length <= 10) {
+      const {
+        routeGeoJSON,
+        orderedIndexArray,
+        waypoints } = await optimize(allLocations)
+      console.log(waypoints)
       const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
       dispatch(optimLocations(removedDepotArray))
       /**
@@ -171,7 +175,7 @@ const Locations = ({ map }) => {
       dispatch(addEnd(orderedAddresslist.pop()))
       dispatch(addLocation(orderedAddresslist))
       dispatch(createRoute(routeGeoJSON))
-      console.log(waypoints[0])
+      console.log(waypoints)
       dispatch(createGoogleUrl(waypoints))
     }
 
@@ -195,7 +199,6 @@ const Locations = ({ map }) => {
     dispatch(removeGoogleUrl())
     dispatch(removeRoute())
   }
-
   return (
     <Layout>
       {locations.length < 2 ||
@@ -207,6 +210,12 @@ const Locations = ({ map }) => {
         </Button>
         <LocationCount>Count: <b>{locations.length}</b></LocationCount>
       </div>
+      }
+      {route.distance &&
+        <div>
+          Distance: <b>{(route.distance / 1000).toFixed(2)}</b> km /
+          Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
+        </div>
       }
       <StartEnd />
       <Olist>

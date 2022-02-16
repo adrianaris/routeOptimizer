@@ -14,7 +14,7 @@ const routeReducer = (state = route, action) => {
   }
 }
 
-export const createRoute = (route) => {
+export const createRoute = route => {
   return {
     type: 'SET_ROUTE',
     data: route

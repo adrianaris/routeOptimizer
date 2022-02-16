@@ -24,11 +24,17 @@ const optimize = async (addresslist, service) => {
   const sortedCoord = sorter(coordinates, order)
 
   const route = await getRoute(sortedCoord)
-  const routeGeoJSON = featureCollection([
-    feature(route.trips[0].geometry)
-  ])
-  const waypoints = route.waypoints
-  
+  const routeGeoJSON = {
+    ...featureCollection([
+    feature({ ...route.trips[0].geometry })
+    ]),
+    distance: route.trips[0].distance,
+    duration: route.trips[0].duration
+  }
+ const waypoints = route.waypoints
+ .sort((a, b) => a.waypoint_index - b.waypoint_index)
+ .map(({ location }) => location[1] + ',' + location[0])
+
   return { orderedAddresslist, routeGeoJSON, waypoints }
 }
 
