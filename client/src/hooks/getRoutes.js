@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const getRoutes = url => {
-  const [routes, setRoutes] = useState([]) 
+  const [routes, setRoutes] = useState([])
 
   const getUserRoutes = async () => {
-    const response = await axios.get(url) 
+    const response = await axios.get(url)
     return response.data
   }
 

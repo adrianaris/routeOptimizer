@@ -22,12 +22,12 @@ optimRouter.get('/geoapify', async (request, response) => {
 
 optimRouter.post('/', async (request, response) => {
   console.log('called')
+  console.log(request.token)
   const token = request.token
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  console.log(decodedToken)
-  if (!token || !decodedToken.id) {
+  if (!token) {
       return response.status(401).json({ error: 'token missing  or invalid' })
   }
+  const decodedToken = jwt.verify(token, process.env.SECRET)
 
   const addresslist = request.body
   const data = await optimize(addresslist, 'mapbox')

@@ -1,12 +1,7 @@
 import userServices from '../services/user'
 import { setNotification } from './notificationReducer'
-import { setToken } from '../services/logedOptimize'
 
-const loggedUser = window.localStorage.getItem('foxINCuser')
-const initState = loggedUser ? JSON.parse(loggedUser) : null
-if(loggedUser) setToken(loggedUser.token)
-
-const userReTucer = (state = initState, action) => {
+const userReducer = (state = {}, action) => {
   switch (action.type) {
   case 'REGISTER': return action.data
   case 'LOG_IN': return action.data
@@ -24,8 +19,7 @@ export const Register = credentials => {
         data: user,
       })
       dispatch(setNotification(`welcome ${user.name}`, 10))
-      window.localStorage.setItem('foxINCUser', JSON.stringify(user))
-      setToken(user.token)
+      window.localStorage.setItem('foxINCuser', JSON.stringify(user))
     } catch (error) {
       if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))
@@ -45,7 +39,6 @@ export const Login = credentials => {
         'foxINCuser', JSON.stringify(user)
       )
       dispatch(setNotification(`welcome ${user.name}`, 10))
-      setToken(user.token)
     } catch (error) {
       if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))
@@ -58,8 +51,7 @@ export const Logout = () => {
     dispatch({
       type: 'LOG_OUT'
     })
-    setToken(null)
   }
 }
 
-export default userReTucer
+export default userReducer

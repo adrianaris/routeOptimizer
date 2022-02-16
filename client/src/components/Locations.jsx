@@ -7,7 +7,7 @@ import { createRoute } from '../reducers/routeReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import optimize from '../services/optimize'
-import logedOptimize from '../services/logedOptimize'
+import loggedInOptimize from '../services/loggedInOptimize'
 import _ from 'lodash'
 import {
   lineString as turfLineString,
@@ -153,7 +153,7 @@ const Locations = ({ map }) => {
         orderedAddresslist,
         routeGeoJSON,
         waypoints
-      } = await logedOptimize(allLocations)
+      } = await loggedInOptimize(allLocations)
       /**
        * I should probably combine those into one single reducer
        * and create one action for all of them

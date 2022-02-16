@@ -4,7 +4,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 
-routeRouter.post('/', async (request, response) =>{
+routeRouter.get('/', async (request, response) =>{
   const token = request.token
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {
@@ -15,7 +15,7 @@ routeRouter.post('/', async (request, response) =>{
   response.json(routes)
 })
 
-routeRouter.post('/', async (request, response) => {
+routeRouter.post('/save', async (request, response) => {
     const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
     if (!token || !decodedToken.id) {
@@ -41,11 +41,11 @@ routeRouter.post('/', async (request, response) => {
 
 routeRouter.delete('/:id', async (request, response) => {
     const token = request.token
-    const user = request.user
-    if (!token || !user.id) {
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    if (!token || !decodedToken.id) {
        return response.status(401).json({ error: 'token missing  or invalid' })
-    } 
-    
+    }
+
     const route = await Route.findById(request.params.id)
     
     if (!route) { return response.status(401).json({ error: 'no route with this id' })}
@@ -55,6 +55,11 @@ routeRouter.delete('/:id', async (request, response) => {
 })
 
 routeRouter.put('/:id', async (request, response) => {
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    const token = request.token
+    if (!token || !decodedToken.id) {
+       return response.status(401).json({ error: 'token missing  or invalid' })
+    }
     const route = {
        name: request.body.name,
        DEPOT: request.body.DEPOT,
