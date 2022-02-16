@@ -118,9 +118,7 @@ const Locations = ({ map }) => {
    */
   useEffect(() => {
     if (!map) return
-    map.on('idle', () => {
-      map.getSource('route').setData(route)
-    })
+    map.getSource('route').setData(route)
   }, [route])
 
   const handleOptimizeClick = async () => {
