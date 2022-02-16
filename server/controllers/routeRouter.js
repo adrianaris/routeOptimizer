@@ -52,18 +52,18 @@ routeRouter.post('/save', async (request, response) => {
 })
 
 routeRouter.delete('/:id', async (request, response) => {
-    const token = request.token
-    const decodedToken = jwt.verify(token, process.env.SECRET)
-    if (!token || !decodedToken.id) {
-       return response.status(401).json({ error: 'token missing  or invalid' })
-    }
+  const token = request.token
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+     return response.status(401).json({ error: 'token missing  or invalid' })
+  }
 
-    const route = await Route.findById(request.params.id)
-    
-    if (!route) { return response.status(401).json({ error: 'no route with this id' })}
+  const route = await Route.findById(request.params.id)
+  
+  if (!route) { return response.status(401).json({ error: 'no route with this id' })}
 
-    await Route.findByIdAndRemove(request.params.id)
-    response.status(204).end()
+  await Route.findByIdAndRemove(request.params.id)
+  response.status(204).end()
 })
 
 routeRouter.put('/:id', async (request, response) => {
