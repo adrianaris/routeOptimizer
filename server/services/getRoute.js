@@ -22,7 +22,6 @@ const getRoute = async coordinates => {
       weight_name: 'routability'
     }]
   }
-  console.log(route.trips[0].geometry.coordinates)
 
   for (let i = 0; i < numberOfCalls; i++) {
     const apiRes = await apiCall(coordinates.slice(i * callSize, (i + 1) * callSize))
@@ -64,7 +63,6 @@ const apiCall = async coordinates => {
 
   try {
     const apiResponse = await axios.get(mapboxUrl)
-    console.log(apiResponse.data)
     return apiResponse.data
   } catch (e) {
     console.log('directions api failed with: ', e.name)

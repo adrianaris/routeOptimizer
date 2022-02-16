@@ -1,14 +1,13 @@
 import axios from 'axios'
-const loginUrl = 'http://localhost:4000/api/login'
-const registerUrl = '/api/register'
+const URL = '/api/user'
 
 const login = async credentials => {
-  const response = await axios.post(loginUrl, credentials)
+  const response = await axios.post(`${URL}/login`, credentials)
   return response.data
 }
 
 const register = async credentials => {
-  const response = await axios.post(registerUrl, credentials)
+  const response = await axios.post(`${URL}/register`, credentials)
   return response.data
 }
 

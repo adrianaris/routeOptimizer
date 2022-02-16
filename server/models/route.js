@@ -6,10 +6,21 @@ const routeSchema = new mongoose.Schema({
         required: true
     },
     DEPOT: {
-      start: Object,
-      end: Object
+      start: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address'
+      },
+      end: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address'
+      }
     },
-    addresses: Array,
+    addresses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address'
+      }
+    ],
     user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
