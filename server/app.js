@@ -4,6 +4,7 @@ require('express-async-errors')
 const cors = require('cors')
 const optimRouter = require('./controllers/optimizationRouter')
 const userRouter = require('./controllers/userRouter')
+const addressRouter = require('./controllers/addressRouter')
 const routeRouter = require('./controllers/routeRouter')
 const config = require('./utils/config')
 const errors = require('./utils/errors')
@@ -31,6 +32,7 @@ app.use(middleware.userExtractor)
 
 app.use('/api/user', userRouter)
 app.use('/api/optim', optimRouter)
+app.use('/api/address', addressRouter)
 app.use('/api/routes', routeRouter)
 
 morgan.token('POST', req => {

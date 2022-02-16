@@ -12,12 +12,6 @@ const addressSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  routes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Route'
-    }
-  ]
 })
 
 addressSchema.set('toJSON', {

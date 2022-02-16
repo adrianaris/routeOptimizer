@@ -80,13 +80,13 @@ routeRouter.put('/:id', async (request, response) => {
     addresses = addresses.concat(address)
   }
   const route = {
-     name: request.body.name,
-     DEPOT: {
-       start: start,
-       end: end
-     },
-     addresses: addresses,
-     route: request.body.route 
+    name: request.body.name,
+    DEPOT: {
+      start: start,
+      end: end
+    },
+    addresses: addresses,
+    route: request.body.route 
   }
   
   const updatedRoute = await Route.findByIdAndUpdate(request.params.id, route)
