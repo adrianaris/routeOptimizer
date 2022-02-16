@@ -126,6 +126,7 @@ const Map = () => {
      * Perhapse I should move this into its own module
      */
   const createMapLayers = async () => {
+    geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
 
     /**
      * create a point map for path
@@ -230,7 +231,6 @@ const Map = () => {
       zoom: userDATA ? 12 : 7
     })
     map.current.on('load', async () => {
-      geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
       await createMapLayers()
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +

@@ -87,7 +87,7 @@ const Locations = ({ map }) => {
 
   useEffect(() => {
     if (googleMapsUrl.length === 0) setVisible(false)
-    if (googleMapsUrl.length > 0 && locations.length <= 10) setVisible(true)
+    if (googleMapsUrl.length > 0) setVisible(true)
   }, [googleMapsUrl])
 
   /**
@@ -95,8 +95,10 @@ const Locations = ({ map }) => {
    */
   useEffect(() => {
     if (!map) return
-    map.getSource('dropoffs-symbol').setData(addresses)
-  },[addresses])
+    map.on('idle', () => {
+      map.getSource('dropoffs-symbol').setData(addresses)
+    })
+  }, [addresses])
 
   /**
    * Sets symbols on map for start/end positions
@@ -116,7 +118,9 @@ const Locations = ({ map }) => {
    */
   useEffect(() => {
     if (!map) return
-    map.getSource('route').setData(route)
+    map.on('idle', () => {
+      map.getSource('route').setData(route)
+    })
   }, [route])
 
   const handleOptimizeClick = async () => {
@@ -168,6 +172,7 @@ const Locations = ({ map }) => {
       dispatch(addLocation(orderedAddresslist))
       dispatch(createRoute(routeGeoJSON))
       console.log(waypoints[0])
+      dispatch(createGoogleUrl(waypoints))
     }
 
     const bboxLoc = [DEPOT.start, ...locations, DEPOT.end]
