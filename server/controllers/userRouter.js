@@ -19,12 +19,17 @@ userRouter.post('/register', async (request, response) => {
   const user = new User({
     username: body.username,
     name: body.name,
-    passwordHash,
+    creationDate: Date(),
+    passwordHash
   })
   
   const savedU = await user.save()
+  const token = jwt.sign({
+    username: savedU.username,
+    id: savedU._id
+  }, process.env.SECRET)
   
-  response.json(savedU)
+  response.json({ token, savedU })
 })
 
 userRouter.post('/login', async (request, response) => {

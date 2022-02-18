@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
             ref: 'Route'
         }
     ],
+    creationDate: String,
     passwordHash: String
 })
 
