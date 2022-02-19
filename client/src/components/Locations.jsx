@@ -28,7 +28,7 @@ const Layout = styled.div`
   }
 `
 const Olist = styled.div`
-  padding: 1rem;
+  padding: 0 1rem 0 1rem;
   > div {
     border: 2px solid black;
     border-radius: 8px;
@@ -59,15 +59,10 @@ const Button = styled.button`
   }
 `
 const LocationCount = styled.div`
-  display: inline-block;
-  position: absolute;
-  right: 0;
-  padding-right: 5%;
-  @media (max-width: 320px) {
-    position: relative;
-    left: 4%;
-    display: block;
-  }
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 0.3rem;
 `
 const Locations = ({ map }) => {
   const route = useSelector(state => state.route)
@@ -206,7 +201,6 @@ const Locations = ({ map }) => {
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
-        <LocationCount>Count: <b>{locations.length}</b></LocationCount>
       </div>
       }
       {route.distance &&
@@ -216,6 +210,7 @@ const Locations = ({ map }) => {
         </div>
       }
       <StartEnd />
+      <LocationCount>Locations-count: <b>{locations.length}</b></LocationCount>
       <Olist>
         {locations.map(({ id, place_name }, index) => (
           <div key={id + index}>
