@@ -208,7 +208,7 @@ const Locations = ({ map }) => {
   const flyToLocation = center => {
     map.flyTo({
       center: center,
-      zoom: 12,
+      zoom: 16,
       speed: 2
     })
   }
