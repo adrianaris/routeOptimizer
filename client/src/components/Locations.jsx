@@ -86,7 +86,7 @@ const Locations = ({ map }) => {
   const [visible, setVisible] = useState(false)
 
   const style = {
-    display: visible ? '' : 'none'
+    display: visible ? '' : 'none',
   }
 
   useEffect(() => {
@@ -215,24 +215,24 @@ const Locations = ({ map }) => {
   }
   return (
     <Layout>
-      <RouteName />
-      {locations.length < 2 ||
-      <div>
-        <Button style={style}>
-          <a href={googleMapsUrl}>open in gmaps</a>
-        </Button>
-      </div>
+      {user === null ||
+        <RouteName />
       }
       {route.distance &&
         <div>
           Distance: <b>{(route.distance / 1000).toFixed(2)}</b> km /
           Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
+          <Button style={style}>
+            <a href={googleMapsUrl}>open in gmaps</a>
+          </Button>
         </div>
       }
       <StartEnd flyToLocation={flyToLocation} />
       <LocationCount>Locations-count: <b>{locations.length}</b>
       <Button onClick={handleClearLocations}>clear locations</Button>
-      <Button onClick={handleOptimizeClick}>OPTIMIZE-ROUTE</Button></LocationCount>
+      {locations.length < 2 ||
+        <Button onClick={handleOptimizeClick}>OPTIMIZE-ROUTE</Button>
+      }</LocationCount>
       <Olist>
         {locations.map(({ id, place_name, jobDone, center }, index) => (
           <div

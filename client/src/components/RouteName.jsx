@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setRouteName, removeRouteName, setNewRoute, saveToServer } from '../reducers/routeNameReducer'
+import { setRouteName, removeRouteName } from '../reducers/routeNameReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
 
@@ -9,12 +9,19 @@ const Button = styled.button`
   border: 1px solid black;
   border-radius: 4px;
   background-color: white;
+  position: relative;
+  margin-right: 0;
 `
 
 const RouteName = () => {
   const dispatch = useDispatch()
   const routeName = useSelector(state => state.routeName)
   const input = useField('text')
+  const months = ['jan', 'feb', 'march', 'april',
+    'mai', 'june', 'july', 'aug',
+    'sept', 'oct', 'nov', 'dec']
+  const date = new Date()
+  const initRouteName = `route ${date.getDay()}/${months[date.getMonth()]}/${date.getFullYear()}`
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
@@ -22,11 +29,16 @@ const RouteName = () => {
     }
   }
 
+  useEffect(() => {
+    if (routeName.name !== null) return
+    dispatch(setRouteName(initRouteName))
+  }, [])
+
   return (
     <div><div>Route Name: { routeName.name !== null
       ? <><b>{routeName.name}</b>
         <Button onClick={() => dispatch(removeRouteName())}>
-          change
+          ChangeName
         </Button>
         </>
       : <>
@@ -35,13 +47,6 @@ const RouteName = () => {
           set
         </Button></>
       }</div>
-      {routeName.saved === false
-        ? <Button onClick={()=> dispatch(saveToServer('test'))}>SaveRoute</Button>
-        : <>{ routeName.modified === true &&
-            <><Button>Update</Button>
-            <Button onClick={()=>dispatch(setNewRoute())}>Create New Route</Button></>
-          }</>
-      }
     </div>
   )
 }

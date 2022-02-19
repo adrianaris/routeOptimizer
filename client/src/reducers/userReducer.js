@@ -1,7 +1,7 @@
 import userServices from '../services/user'
 import { setNotification } from './notificationReducer'
 
-const userReducer = (state = {}, action) => {
+const userReducer = (state = null, action) => {
   switch (action.type) {
   case 'REGISTER': return action.data
   case 'LOG_IN': return action.data
