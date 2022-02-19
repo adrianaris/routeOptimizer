@@ -27,9 +27,8 @@ const Geocoder = styled.div`
   position: relative;
   padding: 0.5rem;
   margin: 3px auto;
-  z-index: 1;
   > div {
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 8px;
     margin: auto;
   }

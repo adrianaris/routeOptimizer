@@ -9,7 +9,8 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     action.data.forEach(elem => {
       let point = { ...elem,
         orderTime: Date.now(),
-        key: Math.random()
+        key: Math.random(),
+        jobDone: false
       }
       newState.features.push(point)
     })
@@ -29,6 +30,20 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
       orderedLocations.push(state.features[array[i]])
     }
     const newState = { ...state, features: orderedLocations }
+    return newState
+  }
+  case 'JOB_DONE': {
+    const id = action.data.id
+    const bool = action.data.bool
+    const newState = { ...state, features: state.features.map(
+      elem => {
+        if (elem.id === id) {
+          elem.jobDone = bool
+        }
+        return elem
+      }
+    )
+    }
     return newState
   }
   case 'CLEAR_LOCATIONS': {
@@ -57,6 +72,16 @@ export const optimLocations = orderedIndexArray => {
   return {
     type: 'OPTIMIZE_LOCATIONS',
     data: orderedIndexArray
+  }
+}
+
+export const setJobDone = (id, bool) => {
+  return {
+    type: 'JOB_DONE',
+    data: {
+      id: id,
+      bool: bool
+    }
   }
 }
 

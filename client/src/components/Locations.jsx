@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
-import { optimLocations, removeLocation, clearLocations, addLocation } from '../reducers/addressesReducer'
+import { optimLocations, removeLocation, clearLocations, addLocation, setJobDone } from '../reducers/addressesReducer'
 import { createGoogleUrl, removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { createRoute } from '../reducers/routeReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -20,7 +20,15 @@ import { addStart, addEnd } from '../reducers/startendReducer'
 const Layout = styled.div`
   position: relative;
   overflow-y: auto;
-  border-top: 1px solid black;
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: black;
+  }
   padding: 1rem;
   > div > button {
     display: inline-block;
@@ -168,11 +176,11 @@ const Locations = ({ map }) => {
       dispatch(addEnd(orderedAddresslist.pop()))
       dispatch(addLocation(orderedAddresslist))
       dispatch(createRoute(routeGeoJSON))
-      console.log(waypoints)
       dispatch(createGoogleUrl(waypoints))
     }
 
     const bboxLoc = [DEPOT.start, ...locations, DEPOT.end]
+    console.log(bboxLoc)
     /**
      * use turf to create a bounding box out of all
      * locations and feed it to fitBounds()
@@ -191,6 +199,9 @@ const Locations = ({ map }) => {
     dispatch(clearLocations())
     dispatch(removeGoogleUrl())
     dispatch(removeRoute())
+  }
+  const handleJobDone = (id, bool) => {
+    dispatch(setJobDone(id, bool))
   }
   return (
     <Layout>
@@ -212,10 +223,14 @@ const Locations = ({ map }) => {
       <StartEnd />
       <LocationCount>Locations-count: <b>{locations.length}</b></LocationCount>
       <Olist>
-        {locations.map(({ id, place_name }, index) => (
+        {locations.map(({ id, place_name, jobDone }, index) => (
           <div key={id + index}>
             <p><b>{index + 1}: </b>{place_name}</p>
             <Button onClick={() => handleRemove(id)}>Remove</Button>
+            {jobDone === true
+              ? <Button onClick={() => handleJobDone(id, false)}>Undo jobDone</Button>
+              : <Button onClick={() => handleJobDone(id, true)}>jobDone</Button>
+            }
           </div>
         ))}
       </Olist>
