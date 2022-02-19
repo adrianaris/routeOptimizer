@@ -6,6 +6,7 @@ import addressesReducer from './reducers/addressesReducer'
 import userDataReducer from './reducers/userDataReducer'
 import routeReducer from './reducers/routeReducer'
 import userReducer from './reducers/userReducer'
+import routeNameReducer from './reducers/routeNameReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   addresses: addressesReducer,
   userDATA: userDataReducer,
   route: routeReducer,
-  user: userReducer
+  user: userReducer,
+  routeName: routeNameReducer
 })
 
 const persistConfig = {

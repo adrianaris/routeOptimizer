@@ -108,7 +108,6 @@ const StartEnd = ({ flyToLocation }) => {
   endGeocoder.on('result', event => {
     dispatch(addEnd(event.result))
   })
-  console.log(DEPOT.start)
 
   return (
     <Layout>
@@ -129,7 +128,7 @@ const StartEnd = ({ flyToLocation }) => {
       </Button>
       </div>
       <div
-        onClick={() => flyToLocation(DEPOT.start.center)}
+        onClick={() => flyToLocation(DEPOT.end.center)}
       ><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo
           style={endGeoStyle}

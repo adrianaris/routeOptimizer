@@ -16,6 +16,7 @@ import {
 } from '@turf/turf'
 import { removeRoute } from '../reducers/routeReducer'
 import { addStart, addEnd } from '../reducers/startendReducer'
+import RouteName from './RouteName'
 
 const Layout = styled.div`
   position: relative;
@@ -216,6 +217,7 @@ const Locations = ({ map }) => {
     <Layout>
       {locations.length < 2 ||
       <div>
+        <RouteName />
         <Button onClick={handleOptimizeClick}>optimize</Button>
         <Button onClick={handleClearLocations}>clear locations</Button>
         <Button style={style}>
