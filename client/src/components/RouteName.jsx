@@ -42,7 +42,6 @@ const RouteName = () => {
   }, [])
 
   const handleTestSave = async () => {
-    console.log(addresses)
     const routeToSave = {
       name: routeName.name,
       DEPOT: DEPOT,
@@ -51,6 +50,10 @@ const RouteName = () => {
     }
     const savedRoute = await routes.saveRoute(routeToSave)
     console.log(savedRoute)
+  }
+  const handleTestGetUserRoutes = async () => {
+    const userRoutes = await routes.getUserRoutes()
+    console.log(userRoutes)
   }
   return (
     <div><div>Route Name: { routeName.name !== null
@@ -66,6 +69,7 @@ const RouteName = () => {
         </Button></>
     }</div>
       <button onClick={() => handleTestSave()}>test save</button>
+      <button onClick={() => handleTestGetUserRoutes()}>test get user routes</button>
     </div>
   )
 }

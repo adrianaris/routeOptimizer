@@ -12,6 +12,11 @@ routeRouter.get('/', async (request, response) =>{
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   const routes = await Route.find({ user: decodedToken.id })
+    .populate('addresses')
+    .populate('DEPOT.start')
+    .populate('DEPOT.end')
+    .populate('user')
+  console.log(routes)
 
   response.json(routes)
 })
@@ -47,12 +52,9 @@ routeRouter.post('/save', async (request, response) => {
       route: request.body.route
   })
 
-  console.log(newRoute)
-
   const savedRoute = await newRoute.save()
   
   user.routes = user.routes.concat(savedRoute._id)
-  console.log(user)
   await User.findByIdAndUpdate(user._id, user)
 
   response.status(201).json(savedRoute)
@@ -84,13 +86,13 @@ routeRouter.put('/:id', async (request, response) => {
   let addresses = []
   for (let i in request.body.addresses) {
     const address = await Address.findOne({ palceId: request.body.addresses[i] })
-    addresses = addresses.concat(address)
+    addresses = addresses.concat(address._id)
   }
   const route = {
     name: request.body.name,
     DEPOT: {
-      start: start,
-      end: end
+      start: start._id,
+      end: end._id
     },
     addresses: addresses,
     route: request.body.route 
