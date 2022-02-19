@@ -56,7 +56,7 @@ const Button = styled.button`
     color: white;
   }
 `
-const StartEnd = () => {
+const StartEnd = ({ flyToLocation }) => {
   const startGeocoder = new MapboxGeocoder({
     accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
     types: 'address,country,region,place,postcode,locality,neighborhood'
@@ -108,10 +108,13 @@ const StartEnd = () => {
   endGeocoder.on('result', event => {
     dispatch(addEnd(event.result))
   })
+  console.log(DEPOT.start)
 
   return (
     <Layout>
-      <div><p><b>Start:  </b>{DEPOT.start.place_name}
+      <div
+        onClick={() => flyToLocation(DEPOT.start.center)}
+      ><p><b>Start:  </b>{DEPOT.start.place_name}
         <StartGeo
           style={startGeoStyle}
           ref={startGeocoderContainer} /></p>
@@ -125,7 +128,9 @@ const StartEnd = () => {
       >Remove
       </Button>
       </div>
-      <div><p><b>End:  </b>{DEPOT.end.place_name}
+      <div
+        onClick={() => flyToLocation(DEPOT.start.center)}
+      ><p><b>End:  </b>{DEPOT.end.place_name}
         <EndGeo
           style={endGeoStyle}
           ref={endGeocoderContainer} /></p>

@@ -181,7 +181,6 @@ const Locations = ({ map }) => {
     }
 
     const bboxLoc = [DEPOT.start, ...locations, DEPOT.end]
-    console.log(bboxLoc)
     /**
      * use turf to create a bounding box out of all
      * locations and feed it to fitBounds()
@@ -206,6 +205,13 @@ const Locations = ({ map }) => {
   const handleJobDone = (index, bool) => {
     dispatch(setJobDone(index, bool))
   }
+  const flyToLocation = center => {
+    map.flyTo({
+      center: center,
+      zoom: 12,
+      speed: 2
+    })
+  }
   return (
     <Layout>
       {locations.length < 2 ||
@@ -223,11 +229,15 @@ const Locations = ({ map }) => {
           Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
         </div>
       }
-      <StartEnd />
+      <StartEnd flyToLocation={flyToLocation} />
       <LocationCount>Locations-count: <b>{locations.length}</b></LocationCount>
       <Olist>
-        {locations.map(({ id, place_name, jobDone }, index) => (
-          <div key={id + index} style={{ background: jobDone ? 'gray' : '' }}>
+        {locations.map(({ id, place_name, jobDone, center }, index) => (
+          <div
+            key={id + index}
+            style={{ background: jobDone ? 'gray' : '' }}
+            onClick={() => flyToLocation(center)}
+          >
             <p><b>{index + 1}: </b>{place_name}</p>
             <Button onClick={() => handleRemove(index)}>Remove</Button>
             {jobDone === true
