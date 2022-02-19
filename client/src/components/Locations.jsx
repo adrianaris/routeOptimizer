@@ -227,7 +227,7 @@ const Locations = ({ map }) => {
       <LocationCount>Locations-count: <b>{locations.length}</b></LocationCount>
       <Olist>
         {locations.map(({ id, place_name, jobDone }, index) => (
-          <div key={id + index}>
+          <div key={id + index} style={{ background: jobDone ? 'gray' : '' }}>
             <p><b>{index + 1}: </b>{place_name}</p>
             <Button onClick={() => handleRemove(index)}>Remove</Button>
             {jobDone === true
