@@ -215,11 +215,9 @@ const Locations = ({ map }) => {
   }
   return (
     <Layout>
+      <RouteName />
       {locations.length < 2 ||
       <div>
-        <RouteName />
-        <Button onClick={handleOptimizeClick}>optimize</Button>
-        <Button onClick={handleClearLocations}>clear locations</Button>
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
@@ -232,7 +230,9 @@ const Locations = ({ map }) => {
         </div>
       }
       <StartEnd flyToLocation={flyToLocation} />
-      <LocationCount>Locations-count: <b>{locations.length}</b></LocationCount>
+      <LocationCount>Locations-count: <b>{locations.length}</b>
+      <Button onClick={handleClearLocations}>clear locations</Button>
+      <Button onClick={handleOptimizeClick}>OPTIMIZE-ROUTE</Button></LocationCount>
       <Olist>
         {locations.map(({ id, place_name, jobDone, center }, index) => (
           <div
