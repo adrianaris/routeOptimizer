@@ -29,7 +29,11 @@ routeRouter.post('/save', async (request, response) => {
   let addresses = []
   for (let i in request.body.addresses) {
     const address = await Address.findOne({ placeId: request.body.addresses[i].id })
-    addresses = addresses.concat(address)
+    addresses = addresses.concat({
+      address: address._id,
+      jobDone: request.body.addresses[i].jobDone,
+      orderTime: request.body.addresses[i].orderTime
+    })
   }
 
   const newRoute = new Route({

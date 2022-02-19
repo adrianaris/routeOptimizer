@@ -17,8 +17,12 @@ const routeSchema = new mongoose.Schema({
     },
     addresses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
+        address: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Address'
+        },
+        jobDone: Boolean,
+        orderTime: String,
       }
     ],
     user: {
