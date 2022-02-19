@@ -35,7 +35,8 @@ userRouter.post('/register', async (request, response) => {
 userRouter.post('/login', async (request, response) => {
   const body = request.body
   
-  const user = await User.findOne({ username: body.username })
+  const user = await User.findOne({ username: body.username }).populate('routes')
+  console.log(user)
 
   const passwordCorrect = user === null
     ? false
