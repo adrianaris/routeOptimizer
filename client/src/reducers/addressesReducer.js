@@ -17,9 +17,10 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     return newState
   }
   case 'REMOVE_LOCATION': {
-    const id = action.data
     const newState = { ...state, features: state.features.filter(
-      point => point.id !== id
+      (elem, index) => {
+        if (index !== action.data) return elem
+      }
     ) }
     return newState
   }
@@ -36,11 +37,11 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     return newState
   }
   case 'JOB_DONE': {
-    const id = action.data.id
+    const rindex = action.data.index
     const bool = action.data.bool
     const newState = { ...state, features: state.features.map(
-      elem => {
-        if (elem.id === id) {
+      (elem, index) => {
+        if (index === rindex) {
           elem.jobDone = bool
         }
         return elem
@@ -64,10 +65,10 @@ export const addLocation = coordinates => {
   }
 }
 
-export const removeLocation = id => {
+export const removeLocation = index => {
   return {
     type: 'REMOVE_LOCATION',
-    data: id
+    data: index
   }
 }
 
@@ -78,11 +79,11 @@ export const optimLocations = orderedIndexArray => {
   }
 }
 
-export const setJobDone = (id, bool) => {
+export const setJobDone = (index, bool) => {
   return {
     type: 'JOB_DONE',
     data: {
-      id: id,
+      index: index,
       bool: bool
     }
   }

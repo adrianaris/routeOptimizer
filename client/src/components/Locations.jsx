@@ -190,10 +190,12 @@ const Locations = ({ map }) => {
     map.fitBounds(bbox, { padding: 50 })
   }
 
-  const handleRemove = id => {
-    dispatch(removeLocation(id))
-    dispatch(removeGoogleUrl())
-    dispatch(removeRoute())
+  const handleRemove = index => {
+    dispatch(removeLocation(index))
+    if (locations[index].jobDone === false) {
+      dispatch(removeGoogleUrl())
+      dispatch(removeRoute())
+    }
   }
 
   const handleClearLocations = () => {
@@ -201,9 +203,8 @@ const Locations = ({ map }) => {
     dispatch(removeGoogleUrl())
     dispatch(removeRoute())
   }
-  const handleJobDone = (id, bool) => {
-    dispatch(setJobDone(id, bool))
-    console.log(id)
+  const handleJobDone = (index, bool) => {
+    dispatch(setJobDone(index, bool))
   }
   return (
     <Layout>
@@ -228,10 +229,10 @@ const Locations = ({ map }) => {
         {locations.map(({ id, place_name, jobDone }, index) => (
           <div key={id + index}>
             <p><b>{index + 1}: </b>{place_name}</p>
-            <Button onClick={() => handleRemove(id)}>Remove</Button>
+            <Button onClick={() => handleRemove(index)}>Remove</Button>
             {jobDone === true
-              ? <Button onClick={() => handleJobDone(id, false)}>Undo jobDone</Button>
-              : <Button onClick={() => handleJobDone(id, true)}>jobDone</Button>
+              ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
+              : <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
             }
           </div>
         ))}
