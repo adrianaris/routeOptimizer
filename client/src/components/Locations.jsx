@@ -125,24 +125,25 @@ const Locations = ({ map }) => {
   }, [route])
 
   const handleOptimizeClick = async () => {
+    const locationsToOptimize = locations.filter(elem => elem.jobDone === false)
     if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
       return dispatch(setNotification(
         'Please add a start/end location for the optimization to work!', 10
       ))
     }
 
-    if (locations.length > 10 && user === null)  {
+    if (locationsToOptimize.length > 10 && user === null)  {
       return dispatch(setNotification(
         <span>Without an account the planner suports only ten locations plus the start/end.<br/>Remove addresses or register an account in order to continue!</span>, 10
       ))
     }
 
-    const allLocations = [DEPOT.start, ...locations, DEPOT.end]
+    const allLocations = [DEPOT.start, ...locationsToOptimize, DEPOT.end]
 
     /** basically call frontend optimization if les than 10 locations
      * backend optimization otherwise
      */
-    if (locations.length <= 10) {
+    if (locationsToOptimize.length <= 10) {
       const {
         routeGeoJSON,
         orderedIndexArray,
@@ -202,6 +203,7 @@ const Locations = ({ map }) => {
   }
   const handleJobDone = (id, bool) => {
     dispatch(setJobDone(id, bool))
+    console.log(id)
   }
   return (
     <Layout>

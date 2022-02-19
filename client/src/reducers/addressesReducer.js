@@ -27,9 +27,12 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     const array = action.data
     let orderedLocations = []
     for (let i in array) {
-      orderedLocations.push(state.features[array[i]])
+      orderedLocations.push(state.features.filter(elem => elem.jobDone === false)[array[i]])
     }
-    const newState = { ...state, features: orderedLocations }
+    const newState = { ...state, features: state.features.filter(
+      elem => elem.jobDone === true
+      ).concat(orderedLocations)
+    }
     return newState
   }
   case 'JOB_DONE': {
