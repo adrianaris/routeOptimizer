@@ -9,7 +9,7 @@ import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { getDepot } from '../services/getDepot'
-import { initMap } from '../reducers/mapReducer'
+//import { initMap } from '../reducers/mapReducer'
 import styled from 'styled-components'
 //import Sidebar from './Sidebar'
 import OverviewButton from './OverviewButton'
@@ -231,7 +231,7 @@ const Map = () => {
       center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
       zoom: userDATA ? 12 : 7
     })
-    dispatch(initMap(map.current))
+    //dispatch(initMap(map.current))
     map.current.on('load', async () => {
       await createMapLayers()
     })
@@ -258,13 +258,13 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <OverviewButton />
+        <OverviewButton map={map.current} />
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
         <Notification />
         <Geocoder ref={geocoderContainer} />
-        <Locations />
+        <Locations map={map.current} />
       </StyledDiv>
     </FlexContainer>
   )

@@ -74,8 +74,7 @@ const LocationCount = styled.div`
   text-align: center;
   padding: 0.3rem;
 `
-const Locations = () => {
-  const map = useSelector(state => state.map)
+const Locations = ({ map }) => {
   const route = useSelector(state => state.route)
   const DEPOT = useSelector(state => state.DEPOT)
   const googleMapsUrl = useSelector(state => state.googleUrl)

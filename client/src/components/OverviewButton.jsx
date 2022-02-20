@@ -21,8 +21,7 @@ const Button = styled.button`
   }
 `
 
-const OverviewButton = () => {
-  const map = useSelector(state => state.map)
+const OverviewButton = ({ map }) => {
   const bbox = useSelector(state => state.route).bbox
 
   const fitBounds = () => {
