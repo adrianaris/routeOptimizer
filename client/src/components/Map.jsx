@@ -11,6 +11,7 @@ import { addStart, addEnd } from '../reducers/startendReducer'
 import { getDepot } from '../services/getDepot'
 import styled from 'styled-components'
 //import Sidebar from './Sidebar'
+import OverviewButton from './OverviewButton'
 import Locations from './Locations'
 import Notification from './Notification'
 import { featureCollection as turfFeatureCollection } from '@turf/turf'
@@ -256,6 +257,7 @@ const Map = () => {
     <FlexContainer>
       <div>
         <MapContainer ref={mapContainer} />
+        <OverviewButton map={map.current} />
       </div>
       <StyledDiv>
         <Notification />
