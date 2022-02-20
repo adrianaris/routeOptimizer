@@ -29,7 +29,13 @@ userRouter.post('/register', async (request, response) => {
     id: savedU._id
   }, process.env.SECRET)
   
-  response.json({ token, savedU })
+  response.json({
+    token,
+    username: savedU.username,
+    name: savedU.name,
+    routes: savedU.routes,
+    creationDate: savedU.creationDate
+  })
 })
 
 userRouter.post('/login', async (request, response) => {
@@ -55,7 +61,13 @@ userRouter.post('/login', async (request, response) => {
   
   const token = jwt.sign(userForToken, process.env.SECRET)
 
-  response.status(200).send({ token, username: user.username, name: user.name })
+  response.status(200).send({
+    token,
+    username: user.username,
+    name: user.name,
+    routes: user.routes,
+    creationDate: user.creationDate
+  })
 })
 
 module.exports = userRouter
