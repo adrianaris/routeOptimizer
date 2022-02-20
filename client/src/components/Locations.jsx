@@ -149,7 +149,6 @@ const Locations = ({ map }) => {
         routeGeoJSON,
         orderedIndexArray,
         waypoints } = await optimize(allLocations)
-      console.log(waypoints)
       const removedDepotArray = orderedIndexArray.slice(1, -1).map(elem => elem-1)
       dispatch(optimLocations(removedDepotArray))
       /**
@@ -181,7 +180,7 @@ const Locations = ({ map }) => {
       dispatch(createGoogleUrl(waypoints))
     }
 
-    const bboxLoc = [DEPOT.start, ...locations, DEPOT.end]
+    const bboxLoc = [DEPOT.start, ...locationsToOptimize, DEPOT.end]
     /**
      * use turf to create a bounding box out of all
      * locations and feed it to fitBounds()

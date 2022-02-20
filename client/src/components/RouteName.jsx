@@ -21,25 +21,25 @@ const RouteName = () => {
   const route = useSelector(state => state.route)
   const routeName = useSelector(state => state.routeName)
   const input = useField('text')
+
+  /**
+   * Set initial route name after login/register
+   */
   const months = ['jan', 'feb', 'march', 'april',
     'mai', 'june', 'july', 'aug',
     'sept', 'oct', 'nov', 'dec']
   const date = new Date()
   const initRouteName = `route ${date.getDay()}/${months[date.getMonth()]}/${date.getFullYear()}`
+  useEffect(() => {
+    if (routeName.name !== null) return
+    dispatch(setRouteName(initRouteName))
+  }, [])
 
   const handleEnter = event => {
     if (event.key === 'Enter') {
       dispatch(setRouteName(input.value))
     }
   }
-
-  /**
-   * Set initial route name after login/register
-   */
-  useEffect(() => {
-    if (routeName.name !== null) return
-    dispatch(setRouteName(initRouteName))
-  }, [])
 
   const handleTestSave = async () => {
     const routeToSave = {

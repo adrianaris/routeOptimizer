@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {
+  lineString as turfLineString,
+  bbox as turfBbox,
   featureCollection as turfFeatureCollection,
   feature as turfFeature
 } from '@turf/turf'
@@ -34,7 +36,8 @@ const optimize = async (locations) => {
     turfFeature({ ...data.trips[0].geometry })
     ]),
     distance: data.trips[0].distance,
-    duration: data.trips[0].duration
+    duration: data.trips[0].duration,
+    bbox: turfBbox(turfLineString(locations.map(elem => elem.center)))
   }
   console.log(routeGeoJSON)
 
