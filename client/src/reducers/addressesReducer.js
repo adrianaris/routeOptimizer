@@ -8,9 +8,9 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     const newState = { ...state }
     action.data.forEach(elem => {
       let point = { ...elem,
-        orderTime: Date.now(),
-        key: Math.random(),
-        jobDone: false
+        orderTime: elem.orderTime ? elem.orderTime : Date.now(),
+        key: elem.key ? elem.key : Math.random(),
+        jobDone: elem.jobDone ? elem.jobDone : false
       }
       newState.features.push(point)
     })

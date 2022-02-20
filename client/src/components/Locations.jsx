@@ -127,6 +127,7 @@ const Locations = ({ map }) => {
 
   const handleOptimizeClick = async () => {
     const locationsToOptimize = locations.filter(elem => elem.jobDone === false)
+    const jobDoneLocations = locations.filter(elem => elem.jobDone === true)
     if (_.isEmpty(DEPOT.start) || _.isEmpty(DEPOT.end)) {
       return dispatch(setNotification(
         'Please add a start/end location for the optimization to work!', 10
@@ -175,7 +176,7 @@ const Locations = ({ map }) => {
       dispatch(removeRoute())
       dispatch(addStart(orderedAddresslist.shift()))
       dispatch(addEnd(orderedAddresslist.pop()))
-      dispatch(addLocation(orderedAddresslist))
+      dispatch(addLocation(jobDoneLocations.concat(orderedAddresslist)))
       dispatch(createRoute(routeGeoJSON))
       dispatch(createGoogleUrl(waypoints))
     }
