@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosLogged from '../axiosConfig/axiosLogged'
 const URL = '/api/user'
 
 const login = async credentials => {
@@ -11,4 +12,9 @@ const register = async credentials => {
   return response.data
 }
 
-export default { login, register }
+const updateU = async credentials => {
+  const response = await axiosLogged.put('/user/update', credentials)
+  return response.data
+}
+
+export default { login, register, updateU }

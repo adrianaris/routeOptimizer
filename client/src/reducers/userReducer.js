@@ -5,6 +5,7 @@ const userReducer = (state = null, action) => {
   switch (action.type) {
   case 'REGISTER': return action.data
   case 'LOG_IN': return action.data
+  case 'UPDATE_USER': return action.data
   case 'LOG_OUT': return null
   default: return state
   }
@@ -42,6 +43,22 @@ export const Login = credentials => {
     } catch (error) {
       if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))
+    }
+  }
+}
+
+export const UpdateU = credentials => {
+  return async dispatch => {
+    try {
+      const user =  await userServices.updateU(credentials)
+      dispatch({
+        type: 'UPDATE_USER',
+        data: user
+      })
+      window.localStorage.removeItem('foxINCuser')
+      window.localStorage.setItem('foxINCuser', JSON.stringify(user))
+    } catch (error) {
+      console.error(error)
     }
   }
 }

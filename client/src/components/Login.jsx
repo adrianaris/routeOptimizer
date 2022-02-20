@@ -41,6 +41,18 @@ const LoginPage = () => {
   const name = useField('text')
   const password = useField('password')
   const navigate = useNavigate()
+  const [navigator, setNavigator] = useState('gmaps')
+
+  const navigatorOptions = [
+    {
+      value: 'gmaps',
+      label: 'GoogleMaps'
+    },
+    {
+      value: 'waze',
+      label: 'Waze'
+    }
+  ]
 
   const loggedUser = useSelector(state => state.user)
 
@@ -49,6 +61,7 @@ const LoginPage = () => {
     dispatch(Register({
       username: username.value,
       name: name.value,
+      navigator: navigator,
       password: password.value
     }))
   }
@@ -99,10 +112,18 @@ const LoginPage = () => {
               <input {...password} />
             </FormInnerDiv>
             <FormInnerDiv>
+              <b>navigator: </b>
+              <select onChange={(e) => setNavigator(e.target.value)}>
+                {navigatorOptions.map(option => (
+                  <option value={option.value} key={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </FormInnerDiv>
+            <FormInnerDiv>
               <Button type='submit'>Register</Button>
             </FormInnerDiv>
           </form>
-          <h3>Already a user? login here: </h3>
+          <h3>Already an user? login here: </h3>
           <div><Button onClick={() => switchForm(!form)}>Login</Button></div></>
       }
     </Layout>

@@ -19,6 +19,7 @@ userRouter.post('/register', async (request, response) => {
   const user = new User({
     username: body.username,
     name: body.name,
+    navigator: body.navigator,
     creationDate: Date(),
     passwordHash
   })
@@ -34,7 +35,8 @@ userRouter.post('/register', async (request, response) => {
     username: savedU.username,
     name: savedU.name,
     routes: savedU.routes,
-    creationDate: savedU.creationDate
+    creationDate: savedU.creationDate,
+    navigator: savedU.navigator
   })
 })
 
@@ -65,10 +67,15 @@ userRouter.post('/login', async (request, response) => {
     username: user.username,
     name: user.name,
     routes: user.routes,
-    creationDate: user.creationDate
+    creationDate: user.creationDate,
+    navigator: user.navigator
   })
 })
 
+/**
+ * I should change this to ask for old password 
+ * when changing it
+ */
 userRouter.put('/update', async (request, response) => {
   const body = request.body
   const token = request.token
