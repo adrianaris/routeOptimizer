@@ -224,6 +224,7 @@ const Map = () => {
   }
 
   useEffect(() => {
+    if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10?optimize=true',
@@ -236,8 +237,7 @@ const Map = () => {
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
       ' for the optimization service to become available!', 20))
-    return () => map.current.remove()
-  }, [])
+  })
 
   useEffect(() => {
     if (!userDATA) return

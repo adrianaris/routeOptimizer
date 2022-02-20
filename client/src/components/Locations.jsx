@@ -100,7 +100,7 @@ const Locations = () => {
    * Sets symbols on map for waypoints
    */
   useEffect(() => {
-    if (!map) return
+    if (map === null) return
     map.on('idle', () => {
       map.getSource('dropoffs-symbol').setData(addresses)
     })
@@ -110,7 +110,7 @@ const Locations = () => {
    * Sets symbols on map for start/end positions
    */
   useEffect(() => {
-    if (!map) return
+    if (map === null) return
     const newWarehouse = turfFeatureCollection([DEPOT.start, DEPOT.end])
     if (!map.getLayer('warehouse')) {
       map.on('idle', () => {
@@ -123,7 +123,7 @@ const Locations = () => {
    * Sets a route through all waypoints after optimization
    */
   useEffect(() => {
-    if (!map) return
+    if (map === null) return
     map.getSource('route').setData(route)
   }, [route])
 

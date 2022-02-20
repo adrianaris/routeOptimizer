@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { combineReducers } from 'redux'
 import googleUrlReducer from './reducers/googleUrlReducer'
 import startendReducer from './reducers/startendReducer'
 import notificationReducer from './reducers/notificationReducer'
@@ -9,8 +9,7 @@ import userReducer from './reducers/userReducer'
 import routeNameReducer from './reducers/routeNameReducer'
 import mapReducer from './reducers/mapReducer'
 import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -34,10 +33,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 
-const store = createStore(
-  persistedReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [thunk]
+})
 
 const persistor = persistStore(store)
 
