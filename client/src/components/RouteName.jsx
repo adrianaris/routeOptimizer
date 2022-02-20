@@ -29,7 +29,7 @@ const RouteName = () => {
     'mai', 'june', 'july', 'aug',
     'sept', 'oct', 'nov', 'dec']
   const date = new Date()
-  const initRouteName = `route ${date.getDay()}/${months[date.getMonth()]}/${date.getFullYear()}`
+  const initRouteName = `route ${date.getDate()}/${months[date.getMonth()]}/${date.getFullYear()}`
   useEffect(() => {
     if (routeName.name !== null) return
     dispatch(setRouteName(initRouteName))

@@ -122,11 +122,6 @@ const Map = () => {
   // } else {
   //   console.log('browser doesn\'t allow geolocation')
   // }
-
-    /**
-     * Perhapse I should move this into its own module
-     */
-
   const addSearchLocation = (coordinates) => {
     /**
      * The addLocation action receives an array so that
@@ -234,7 +229,6 @@ const Map = () => {
       ' for the optimization service to become available!', 20))
     return () => map.remove()
   }, [])
-  console.log(map)
 
   useEffect(() => {
     if (!userDATA) return
