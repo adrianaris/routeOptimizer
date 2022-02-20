@@ -16,7 +16,6 @@ routeRouter.get('/', async (request, response) =>{
     .populate('DEPOT.start')
     .populate('DEPOT.end')
     .populate('user')
-  console.log(routes)
 
   response.json(routes)
 })
@@ -99,6 +98,10 @@ routeRouter.put('/:id', async (request, response) => {
   }
   
   const updatedRoute = await Route.findByIdAndUpdate(request.params.id, route)
+    .populate('addresses')
+    .populate('DEPOT.start')
+    .populate('DEPOT.end')
+    .populate('user')
   
   response.json(updatedRoute)
 })

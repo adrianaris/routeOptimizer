@@ -256,8 +256,8 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <MapContainer ref={mapContainer} />
         <OverviewButton map={map.current} />
+        <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
         <Notification />

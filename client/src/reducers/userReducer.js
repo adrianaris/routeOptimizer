@@ -45,6 +45,7 @@ export const Login = credentials => {
     }
   }
 }
+
 export const Logout = () => {
   return dispatch => {
     window.localStorage.removeItem('foxINCuser')

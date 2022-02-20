@@ -163,7 +163,7 @@ const Locations = ({ map }) => {
       const {
         orderedAddresslist,
         routeGeoJSON,
-        waypoints
+        //waypoints
       } = await loggedInOptimize(allLocations)
       /**
        * I should probably combine those into one single reducer
@@ -178,7 +178,6 @@ const Locations = ({ map }) => {
       dispatch(addEnd(orderedAddresslist.pop()))
       dispatch(addLocation(jobDoneLocations.concat(orderedAddresslist)))
       dispatch(createRoute(routeGeoJSON))
-      dispatch(createGoogleUrl(waypoints))
     }
 
     const bboxLoc = [DEPOT.start, ...locationsToOptimize, DEPOT.end]

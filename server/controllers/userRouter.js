@@ -42,7 +42,6 @@ userRouter.post('/login', async (request, response) => {
   const body = request.body
   
   const user = await User.findOne({ username: body.username }).populate('routes')
-  console.log(user)
 
   const passwordCorrect = user === null
     ? false
@@ -67,6 +66,42 @@ userRouter.post('/login', async (request, response) => {
     name: user.name,
     routes: user.routes,
     creationDate: user.creationDate
+  })
+})
+
+userRouter.put('/update', async (request, response) => {
+  const body = request.body
+  const token = request.token
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+     return response.status(401).json({ error: 'token missing  or invalid' })
+  }
+
+  const updUser = {
+    username: body.username,
+    name: body.name,
+    navigator: body.navigator
+  }
+  if (body.password) {
+    updUser.passwordHash = await bcrypt.hash(body.password, 10)
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(decodedToken.id, updUser).populate('routes')
+  const newToken = jwt.sign(
+    {
+      username: updatedUser.username,
+      id: updatedUser._id
+    },
+    process.env.SECRET
+  )
+
+  response.status(200).send({
+    newToken,
+    username: updatedUser.username,
+    name: updatedUser.name,
+    routes: updateUser.routes,
+    navigator: updatedUser.navigator,
+    creationDate: updateUser.creationDate
   })
 })
 
