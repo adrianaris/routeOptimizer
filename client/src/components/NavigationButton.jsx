@@ -27,8 +27,6 @@ const NavigationButton = ({ index }) => {
     : locations[index].center[1] + ',' + locations[index].center[0]
   const origin = userDATA.latitude + ',' + userDATA.longitude
 
-  console.log(destination)
-
   const linkToNavigator = navigator === 'waze'
     ? 'https://www.waze.com/ul?ll=' +
       `${locations[index].center[1]}%2C` +

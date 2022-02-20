@@ -9,6 +9,7 @@ import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import { getDepot } from '../services/getDepot'
+import { initMap } from '../reducers/mapReducer'
 import styled from 'styled-components'
 //import Sidebar from './Sidebar'
 import OverviewButton from './OverviewButton'
@@ -223,19 +224,20 @@ const Map = () => {
   }
 
   useEffect(() => {
-    if (map.current !== null) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10?optimize=true',
       center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
       zoom: userDATA ? 12 : 7
     })
+    dispatch(initMap(map.current))
     map.current.on('load', async () => {
       await createMapLayers()
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
       ' for the optimization service to become available!', 20))
-  })
+    return () => map.current.remove()
+  }, [])
 
   useEffect(() => {
     if (!userDATA) return
@@ -256,13 +258,13 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <OverviewButton map={map.current} />
+        <OverviewButton />
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
         <Notification />
         <Geocoder ref={geocoderContainer} />
-        <Locations map={map.current} />
+        <Locations />
       </StyledDiv>
     </FlexContainer>
   )
