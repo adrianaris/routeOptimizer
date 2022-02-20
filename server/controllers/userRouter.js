@@ -73,7 +73,7 @@ userRouter.post('/login', async (request, response) => {
 })
 
 /**
- * I should change this to ask for old password 
+ * I should modify this to ask for old password 
  * when changing it
  */
 userRouter.put('/update', async (request, response) => {

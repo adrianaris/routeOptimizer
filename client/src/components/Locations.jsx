@@ -17,6 +17,7 @@ import {
 import { removeRoute } from '../reducers/routeReducer'
 import { addStart, addEnd } from '../reducers/startendReducer'
 import RouteName from './RouteName'
+import NavigationButton from './NavigationButton'
 
 const Layout = styled.div`
   position: relative;
@@ -233,17 +234,30 @@ const Locations = ({ map }) => {
         <Button onClick={handleOptimizeClick}>OPTIMIZE-ROUTE</Button>
       }</LocationCount>
       <Olist>
-        {locations.map(({ id, place_name, jobDone, center }, index) => (
+        {locations.concat(DEPOT.end).map(({ id, place_name, jobDone, center }, index) => (
           <div
             key={id + index}
             style={{ background: jobDone ? 'gray' : '' }}
             onClick={() => flyToLocation(center)}
           >
-            <p><b>{index + 1}: </b>{place_name}</p>
+            <p>
+              <>
+                {index === locations.length
+                  ? <b>END:</b>
+                  : <b>{index + 1}:</b>
+                }
+              </>
+              {place_name}
+            </p>
             <Button onClick={() => handleRemove(index)}>Remove</Button>
             {jobDone === true
               ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
-              : <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
+              : <>{index === locations.length ||
+                  <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
+                }
+                {user === null ||
+                  <NavigationButton index={index} />
+                }</>
             }
           </div>
         ))}
