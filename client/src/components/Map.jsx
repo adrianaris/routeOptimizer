@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
@@ -98,7 +98,7 @@ const Map = () => {
 
   const mapContainer = useRef(null)
   const geocoderContainer = useRef(null)
-  const map = useRef(null)
+  const [map, setMap] = useState(null)
 
   /**
    * route sources
@@ -126,91 +126,6 @@ const Map = () => {
     /**
      * Perhapse I should move this into its own module
      */
-  const createMapLayers = async () => {
-    geocoderContainer.current.appendChild(geocoder.onAdd(map.current))
-
-    /**
-     * create a point map for path
-     */
-    await map.current.addLayer({
-      id: 'warehouse',
-      type: 'symbol',
-      source: {
-        data: warehouse,
-        type: 'geojson'
-      },
-      layout: {
-        'icon-allow-overlap': true,
-        'icon-image': 'castle-15',
-        'icon-size': 2
-      }
-    })
-
-    await map.current.addLayer({
-      id: 'dropoffs-symbol',
-      type: 'symbol',
-      source: {
-        data: addresses,
-        type: 'geojson',
-      },
-      layout: {
-        'icon-allow-overlap': true,
-        'icon-ignore-placement': true,
-        'icon-image': 'marker-15',
-      },
-    })
-
-    await map.current.addSource('route', {
-      type: 'geojson',
-      data: route,
-    })
-
-    await map.current.addLayer(
-      {
-        id: 'routeline-active',
-        type: 'line',
-        source: 'route',
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round',
-        },
-        paint: {
-          'line-color': '#3887be',
-          'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 22, 12],
-        },
-      },
-      'waterway-label'
-    )
-
-    await map.current.addLayer(
-      {
-        id: 'routearrows',
-        type: 'symbol',
-        source: 'route',
-        layout: {
-          'symbol-placement': 'line',
-          'text-field': '▶',
-          'text-size': ['interpolate', ['linear'], ['zoom'], 12, 24, 22, 60],
-          'symbol-spacing': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            12,
-            30,
-            22,
-            160,
-          ],
-          'text-keep-upright': false,
-        },
-        paint: {
-          'text-color': '#3887be',
-          'text-halo-color': 'hsl(55, 11%, 96%)',
-          'text-halo-width': 3,
-        },
-      },
-      'waterway-label'
-    )
-  }
 
   const addSearchLocation = (coordinates) => {
     /**
@@ -224,20 +139,102 @@ const Map = () => {
   }
 
   useEffect(() => {
-    if (map.current !== null) return
-    map.current = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10?optimize=true',
       center: userDATA ? [userDATA.longitude, userDATA.latitude] : [4.3755, 50.8550],
       zoom: userDATA ? 12 : 7
     })
-    //dispatch(initMap(map.current))
-    map.current.on('load', async () => {
-      await createMapLayers()
+    map.on('load', async () => {
+      geocoderContainer.current.appendChild(geocoder.onAdd(map))
+      /**
+       * create a point map for path
+       */
+      await map.addLayer({
+        id: 'warehouse',
+        type: 'symbol',
+        source: {
+          data: warehouse,
+          type: 'geojson'
+        },
+        layout: {
+          'icon-allow-overlap': true,
+          'icon-image': 'castle-15',
+          'icon-size': 2
+        }
+      })
+
+      await map.addLayer({
+        id: 'dropoffs-symbol',
+        type: 'symbol',
+        source: {
+          data: addresses,
+          type: 'geojson',
+        },
+        layout: {
+          'icon-allow-overlap': true,
+          'icon-ignore-placement': true,
+          'icon-image': 'marker-15',
+        },
+      })
+
+      await map.addSource('route', {
+        type: 'geojson',
+        data: route,
+      })
+
+      await map.addLayer(
+        {
+          id: 'routeline-active',
+          type: 'line',
+          source: 'route',
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round',
+          },
+          paint: {
+            'line-color': '#3887be',
+            'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 22, 12],
+          },
+        },
+        'waterway-label'
+      )
+
+      await map.addLayer(
+        {
+          id: 'routearrows',
+          type: 'symbol',
+          source: 'route',
+          layout: {
+            'symbol-placement': 'line',
+            'text-field': '▶',
+            'text-size': ['interpolate', ['linear'], ['zoom'], 12, 24, 22, 60],
+            'symbol-spacing': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              30,
+              22,
+              160,
+            ],
+            'text-keep-upright': false,
+          },
+          paint: {
+            'text-color': '#3887be',
+            'text-halo-color': 'hsl(55, 11%, 96%)',
+            'text-halo-width': 3,
+          },
+        },
+        'waterway-label'
+      )
+      setMap(map)
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
       ' for the optimization service to become available!', 20))
-  })
+    return () => map.remove()
+  }, [])
+  console.log(map)
 
   useEffect(() => {
     if (!userDATA) return
@@ -258,13 +255,13 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <OverviewButton map={map.current} />
+        <OverviewButton map={map} />
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>
         <Notification />
         <Geocoder ref={geocoderContainer} />
-        <Locations map={map.current} />
+        <Locations map={map} />
       </StyledDiv>
     </FlexContainer>
   )
