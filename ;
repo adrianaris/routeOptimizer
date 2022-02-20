@@ -28,14 +28,12 @@ const NavigationButton = ({ index }) => {
   const origin = userDATA.latitude + ',' + userDATA.longitude
 
   console.log(destination)
+  console.log(origin)
 
-  const linkToNavigator = navigator === 'waze'
-    ? 'https://www.waze.com/ul?ll=' +
-      `${locations[index].center[1]}%2C` +
-      `${locations[index].center[0]}&navigate=yes`
-    : `https://www.google.com/maps/dir/?api=1&origin=${origin}` +
+  const linkToNavigator = navigator === 'gmaps'
+    ? `https://www.google.com/maps/dir/?api=1&origin=${origin}` +
       `&destination=${destination}`
-
+    : ''
     return (
       <Button>
         <a
