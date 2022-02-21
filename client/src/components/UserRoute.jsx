@@ -16,11 +16,14 @@ const UserRoute = ({ route }) => {
         </p>
         <div><b>Start:</b> {route.DEPOT.start.address.place_name}</div>
         <div><b>End:</b> {route.DEPOT.end.address.place_name}</div>
-        <ul>
+        <ol>
           {route.addresses.map(elem => (
-            <li key={elem._id}>{elem.address.address.place_name}</li>
+            <li key={elem._id}>
+              {elem.address.address.place_name} --
+              <b> {elem.jobDone ? 'Finished' : 'Not Finished'}</b>
+              </li>
           ))}
-        </ul>
+        </ol>
       </div>
     </div>
   )

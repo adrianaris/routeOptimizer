@@ -15,6 +15,10 @@ const Layout = styled.div`
   justify-content: center;
 `
 const UserPanel = () => {
+  /**
+   * I should actualy just populate the user reducer when logging in
+   * instead of using this hook
+   */
   const [routes, addRoute] = getRoutes('/routes')
   console.log(routes)
 
