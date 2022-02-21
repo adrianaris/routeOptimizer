@@ -12,7 +12,7 @@ routeRouter.get('/', async (request, response) =>{
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   const routes = await Route.find({ user: decodedToken.id })
-    .populate('addresses')
+    .populate('addresses.address')
     .populate('DEPOT.start')
     .populate('DEPOT.end')
     .populate('user')

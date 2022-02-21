@@ -1,7 +1,8 @@
 // TO DO
 import React from 'react'
 import styled from 'styled-components'
-//import getRoutes from '../hooks/getRoutes'
+import getRoutes from '../hooks/getRoutes'
+import UserRoute from './UserRoute'
 
 const Layout = styled.div`
   position: relative;
@@ -14,9 +15,17 @@ const Layout = styled.div`
   justify-content: center;
 `
 const UserPanel = () => {
-  //const [routes, addRoutes] = getRoutes('/api/routes')
+  const [routes, addRoute] = getRoutes('/routes')
+  console.log(routes)
+
   return (
-    <Layout>user panel</Layout>
+    <Layout>
+      <p>user panel</p>
+      <button onClick={() => addRoute}>addRoute</button>
+      {routes.map(route => (
+        <UserRoute key={route.id} route={route} />
+      ))}
+    </Layout>
   )
 }
 

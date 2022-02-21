@@ -3,13 +3,13 @@
  * this without infringing tos
  */
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import axiosLogged from '../axiosConfig/axiosLogged'
 
 const getRoutes = url => {
   const [routes, setRoutes] = useState([])
 
   const getUserRoutes = async () => {
-    const response = await axios.get(url)
+    const response = await axiosLogged.get(url)
     return response.data
   }
 
@@ -26,7 +26,7 @@ const getRoutes = url => {
   const addRoute = route  => {
     const newRoutes = routes.concat(route)
     setRoutes(newRoutes)
-    return axios.post(url, route)
+    return axiosLogged.post(`${url}/save`, route)
   }
 
   return [
