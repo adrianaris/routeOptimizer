@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Toggable from './Toggable'
 import NavBox from './NavBox'
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 const NavBar = styled.div`
   z-index: 5;
-  position: absolute;
+  position: fixed;
   margin: auto;
   left: 0;
   right: 0;
@@ -20,7 +20,7 @@ const NavBar = styled.div`
   width: 90%;
   @media (min-aspect-ratio: 29/30) {
     margin: auto;
-    position: relative;
+    position: ${props => props.position};
   }
   @media (max-height: 480px) and (max-width: 640px) {
     width: 95vw;
@@ -46,6 +46,8 @@ const MenuBar = () => {
   const showDisplay = () => {
     NavBoxRef.current.toggleVisibility()
   }
+  const location = useLocation()
+  const position = location.pathname === '/' ? 'relative' : 'fixed'
 
   const handleClickOutside = event => {
     if (clickRef.current && !clickRef.current.contains(event.target)) {
@@ -61,7 +63,7 @@ const MenuBar = () => {
   })
 
   return (
-    <NavBar>
+    <NavBar position={position}>
       <StyledLink to="/">Logo</StyledLink>
       <Welcome>Welcome {user ? user.username : ''}</Welcome>
       <StyledToggable buttonLabel='MENU' ref={NavBoxRef} innerRef={clickRef}>

@@ -5,7 +5,8 @@ import useField from '../hooks/useField'
 
 const Layout = styled.div`
   position: relative;
-  width: 40%;
+  width: 50%;
+  min-width: 300px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -14,6 +15,9 @@ const Layout = styled.div`
   border-radius: 5px;
   padding: 0.5rem;
   margin: 0.5rem;
+  @media (max-width: 500px) {
+    width: 90%;
+  }
   > div {
     width 90%;
     padding-left: 0.5rem;

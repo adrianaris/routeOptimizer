@@ -21,6 +21,7 @@ routeRouter.get('/', async (request, response) =>{
 })
 
 routeRouter.post('/save', async (request, response) => {
+  console.log('test')
   const token = request.token
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {

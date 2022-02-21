@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 const Layout = styled.div`
   position: relative;
-  width: 60%;
+  width: 65%;
+  min-width: 300px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -11,9 +12,13 @@ const Layout = styled.div`
   border: 2px solid black;
   border-radius: 5px;
   margin: 0.5rem;
+  @media (max-width: 500px) {
+    width: 90%;
+  }
   > div {
-    width: 100%;
-    padding: 0.5rem;
+    width: 90%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 `
 
@@ -24,13 +29,13 @@ const UserRoute = ({ route }) => {
 
   return (
     <Layout onClick={() => setVisible(!visible)}>
-      <p style={hide}><b>{route.name}: </b> {route.DEPOT.start.address.place_name}</p>
+      <div style={hide}><b>{route.name}: </b> {route.DEPOT.start.address.place_name}</div>
       <div style={show}>
-        <p>
+        <div>
           <b>Name:</b> {route.name} /
           <b> Distance:</b> {(route.route[0].distance / 1000).toFixed(2)} km /
           <b> Duration:</b> {(route.route[0].duration / 3600).toFixed(2)} h
-        </p>
+        </div>
         <div><b>Start:</b> {route.DEPOT.start.address.place_name}</div>
         <div><b>End:</b> {route.DEPOT.end.address.place_name}</div>
         <ol>
