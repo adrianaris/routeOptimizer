@@ -48,6 +48,7 @@ const RouteName = () => {
       addresses: addresses.features,
       route: route
     }
+    console.log(routeToSave)
     const savedRoute = await routes.saveRoute(routeToSave)
     console.log(savedRoute)
   }

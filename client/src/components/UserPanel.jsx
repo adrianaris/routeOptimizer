@@ -1,8 +1,8 @@
-// TO DO
 import React from 'react'
 import styled from 'styled-components'
 import getRoutes from '../hooks/getRoutes'
 import UserRoute from './UserRoute'
+import UserInfo from './UserInfo'
 
 const Layout = styled.div`
   position: relative;
@@ -24,8 +24,11 @@ const UserPanel = () => {
 
   return (
     <Layout>
-      <p>user panel</p>
+      <h1>user panel</h1>
       <button onClick={() => addRoute}>addRoute</button>
+      <h3>user info</h3>
+      <UserInfo />
+      <h3>saved routes</h3>
       {routes.map(route => (
         <UserRoute key={route.id} route={route} />
       ))}

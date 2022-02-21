@@ -1,4 +1,21 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+
+const Layout = styled.div`
+  position: relative;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 0.5rem;
+  > div {
+    width: 100%;
+    padding: 0.5rem;
+  }
+`
 
 const UserRoute = ({ route }) => {
   const [visible, setVisible] = useState(false)
@@ -6,7 +23,7 @@ const UserRoute = ({ route }) => {
   const hide = { display: visible ? 'none' : '' }
 
   return (
-    <div onClick={() => setVisible(!visible)}>
+    <Layout onClick={() => setVisible(!visible)}>
       <p style={hide}><b>{route.name}: </b> {route.DEPOT.start.address.place_name}</p>
       <div style={show}>
         <p>
@@ -19,13 +36,12 @@ const UserRoute = ({ route }) => {
         <ol>
           {route.addresses.map(elem => (
             <li key={elem._id}>
-              {elem.address.address.place_name} --
-              <b> {elem.jobDone ? 'Finished' : 'Not Finished'}</b>
+              {elem.address.address.place_name}
               </li>
           ))}
         </ol>
       </div>
-    </div>
+    </Layout>
   )
 }
 
