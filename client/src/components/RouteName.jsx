@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRouteName, removeRouteName } from '../reducers/routeNameReducer'
-import { setNotification } from '../reducers/notificationReducer'
+//import { setNotification } from '../reducers/notificationReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
 import routes from '../services/routes'
@@ -73,8 +73,8 @@ const RouteName = () => {
           set
         </Button></>
     }</div>
-      <button onClick={() => handleTestSave()}>test save</button>
-      <button onClick={() => handleTestGetUserRoutes()}>test get user routes</button>
+    <button onClick={() => handleTestSave()}>test save</button>
+    <button onClick={() => handleTestGetUserRoutes()}>test get user routes</button>
     </div>
   )
 }
