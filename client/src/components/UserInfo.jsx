@@ -88,7 +88,9 @@ const UserInfo = () => {
         </b>
         <Button onClick={() => handleSetNavigator()}>Change</Button>
       </div>
-      <div><Button onClick={() => dispatch(setNotification('test', 10))}>Save Changes</Button></div>
+      {(user.name !== name || user.username !== username || user.navigator !== navigator) &&
+        <div><Button onClick={() => dispatch(setNotification('test', 10))}>Save Changes</Button></div>
+      }
     </Layout>
   )
 }

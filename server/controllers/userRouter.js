@@ -44,20 +44,25 @@ userRouter.post('/login', async (request, response) => {
   const body = request.body
   
   const user = await User.findOne({ username: body.username })
-    .populate({
-      path: 'routes',
-      populate: [
-        {
-          path: 'DEPOT.start'
-        },
-        {
-          path: 'DEPOT.end'
-        },
-        {
-          path: 'addresses.address'
-        }
-      ]
-    })
+    /**
+     * comment out for now
+     * idk how much space I have on local storage
+     * for persisting 
+     */
+    //.populate({
+    //  path: 'routes',
+    //  populate: [
+    //    {
+    //      path: 'DEPOT.start'
+    //    },
+    //    {
+    //      path: 'DEPOT.end'
+    //    },
+    //    {
+    //      path: 'addresses.address'
+    //    }
+    //  ]
+    //})
 
   const passwordCorrect = user === null
     ? false
