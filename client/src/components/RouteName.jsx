@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRouteName, removeRouteName } from '../reducers/routeNameReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
 import routes from '../services/routes'
@@ -48,9 +49,12 @@ const RouteName = () => {
       addresses: addresses.features,
       route: route
     }
-    console.log(routeToSave)
-    const savedRoute = await routes.saveRoute(routeToSave)
-    console.log(savedRoute)
+    try {
+      const savedRoute = await routes.saveRoute(routeToSave)
+      console.log(savedRoute)
+    }catch (error) {
+      console.log(error.response)
+    }
   }
   const handleTestGetUserRoutes = async () => {
     const userRoutes = await routes.getUserRoutes()

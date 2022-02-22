@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import getRoutes from '../hooks/getRoutes'
 import UserRoute from './UserRoute'
 import UserInfo from './UserInfo'
+import Notification from './Notification'
 
 const Layout = styled.div`
   position: relative;
@@ -25,6 +26,7 @@ const UserPanel = () => {
   return (
     <Layout>
       <h1>user panel</h1>
+      <Notification />
       <button onClick={() => addRoute}>addRoute</button>
       <h3>user info</h3>
       <UserInfo />

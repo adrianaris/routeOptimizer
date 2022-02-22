@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 
 const NavBar = styled.div`
   z-index: 5;
+  background-color: ${props => props.background};
   position: fixed;
   margin: auto;
   left: 0;
@@ -48,6 +49,7 @@ const MenuBar = () => {
   }
   const location = useLocation()
   const position = location.pathname === '/' ? 'relative' : 'fixed'
+  const background = location.pathname === '/' ? '' : 'white'
 
   const handleClickOutside = event => {
     if (clickRef.current && !clickRef.current.contains(event.target)) {
@@ -63,7 +65,7 @@ const MenuBar = () => {
   })
 
   return (
-    <NavBar position={position}>
+    <NavBar position={position} background={background}>
       <StyledLink to="/">Logo</StyledLink>
       <Welcome>Welcome {user ? user.username : ''}</Welcome>
       <StyledToggable buttonLabel='MENU' ref={NavBoxRef} innerRef={clickRef}>

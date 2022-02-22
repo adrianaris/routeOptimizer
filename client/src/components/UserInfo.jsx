@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import useField from '../hooks/useField'
 
@@ -41,6 +42,8 @@ const UserInfo = () => {
   const [navigator, setNavigator] = useState(user.navigator)
   const nameInput = useField('text')
   const usernameInput = useField('text')
+
+  const dispatch = useDispatch()
 
   const handleEnter = (event, setValue) => {
     if (event.key === 'Enter') {
@@ -85,7 +88,7 @@ const UserInfo = () => {
         </b>
         <Button onClick={() => handleSetNavigator()}>Change</Button>
       </div>
-      <div><Button>Save Changes</Button></div>
+      <div><Button onClick={() => dispatch(setNotification('test', 10))}>Save Changes</Button></div>
     </Layout>
   )
 }

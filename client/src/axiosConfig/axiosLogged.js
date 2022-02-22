@@ -4,7 +4,7 @@ const loggedUser = window.localStorage.getItem('foxINCuser')
 const token = loggedUser ? `bearer ${JSON.parse(loggedUser).token}` : null
 
 const axiosLogged = axios.create({
-  baseURL: 'http://localhost:4000/api'
+  baseURL: '/api'
 })
 
 axiosLogged.defaults.headers.common['Authorization'] = token
