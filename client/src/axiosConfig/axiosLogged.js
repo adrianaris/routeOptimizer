@@ -7,6 +7,7 @@ const axiosLogged = axios.create({
   baseURL: '/api'
 })
 
+console.log(token)
 axiosLogged.defaults.headers.common['Authorization'] = token
 
 export default axiosLogged

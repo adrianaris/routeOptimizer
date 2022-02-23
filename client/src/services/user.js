@@ -13,7 +13,9 @@ const register = async credentials => {
 }
 
 const updateU = async credentials => {
+  console.log(credentials)
   const response = await axiosLogged.put('/user/update', credentials)
+  console.log(response)
   return response.data
 }
 

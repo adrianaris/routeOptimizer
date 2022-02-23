@@ -57,8 +57,10 @@ export const UpdateU = credentials => {
       })
       window.localStorage.removeItem('foxINCuser')
       window.localStorage.setItem('foxINCuser', JSON.stringify(user))
+      dispatch(setNotification('update successful', 5))
     } catch (error) {
       console.error(error)
+      dispatch(setNotification('update failed', 5))
     }
   }
 }

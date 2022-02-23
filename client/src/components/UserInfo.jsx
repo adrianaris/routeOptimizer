@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setNotification } from '../reducers/notificationReducer'
+//import { setNotification } from '../reducers/notificationReducer'
 import styled from 'styled-components'
 import useField from '../hooks/useField'
+import { UpdateU } from '../reducers/userReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -42,6 +43,16 @@ const UserInfo = () => {
   const [navigator, setNavigator] = useState(user.navigator)
   const nameInput = useField('text')
   const usernameInput = useField('text')
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (user.name !== name || user.username !== username || user.navigator !== navigator) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
+  }, [name, username, navigator])
+  const style = { display: visible ? '' : 'none' }
 
   const dispatch = useDispatch()
 
@@ -50,6 +61,15 @@ const UserInfo = () => {
       setValue(event.target.value)
       console.log(user)
     }
+  }
+
+  const handleUpdateUser = async () => {
+    dispatch(UpdateU({
+      name: name,
+      username: username,
+      navigator: navigator
+    }))
+    setVisible(false)
   }
 
   const handleSetNavigator = () => {
@@ -88,9 +108,9 @@ const UserInfo = () => {
         </b>
         <Button onClick={() => handleSetNavigator()}>Change</Button>
       </div>
-      {(user.name !== name || user.username !== username || user.navigator !== navigator) &&
-        <div><Button onClick={() => dispatch(setNotification('test', 10))}>Save Changes</Button></div>
-      }
+      <div style={style}><Button
+        onClick={() => handleUpdateUser()}>Save Changes
+      </Button></div>
     </Layout>
   )
 }

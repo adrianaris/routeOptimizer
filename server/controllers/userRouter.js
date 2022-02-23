@@ -112,7 +112,7 @@ userRouter.put('/update', async (request, response) => {
     updUser.passwordHash = await bcrypt.hash(body.password, 10)
   }
 
-  const updatedUser = await User.findByIdAndUpdate(decodedToken.id, updUser).populate('routes')
+  const updatedUser = await User.findByIdAndUpdate(decodedToken.id, updUser)
   const newToken = jwt.sign(
     {
       username: updatedUser.username,
@@ -122,12 +122,12 @@ userRouter.put('/update', async (request, response) => {
   )
 
   response.status(200).send({
-    newToken,
+    token: newToken,
     username: updatedUser.username,
     name: updatedUser.name,
-    routes: updateUser.routes,
+    routes: updatedUser.routes,
     navigator: updatedUser.navigator,
-    creationDate: updateUser.creationDate
+    creationDate: updatedUser.creationDate
   })
 })
 
