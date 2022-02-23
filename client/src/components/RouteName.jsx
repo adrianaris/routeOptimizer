@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setRouteName, removeRouteName } from '../reducers/routeNameReducer'
+import { setRouteName, removeRouteName, saveRoute } from '../reducers/routeNameReducer'
 //import { setNotification } from '../reducers/notificationReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
-import routes from '../services/routes'
 
 const Button = styled.button`
   margin: 0.5em;
@@ -23,43 +22,22 @@ const RouteName = () => {
   const routeName = useSelector(state => state.routeName)
   const input = useField('text')
 
-  /**
-   * Set initial route name after login/register
-   */
-  const months = ['jan', 'feb', 'march', 'april',
-    'mai', 'june', 'july', 'aug',
-    'sept', 'oct', 'nov', 'dec']
-  const date = new Date()
-  const initRouteName = `route ${date.getDate()}/${months[date.getMonth()]}/${date.getFullYear()}`
-  useEffect(() => {
-    if (routeName.name !== null) return
-    dispatch(setRouteName(initRouteName))
-  }, [])
-
   const handleEnter = event => {
     if (event.key === 'Enter') {
       dispatch(setRouteName(input.value))
     }
   }
 
-  const handleTestSave = async () => {
+  const handleTestSave = () => {
     const routeToSave = {
       name: routeName.name,
       DEPOT: DEPOT,
       addresses: addresses.features,
       route: route
     }
-    try {
-      const savedRoute = await routes.saveRoute(routeToSave)
-      console.log(savedRoute)
-    }catch (error) {
-      console.log(error.response)
-    }
+    dispatch(saveRoute(routeToSave))
   }
-  const handleTestGetUserRoutes = async () => {
-    const userRoutes = await routes.getUserRoutes()
-    console.log(userRoutes)
-  }
+
   return (
     <div><div>Route Name: { routeName.name !== null
       ? <><b>{routeName.name}</b>
@@ -74,7 +52,6 @@ const RouteName = () => {
         </Button></>
     }</div>
     <button onClick={() => handleTestSave()}>test save</button>
-    <button onClick={() => handleTestGetUserRoutes()}>test get user routes</button>
     </div>
   )
 }

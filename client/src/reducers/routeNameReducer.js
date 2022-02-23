@@ -1,26 +1,60 @@
+import routesServices from '../services/routes'
+
+const months = ['jan', 'feb', 'march', 'april',
+  'mai', 'june', 'july', 'aug',
+  'sept', 'oct', 'nov', 'dec']
+const date = new Date()
+const initRouteName = `route ${date.getDate()}/${months[date.getMonth()]}/${date.getFullYear()}`
+
 const initState = {
-  name: null,
-  saved: false,
+  name: initRouteName,
   modified: false,
-  id: null
 }
 const routeNameReducer = (state = initState, action) => {
   switch (action.type) {
   case 'SET_ROUTE_NAME': {
     const name = action.data
-    return { ...state, name: name, modified: true }
+    return {
+      ...state,
+      name: name,
+      modified: state.routeID ? true : false
+    }
   }
-  case 'REMOVE_ROUTE_NAME': return { ...state, name: null, modified: true }
+  case 'REMOVE_ROUTE_NAME': return {
+    ...state,
+    name: null,
+  }
   case 'SAVE_ROUTE_TO_SERVER': {
     return {
       ...state,
-      id: action.data,
+      routeID: action.data,
       modified: false,
-      saved: true
     }
   }
-  case 'SET_MODIFIED': return { ...state, modified: true }
+    case 'UPDATE_ROUTE': {
+      return {
+        ...state,
+        modified: false
+      }
+    }
   case 'NEW_ROUTE': return initState
+  /**
+   * sync this reducer with all others in order to auto set modified: true
+   */
+  case 'ADD_LOCATION':
+  case 'REMOVE_LOCATION':
+  case 'OPTIMIZE_LOCATIONS':
+  case 'JOB_DONE':
+  case 'CLEAR_LOCATIONS':
+  case 'REMOVE_END':
+  case 'REMOVE_START':
+  case 'ADD_END':
+  case 'ADD_START': {
+    if (state.routeID) {
+      return { ...state, modified: true }
+    }
+  }
+    break
   default: return state
   }
 }
@@ -36,15 +70,19 @@ export const removeRouteName = () => {
   return { type: 'REMOVE_ROUTE_NAME' }
 }
 
-export const saveToServer = id => {
-  return {
-    type: 'SAVE_ROUTE_TO_SERVER',
-    data: id
+export const saveRoute = route => {
+  return async dispatch => {
+    try {
+      const response = await routesServices.saveRoute(route)
+      console.log(response)
+      dispatch({
+        type: 'SAVE_ROUTE_TO_SERVER',
+        routeID: response
+      })
+    } catch (error) {
+      console.log('network issues: route is not saved')
+    }
   }
-}
-
-export const setModified = () => {
-  return { type: 'SET_MODIFIED' }
 }
 
 export const setNewRoute = () => {

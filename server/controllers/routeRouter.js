@@ -57,7 +57,7 @@ routeRouter.post('/save', async (request, response) => {
   user.routes = user.routes.concat(savedRoute._id)
   await User.findByIdAndUpdate(user._id, user)
 
-  response.status(201).json(savedRoute)
+  response.status(201).json(savedRoute._id)
 })
 
 routeRouter.delete('/:id', async (request, response) => {

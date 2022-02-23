@@ -54,7 +54,7 @@ const UserRoute = ({ route }) => {
     dispatch(setRouteName(route.name))
     dispatch(addLocation(route.addresses.map(elem => elem.address.address)))
     dispatch(createRoute(route.route[0])) // I should change the backend model for this
-    dispatch(addStart(route.DEPOT.start.address))
+    dispatch(addStart(route.DEPOT.start.address)) //same
     dispatch(addEnd(route.DEPOT.end.address))
   }
   const ReuseRoute = () => {
