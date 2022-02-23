@@ -52,9 +52,10 @@ const ChangePassword = ({ setVisible, display }) => {
       console.log(error)
       dispatch(setNotification('password change failed', 10))
     }
-    oldPass.clear()
-    newPass1.clear()
-    newPass2.clear()
+
+    oldPass.execute.clear()
+    newPass1.execute.clear()
+    newPass2.execute.clear()
   }
 
   return (
