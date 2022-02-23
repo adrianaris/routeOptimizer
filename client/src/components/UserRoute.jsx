@@ -53,7 +53,7 @@ const UserRoute = ({ route }) => {
   const Reuse = route => {
     dispatch(setRouteName(route.name))
     dispatch(addLocation(route.addresses.map(elem => elem.address.address)))
-    dispatch(createRoute(route.route[0]))
+    dispatch(createRoute(route.route[0])) // I should change the backend model for this
     dispatch(addStart(route.DEPOT.start.address))
     dispatch(addEnd(route.DEPOT.end.address))
   }
@@ -83,7 +83,7 @@ const UserRoute = ({ route }) => {
               </li>
           ))}
         </ol>
-        <Button>Reuse</Button>
+        <Button onClick={() => ReuseRoute()}>Reuse this route</Button>
       </div>
     </Layout>
   )
