@@ -5,6 +5,7 @@ import { clearLocations, addLocation } from '../reducers/addressesReducer'
 import { removeRouteName, setRouteName } from '../reducers/routeNameReducer'
 import { removeRoute, createRoute } from '../reducers/routeReducer'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
+import { setOldRouteName } from '../reducers/routeNameReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -56,6 +57,7 @@ const UserRoute = ({ route }) => {
     dispatch(createRoute(route.route[0])) // I should change the backend model for this
     dispatch(addStart(route.DEPOT.start.address)) //same
     dispatch(addEnd(route.DEPOT.end.address))
+    dispatch(setOldRouteName({ name: route.name, routeID: route.id }))
   }
   const ReuseRoute = () => {
     ClearActive()

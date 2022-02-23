@@ -31,30 +31,33 @@ const routeNameReducer = (state = initState, action) => {
       modified: false,
     }
   }
-    case 'UPDATE_ROUTE': {
-      return {
-        ...state,
-        modified: false
-      }
+  case 'UPDATE_ROUTE': {
+    return {
+      ...state,
+      modified: false
     }
+  }
+  case 'SET_OLD_ROUTE': {
+    const data = action.data
+    return {
+      name: data.name,
+      routeID: data.id,
+      modified: false
+    }
+  }
   case 'NEW_ROUTE': return initState
   /**
    * sync this reducer with all others in order to auto set modified: true
    */
-  case 'ADD_LOCATION':
-  case 'REMOVE_LOCATION':
-  case 'OPTIMIZE_LOCATIONS':
-  case 'JOB_DONE':
-  case 'CLEAR_LOCATIONS':
-  case 'REMOVE_END':
-  case 'REMOVE_START':
-  case 'ADD_END':
-  case 'ADD_START': {
-    if (state.routeID) {
-      return { ...state, modified: true }
-    }
-  }
-    break
+    case 'ADD_LOCATION': return { ...state, modified: state.routeID ? true : false }
+  case 'REMOVE_LOCATION': return { ...state, modified: state.routeID ? true : false }
+  case 'OPTIMIZE_LOCATIONS': return { ...state, modified: state.routeID ? true : false }
+  case 'JOB_DONE': return { ...state, modified: state.routeID ? true : false }
+  case 'CLEAR_LOCATIONS': return { ...state, modified: state.routeID ? true : false }
+  case 'REMOVE_END': return { ...state, modified: state.routeID ? true : false }
+  case 'REMOVE_START': return { ...state, modified: state.routeID ? true : false }
+  case 'ADD_END': return { ...state, modified: state.routeID ? true : false }
+  case 'ADD_START': return { ...state, modified: state.routeID ? true : false }
   default: return state
   }
 }
@@ -87,6 +90,13 @@ export const saveRoute = route => {
 
 export const setNewRoute = () => {
   return { type: 'NEW_ROUTE' }
+}
+
+export const setOldRouteName = data => {
+  return {
+    type: 'SET_OLD_ROUTE',
+    data: data
+  }
 }
 
 export default routeNameReducer
