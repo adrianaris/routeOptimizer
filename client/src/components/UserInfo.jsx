@@ -9,7 +9,7 @@ const Layout = styled.div`
   position: relative;
   width: 50%;
   min-width: 300px;
-  display: flex;
+  display: ${props => props.display};
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,7 @@ const Button = styled.button`
   background-color: white;
 `
 
-const UserInfo = () => {
+const UserInfo = ({ display }) => {
   const user = useSelector(state => state.user)
   const [name, setName] = useState(user.name)
   const [username, setUsername] = useState(user.username)
@@ -69,7 +69,6 @@ const UserInfo = () => {
       setNavigator('gmaps')
     }
   }
-  console.log(navigator)
 
   const handleUpdateUser = async () => {
     dispatch(UpdateU({
@@ -81,7 +80,7 @@ const UserInfo = () => {
   }
 
   return (
-    <Layout>
+    <Layout display={display}>
       {name
         ? <div>
           Name: <b>{name}</b>
