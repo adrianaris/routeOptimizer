@@ -40,6 +40,36 @@ userRouter.post('/register', async (request, response) => {
   })
 })
 
+userRouter.post('/updatePass', async (request, response) => {
+  const oldPass = request.body.oldPass
+  const newPass = request.body.newPass
+  const token = request.token
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+     return response.status(401).json({ error: 'token missing  or invalid' })
+  }
+
+  if (!oldPass || !newPass) {
+    return response.status(400).json({ error: 'password missing' })
+  } else if(newPass.length < 3) {
+    return response.status(400).json({ error: 'passsword is too short' })
+  }
+
+  const user = await User.findById(decodedToken.id)
+  const oldPassCorrect = user === null
+    ? false
+    : await bcrypt.compare(oldPass, user.passwordHash)
+
+  if (!(user && oldPassCorrect)) {
+    return response.status(401).json({ error: 'old password is not correct'})
+  }
+
+  user.passwordHash = await bcrypt.hash(newPass, 10)
+  await User.findByIdAndUpdate(user._id, user)
+
+  response.status(200).json({ message: 'password updated successfully'})
+})
+
 userRouter.post('/login', async (request, response) => {
   const body = request.body
   
@@ -108,11 +138,8 @@ userRouter.put('/update', async (request, response) => {
     name: body.name,
     navigator: body.navigator
   }
-  if (body.password) {
-    updUser.passwordHash = await bcrypt.hash(body.password, 10)
-  }
 
-  const updatedUser = await User.findByIdAndUpdate(decodedToken.id, updUser)
+  const updatedUser = await User.findByIdAndUpdate(decodedToken.id, updUser, {new: true})
   const newToken = jwt.sign(
     {
       username: updatedUser.username,

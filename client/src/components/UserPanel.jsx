@@ -21,7 +21,6 @@ const UserPanel = () => {
    * instead of using this hook
    */
   const [routes, addRoute] = getRoutes('/routes')
-  console.log(routes)
 
   return (
     <Layout>

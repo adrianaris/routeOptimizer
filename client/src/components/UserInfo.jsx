@@ -44,6 +44,8 @@ const UserInfo = () => {
   const nameInput = useField('text')
   const usernameInput = useField('text')
   const [visible, setVisible] = useState(false)
+  const style = { display: visible ? '' : 'none' }
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (user.name !== name || user.username !== username || user.navigator !== navigator) {
@@ -52,16 +54,22 @@ const UserInfo = () => {
       setVisible(false)
     }
   }, [name, username, navigator])
-  const style = { display: visible ? '' : 'none' }
 
-  const dispatch = useDispatch()
 
   const handleEnter = (event, setValue) => {
     if (event.key === 'Enter') {
       setValue(event.target.value)
-      console.log(user)
     }
   }
+
+  const handleSetNavigator = () => {
+    if (navigator === 'gmaps') {
+      setNavigator('waze')
+    } else {
+      setNavigator('gmaps')
+    }
+  }
+  console.log(navigator)
 
   const handleUpdateUser = async () => {
     dispatch(UpdateU({
@@ -72,12 +80,6 @@ const UserInfo = () => {
     setVisible(false)
   }
 
-  const handleSetNavigator = () => {
-    if (navigator === 'gmaps') {
-      setNavigator('waze')
-    } else setNavigator('gmaps')
-  }
-  //const handleSaveChanges
   return (
     <Layout>
       {name
