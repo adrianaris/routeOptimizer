@@ -121,10 +121,6 @@ userRouter.post('/login', async (request, response) => {
   })
 })
 
-/**
- * I should modify this to ask for old password 
- * when changing it
- */
 userRouter.put('/update', async (request, response) => {
   const body = request.body
   const token = request.token
