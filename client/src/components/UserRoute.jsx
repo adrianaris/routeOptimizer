@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import { clearLocations, addLocation } from '../reducers/addressesReducer'
+import { removeRouteName, setRouteName } from '../reducers/routeNameReducer'
+import { removeRoute, createRoute } from '../reducers/routeReducer'
+import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -21,15 +26,48 @@ const Layout = styled.div`
     padding-bottom: 1rem;
   }
 `
+const Button = styled.button`
+  float: right;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  margin-left: 1rem;
+`
 
 const UserRoute = ({ route }) => {
   const [visible, setVisible] = useState(false)
   const show = { display: visible ? '' : 'none' }
   const hide = { display: visible ? 'none' : '' }
+  const dispatch = useDispatch()
+
+  console.log(route)
+
+  const ClearActive = () => {
+    dispatch(clearLocations())
+    dispatch(removeRouteName())
+    dispatch(removeRoute())
+    dispatch(removeStart())
+    dispatch(removeEnd())
+  }
+  const Reuse = route => {
+    dispatch(setRouteName(route.name))
+    dispatch(addLocation(route.addresses.map(elem => elem.address.address)))
+    dispatch(createRoute(route.route[0]))
+    dispatch(addStart(route.DEPOT.start.address))
+    dispatch(addEnd(route.DEPOT.end.address))
+  }
+  const ReuseRoute = () => {
+    ClearActive()
+    Reuse(route)
+  }
 
   return (
     <Layout onClick={() => setVisible(!visible)}>
-      <div style={hide}><b>{route.name}: </b> {route.DEPOT.start.address.place_name}</div>
+      <div style={hide}>
+        <b>{route.name}: </b> {route.DEPOT.start.address.place_name}
+        <Button onClick={() => ReuseRoute()}>Reuse this route</Button>
+      </div>
       <div style={show}>
         <div>
           <b>Name:</b> {route.name} /
@@ -45,6 +83,7 @@ const UserRoute = ({ route }) => {
               </li>
           ))}
         </ol>
+        <Button>Reuse</Button>
       </div>
     </Layout>
   )

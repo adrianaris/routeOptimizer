@@ -11,7 +11,7 @@ const useField = type => {
     type,
     value,
     onChange,
-    execute: { clear: function() { return setValue('')} }
+    execute: { clear: function() { return setValue('')} } //so that I can clear input on submit
   }
 }
 

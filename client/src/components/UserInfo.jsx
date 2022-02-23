@@ -34,6 +34,7 @@ const Button = styled.button`
   border: 1px solid black;
   border-radius: 4px;
   background-color: white;
+  margin-left: 1rem;
 `
 
 const UserInfo = ({ display }) => {
@@ -79,6 +80,12 @@ const UserInfo = ({ display }) => {
     setVisible(false)
   }
 
+  const handleReset = () => {
+    setName(user.name)
+    setUsername(user.username)
+    setNavigator(user.navigator)
+  }
+
   return (
     <Layout display={display}>
       {name
@@ -109,9 +116,11 @@ const UserInfo = ({ display }) => {
         </b>
         <Button onClick={() => handleSetNavigator()}>Change</Button>
       </div>
-      <div style={style}><Button
-        onClick={() => handleUpdateUser()}>Save Changes
-      </Button></div>
+      <div style={style}>
+        <Button onClick={() => handleUpdateUser()}>Save Changes
+        </Button>
+        <Button onClick={() => handleReset()}>Reset Changes</Button>
+      </div>
     </Layout>
   )
 }
