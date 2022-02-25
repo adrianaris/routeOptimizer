@@ -41,7 +41,7 @@ const routeNameReducer = (state = initState, action) => {
     const data = action.data
     return {
       name: data.name,
-      routeID: data.id,
+      routeID: data.routeID,
       modified: false
     }
   }
@@ -49,7 +49,7 @@ const routeNameReducer = (state = initState, action) => {
   /**
    * sync this reducer with all others in order to auto set modified: true
    */
-    case 'ADD_LOCATION': return { ...state, modified: state.routeID ? true : false }
+  case 'ADD_LOCATION': return { ...state, modified: state.routeID ? true : false }
   case 'REMOVE_LOCATION': return { ...state, modified: state.routeID ? true : false }
   case 'OPTIMIZE_LOCATIONS': return { ...state, modified: state.routeID ? true : false }
   case 'JOB_DONE': return { ...state, modified: state.routeID ? true : false }
