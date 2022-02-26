@@ -24,6 +24,10 @@ const Button = styled.button`
   background: white;
   border: solid black;
   border-radius: 4px;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `
 
 const UserPanel = () => {

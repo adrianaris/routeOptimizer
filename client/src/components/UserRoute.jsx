@@ -34,6 +34,10 @@ const Button = styled.button`
   border-radius: 4px;
   background-color: white;
   margin-left: 1rem;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `
 
 const UserRoute = ({ route }) => {
@@ -41,8 +45,6 @@ const UserRoute = ({ route }) => {
   const show = { display: visible ? '' : 'none' }
   const hide = { display: visible ? 'none' : '' }
   const dispatch = useDispatch()
-
-  console.log(route)
 
   const ClearActive = () => {
     dispatch(clearLocations())

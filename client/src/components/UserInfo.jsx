@@ -35,6 +35,10 @@ const Button = styled.button`
   border-radius: 4px;
   background-color: white;
   margin-left: 1rem;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `
 
 const UserInfo = ({ display }) => {
