@@ -14,4 +14,9 @@ const getUserRoutes = async () => {
   return response.data
 }
 
-export default { saveRoute, getUserRoutes }
+const updateRoute = async route => {
+  const response = await axiosLogged.put(`${url}/${route.id}`, route)
+  return response.data
+}
+
+export default { saveRoute, getUserRoutes, updateRoute }

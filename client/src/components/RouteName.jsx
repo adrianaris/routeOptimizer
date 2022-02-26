@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setRouteName, removeRouteName, saveRoute } from '../reducers/routeNameReducer'
+import { setRouteName, removeRouteName, saveRoute, updateRoute } from '../reducers/routeNameReducer'
 //import { setNotification } from '../reducers/notificationReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
@@ -37,6 +37,18 @@ const RouteName = () => {
     }
     dispatch(saveRoute(routeToSave))
   }
+
+  useEffect(() => {
+    if (routeName.name === null) return
+    const routeToUpdate = {
+      name: routeName.name,
+      DEPOT: DEPOT,
+      addresses: addresses.features,
+      route: route,
+      id: routeName.routeID
+    }
+    dispatch(updateRoute(routeToUpdate))
+  }, [addresses, DEPOT, route, routeName])
 
   return (
     <div><div>Route Name: { routeName.name !== null

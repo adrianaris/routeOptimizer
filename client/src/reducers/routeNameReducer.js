@@ -14,28 +14,26 @@ const routeNameReducer = (state = initState, action) => {
   switch (action.type) {
   case 'SET_ROUTE_NAME': {
     const name = action.data
-    return {
-      ...state,
-      name: name,
-      modified: state.routeID ? true : false
-    }
+    const newState = state
+    newState.name = name
+    newState.modified = state.routeID ? true : false
+    return newState
   }
-  case 'REMOVE_ROUTE_NAME': return {
-    ...state,
-    name: null,
+  case 'REMOVE_ROUTE_NAME': {
+    const newState = state
+    newState.name = null
+    return newState
   }
   case 'SAVE_ROUTE_TO_SERVER': {
-    return {
-      ...state,
-      routeID: action.data,
-      modified: false,
-    }
+    const newState = state
+    newState.routeID = action.data
+    newState.modified = false
+    return newState
   }
   case 'UPDATE_ROUTE': {
-    return {
-      ...state,
-      modified: false
-    }
+    const newState = state
+    newState.modified = false
+    return newState
   }
   case 'SET_OLD_ROUTE': {
     const data = action.data
@@ -84,6 +82,20 @@ export const saveRoute = route => {
       })
     } catch (error) {
       console.log('network issues: route is not saved')
+    }
+  }
+}
+
+export const updateRoute = route => {
+  return async dispatch => {
+    try {
+      const response = await routesServices.updateRoute(route)
+      console.log(response)
+      dispatch({
+        type: 'UPDATE_ROUTE'
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -75,7 +75,8 @@ const LocationCount = styled.div`
   padding: 0.3rem;
 `
 const OptimizationButton = styled.button`
-  float: right;
+  margin: 1rem;
+  margin-left: 2rem;
   border: 1px solid black;
   border-radius: 4px;
   background-color: #add8e6;
@@ -238,7 +239,7 @@ const Locations = ({ map }) => {
           Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
         </div>
       }
-      <div style={{ margin: '1rem' }}>
+      <div style={{ textAlign: 'right' }}>
         <Button style={style}>
           <a href={googleMapsUrl}>open in gmaps</a>
         </Button>
