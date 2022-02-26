@@ -74,6 +74,20 @@ const LocationCount = styled.div`
   text-align: center;
   padding: 0.3rem;
 `
+const OptimizationButton = styled.button`
+  float: right;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #add8e6;
+  > a {
+      color: inherit;
+  }
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`
+
 const Locations = ({ map }) => {
   const route = useSelector(state => state.route)
   const DEPOT = useSelector(state => state.DEPOT)
@@ -222,17 +236,23 @@ const Locations = ({ map }) => {
         <div>
           Distance: <b>{(route.distance / 1000).toFixed(2)}</b> km /
           Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
-          <Button style={style}>
-            <a href={googleMapsUrl}>open in gmaps</a>
-          </Button>
         </div>
       }
+      <div style={{ margin: '1rem' }}>
+        <Button style={style}>
+          <a href={googleMapsUrl}>open in gmaps</a>
+        </Button>
+        {locations.length < 2 ||
+        <OptimizationButton onClick={handleOptimizeClick}>
+          OPTIMIZE<br />
+          ROUTE
+        </OptimizationButton>
+        }
+      </div>
       <StartEnd flyToLocation={flyToLocation} />
       <LocationCount>Locations-count: <b>{locations.length}</b>
       <Button onClick={handleClearLocations}>clear locations</Button>
-      {locations.length < 2 ||
-        <Button onClick={handleOptimizeClick}>OPTIMIZE-ROUTE</Button>
-      }</LocationCount>
+      </LocationCount>
       <Olist>
         {locations.concat(DEPOT.end).map(({ id, place_name, jobDone, center }, index) => (
           <div
