@@ -249,7 +249,9 @@ const Map = () => {
   return (
     <FlexContainer>
       <div>
-        <OverviewButton map={map} />
+        {route.features.length > 0 &&
+          <OverviewButton map={map} />
+        }
         <MapContainer ref={mapContainer} />
       </div>
       <StyledDiv>

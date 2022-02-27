@@ -78,7 +78,7 @@ export const saveRoute = route => {
       console.log(response)
       dispatch({
         type: 'SAVE_ROUTE_TO_SERVER',
-        routeID: response
+        data: response
       })
     } catch (error) {
       console.log('network issues: route is not saved')
@@ -89,13 +89,12 @@ export const saveRoute = route => {
 export const updateRoute = route => {
   return async dispatch => {
     try {
-      const response = await routesServices.updateRoute(route)
-      console.log(response)
+      await routesServices.updateRoute(route)
       dispatch({
         type: 'UPDATE_ROUTE'
       })
     } catch (error) {
-      console.log(error)
+      console.log(error.response)
     }
   }
 }

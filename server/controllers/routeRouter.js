@@ -2,6 +2,7 @@ const routeRouter = require('express').Router()
 const Route = require('../models/route')
 const User = require('../models/user')
 const Address = require('../models/address')
+const saveAddress = require('../utils/saveAddress')
 const jwt = require('jsonwebtoken')
 
 
@@ -21,12 +22,16 @@ routeRouter.get('/', async (request, response) =>{
 })
 
 routeRouter.post('/save', async (request, response) => {
-  console.log('test')
   const token = request.token
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing  or invalid' })
   }
+
+  const locations = [request.body.DEPOT.start]
+    .concat(request.body.addresses)
+    .concat(request.body.DEPOT.end)
+  await saveAddress(locations)
 
   const user = await User.findById(decodedToken.id)
   const start = await Address.findOne({ placeId: request.body.DEPOT.start.id })
@@ -81,12 +86,22 @@ routeRouter.put('/:id', async (request, response) => {
   if (!token || !decodedToken.id) {
      return response.status(401).json({ error: 'token missing  or invalid' })
   }
+
+  const locations = [request.body.DEPOT.start]
+    .concat(request.body.addresses)
+    .concat(request.body.DEPOT.end)
+  await saveAddress(locations)
+
   const start = await Address.findOne({ placeId: request.body.DEPOT.start.id })
   const end = await Address.findOne({ placeId: request.body.DEPOT.end.id })
   let addresses = []
   for (let i in request.body.addresses) {
-    const address = await Address.findOne({ palceId: request.body.addresses[i] })
-    addresses = addresses.concat(address._id)
+    const address = await Address.findOne({ placeId: request.body.addresses[i].id })
+    addresses = addresses.concat({
+      address: address._id,
+      jobDone: request.body.addresses[i].jobDone,
+      orderTime: request.body.addresses[i].orderTime
+    })
   }
   const route = {
     name: request.body.name,
@@ -99,10 +114,6 @@ routeRouter.put('/:id', async (request, response) => {
   }
   
   const updatedRoute = await Route.findByIdAndUpdate(request.params.id, route)
-    .populate('addresses.address')
-    .populate('DEPOT.start')
-    .populate('DEPOT.end')
-    .populate('user')
   
   response.json(updatedRoute)
 })
