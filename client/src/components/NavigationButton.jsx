@@ -6,7 +6,7 @@ const Button = styled.button`
   margin: 0.5em;
   border: 1px solid black;
   border-radius: 4px;
-  background-color: white;
+  background-color: #add8e6;
   > a {
       color: inherit;
   }
