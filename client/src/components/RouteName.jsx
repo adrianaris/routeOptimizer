@@ -28,26 +28,32 @@ const RouteName = () => {
     }
   }
 
-  const handleTestSave = () => {
+  //const handleTestSave = () => {
+  //  const routeToSave = {
+  //    name: routeName.name,
+  //    DEPOT: DEPOT,
+  //    addresses: addresses.features,
+  //    route: route
+  //  }
+  //  dispatch(saveRoute(routeToSave))
+  //}
+
+  useEffect(() => {
+    if (routeName.name === null) return
     const routeToSave = {
       name: routeName.name,
       DEPOT: DEPOT,
       addresses: addresses.features,
-      route: route
-    }
-    dispatch(saveRoute(routeToSave))
-  }
-
-  useEffect(() => {
-    if (routeName.name === null) return
-    const routeToUpdate = {
-      name: routeName.name,
-      DEPOT: DEPOT,
-      addresses: addresses.features,
       route: route,
-      id: routeName.routeID
     }
-    dispatch(updateRoute(routeToUpdate))
+    if (!routeName.routeID) {
+      dispatch(saveRoute(routeToSave))
+      console.log('save')
+    } else {
+      routeToSave.id = routeName.routeID
+      dispatch(updateRoute(routeToSave))
+      console.log('update')
+    }
   }, [addresses, DEPOT, route, routeName])
 
   return (
@@ -63,7 +69,6 @@ const RouteName = () => {
           set
         </Button></>
     }</div>
-    <button onClick={() => handleTestSave()}>test save</button>
     </div>
   )
 }
