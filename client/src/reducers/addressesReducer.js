@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   featureCollection as turfFeatureCollection,
 } from '@turf/turf'
@@ -59,6 +60,7 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
 }
 
 export const addLocation = coordinates => {
+  axios.post('/api/address', coordinates)
   return {
     type: 'ADD_LOCATION',
     data: coordinates

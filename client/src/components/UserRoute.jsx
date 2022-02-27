@@ -6,6 +6,7 @@ import { removeRouteName, setRouteName } from '../reducers/routeNameReducer'
 import { removeRoute, createRoute } from '../reducers/routeReducer'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
 import { setOldRouteName } from '../reducers/routeNameReducer'
+import routesServices from '../services/routes'
 
 const Layout = styled.div`
   position: relative;
@@ -66,6 +67,15 @@ const UserRoute = ({ route }) => {
     Reuse(route)
   }
 
+  const deleteRoute = async () => {
+    try {
+      const response = await routesServices.deleteRoute(route.id)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Layout onClick={() => setVisible(!visible)}>
       <div style={hide}>
@@ -87,7 +97,8 @@ const UserRoute = ({ route }) => {
               </li>
           ))}
         </ol>
-        <Button onClick={() => ReuseRoute()}>Reuse this route</Button>
+        <Button onClick={deleteRoute}>deleteRoute</Button>
+        <Button onClick={ReuseRoute}>Reuse this route</Button>
       </div>
     </Layout>
   )

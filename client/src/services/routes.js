@@ -19,4 +19,9 @@ const updateRoute = async route => {
   return response.data
 }
 
-export default { saveRoute, getUserRoutes, updateRoute }
+const deleteRoute = async id => {
+  const response = await axiosLogged.delete(`${url}/${id}`)
+  return response
+}
+
+export default { saveRoute, getUserRoutes, updateRoute, deleteRoute }

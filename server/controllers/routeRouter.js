@@ -99,7 +99,7 @@ routeRouter.put('/:id', async (request, response) => {
   }
   
   const updatedRoute = await Route.findByIdAndUpdate(request.params.id, route)
-    .populate('addresses')
+    .populate('addresses.address')
     .populate('DEPOT.start')
     .populate('DEPOT.end')
     .populate('user')
