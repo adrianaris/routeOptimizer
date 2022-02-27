@@ -29,7 +29,7 @@ const RouteName = () => {
   }
 
   useEffect(() => {
-    if (routeName.name === null || routeName.modified === false) return
+    if (routeName.name === null ) return
     const routeToSave = {
       name: routeName.name,
       DEPOT: DEPOT,
@@ -39,7 +39,7 @@ const RouteName = () => {
     if (!routeName.routeID) {
       dispatch(saveRoute(routeToSave))
       console.log('save')
-    } else {
+    } else if (routeName.modified !== false) {
       routeToSave.id = routeName.routeID
       dispatch(updateRoute(routeToSave))
       console.log('update')
