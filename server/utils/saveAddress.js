@@ -7,7 +7,7 @@ const saveAddress = async locations => {
       if (locations[i].jobDone) delete locations[i].jobDone
       if (locations[i].orderTime) delete locations[i].orderTime
 
-      const newAddress = new Adress({
+      const newAddress = new Address({
         address: locations[i],
         placeId: locations[i].id
       })

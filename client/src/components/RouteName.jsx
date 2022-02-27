@@ -28,18 +28,8 @@ const RouteName = () => {
     }
   }
 
-  //const handleTestSave = () => {
-  //  const routeToSave = {
-  //    name: routeName.name,
-  //    DEPOT: DEPOT,
-  //    addresses: addresses.features,
-  //    route: route
-  //  }
-  //  dispatch(saveRoute(routeToSave))
-  //}
-
   useEffect(() => {
-    if (routeName.name === null) return
+    if (routeName.name === null || routeName.modified === false) return
     const routeToSave = {
       name: routeName.name,
       DEPOT: DEPOT,
