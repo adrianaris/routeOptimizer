@@ -1,0 +1,37 @@
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
+
+import { setNewRoute } from '../reducers/routeNameReducer'
+import { clearLocations } from '../reducers/addressesReducer'
+import { removeRoute } from '../reducers/routeReducer'
+import { removeStart, removeEnd } from '../reducers/startendReducer'
+
+const Button = styled.button`
+  position: relative;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: white;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`
+
+const NewRouteButton = () => {
+  const dispatch = useDispatch()
+
+  const newRoute = () => {
+    dispatch(setNewRoute())
+    dispatch(clearLocations())
+    dispatch(removeRoute)
+    dispatch(removeStart())
+    dispatch(removeEnd())
+  }
+
+  return (
+    <Button onClick={newRoute}>NewRoute</Button>
+  )
+}
+
+export default NewRouteButton

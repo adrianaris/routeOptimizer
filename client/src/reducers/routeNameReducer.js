@@ -13,27 +13,30 @@ const initState = {
 const routeNameReducer = (state = initState, action) => {
   switch (action.type) {
   case 'SET_ROUTE_NAME': {
-    const name = action.data
-    const newState = state
-    newState.name = name
-    newState.modified = state.routeID ? true : false
-    return newState
+    return {
+      ...state,
+      name: action.data,
+      modified: state.routeID ? true : false
+    }
   }
   case 'REMOVE_ROUTE_NAME': {
-    const newState = state
-    newState.name = null
-    return newState
+    return {
+      ...state,
+      name: null
+    }
   }
   case 'SAVE_ROUTE_TO_SERVER': {
-    const newState = state
-    newState.routeID = action.data
-    newState.modified = false
-    return newState
+    return {
+      ...state,
+      routeID: action.data,
+      modified: false
+    }
   }
   case 'UPDATE_ROUTE': {
-    const newState = state
-    newState.modified = false
-    return newState
+    return {
+      ...state,
+      modified: false
+    }
   }
   case 'SET_OLD_ROUTE': {
     const data = action.data
