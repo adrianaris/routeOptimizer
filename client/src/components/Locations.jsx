@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import StartEnd from './StartEnd'
 import { useSelector, useDispatch } from 'react-redux'
 import { optimLocations, removeLocation, clearLocations, addLocation, setJobDone } from '../reducers/addressesReducer'
@@ -40,6 +40,7 @@ const Layout = styled.div`
 const Olist = styled.div`
   padding: 0 1rem 0 1rem;
   > div {
+    cursor: pointer;
     border: 2px solid black;
     border-radius: 8px;
     padding: 0.5rem;
@@ -89,7 +90,25 @@ const OptimizationButton = styled.button`
     color: white;
   }
 `
-
+const Top = styled.aside`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  > div {
+    margin: 0 0.8rem 1.2rem 0;
+    cursor: pointer;
+    height: 20px;
+    text-align: right;
+    > svg {
+      width: 30px;
+      height: 30px;
+      view-box: 0 0 10.728 10.729;
+      enable-background:new 0 0 10.728 10.729;
+      background-size: 10px 10px;
+    }
+  }
+`
 const Locations = ({ map }) => {
   const route = useSelector(state => state.route)
   const DEPOT = useSelector(state => state.DEPOT)
@@ -100,6 +119,8 @@ const Locations = ({ map }) => {
   const dispatch = useDispatch()
   if (!locations) return
 
+  const bottomPosition = useRef(null)
+  const topPosition = useRef(null)
   const [visible, setVisible] = useState(false)
 
   const style = {
@@ -229,8 +250,15 @@ const Locations = ({ map }) => {
       speed: 2
     })
   }
+  const scrollTop = () => {
+    topPosition.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+  const scrollBottom = () => {
+    bottomPosition.current?.scrollIntoView({ behavior: 'smooth' })
+  }
   return (
     <Layout>
+      <div ref={topPosition} />
       <div style={{ textAlign: 'center' }}>
         <Button style={style}>
           <a href={googleMapsUrl}>open in <br />gmaps</a>
@@ -284,7 +312,20 @@ const Locations = ({ map }) => {
           </div>
         ))}
       </Olist>
-    </Layout>
+      <div ref={bottomPosition} />
+       <Top>
+        <div onClick={scrollTop}>
+          <svg>
+            <path d="M29.996,24.08c-0.977,0.978-2.561,0.978-3.535,0L15.365,12.985L4.268,24.081C3.78,24.568,3.14,24.812,2.5,24.812s-1.28-0.244-1.768-0.731c-0.977-0.978-0.977-2.56,0-3.535L15.364,5.915l14.63,14.629C30.972,21.521,30.972,23.104,29.996,24.08z" />
+          </svg>
+        </div>
+        <div onClick={scrollBottom}>
+          <svg>
+            <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z" />
+          </svg>
+        </div>
+      </Top>
+ </Layout>
   )
 }
 
