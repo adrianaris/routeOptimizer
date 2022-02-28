@@ -96,9 +96,10 @@ const Top = styled.aside`
   right: 0;
   text-align: right;
   > div {
-    margin: 0 0.8rem 1.2rem 0;
+    margin: 0 0.3rem 1.2rem 0;
     cursor: pointer;
     height: 20px;
+    widht: 20px;
     text-align: right;
     > svg {
       width: 30px;
@@ -315,12 +316,12 @@ const Locations = ({ map }) => {
       <div ref={bottomPosition} />
        <Top>
         <div onClick={scrollTop}>
-          <svg>
+          <svg viewBox="0 0 60 60">
             <path d="M29.996,24.08c-0.977,0.978-2.561,0.978-3.535,0L15.365,12.985L4.268,24.081C3.78,24.568,3.14,24.812,2.5,24.812s-1.28-0.244-1.768-0.731c-0.977-0.978-0.977-2.56,0-3.535L15.364,5.915l14.63,14.629C30.972,21.521,30.972,23.104,29.996,24.08z" />
           </svg>
         </div>
         <div onClick={scrollBottom}>
-          <svg>
+          <svg viewBox="0 0 60 60">
             <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z" />
           </svg>
         </div>

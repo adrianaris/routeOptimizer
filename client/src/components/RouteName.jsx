@@ -50,13 +50,16 @@ const RouteName = () => {
     }
   }, [addresses, DEPOT, route, routeName])
 
+  const handleChangeName = () => {
+    input.execute.setvalue(routeName.name)
+    dispatch(removeRouteName())
+  }
+
   return (
     <div style={{ textAlign: 'center' }}><div>Route Name: { routeName.name !== null
-      ? <><b>{routeName.name}</b>
-        <Button onClick={() => dispatch(removeRouteName())}>
-          ChangeName
+      ? <Button onClick={handleChangeName}>
+          <b>{routeName.name}</b>
         </Button>
-      </>
       : <>
         <input {...input} onKeyPress={handleEnter} />
         <Button onClick={() => dispatch(setRouteName(input.value))}>
