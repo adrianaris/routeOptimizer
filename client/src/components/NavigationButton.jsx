@@ -11,7 +11,7 @@ const Button = styled.button`
       color: inherit;
   }
   &:hover {
-    background-color: black;
+    background-color: purple;
     color: white;
   }
 `

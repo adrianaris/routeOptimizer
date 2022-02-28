@@ -5,8 +5,10 @@ import { clearLocations, addLocation } from '../reducers/addressesReducer'
 import { removeRouteName, setRouteName } from '../reducers/routeNameReducer'
 import { removeRoute, createRoute } from '../reducers/routeReducer'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
+import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setOldRouteName } from '../reducers/routeNameReducer'
 import routesServices from '../services/routes'
+import { useNavigate } from 'react-router-dom'
 
 const Layout = styled.div`
   position: relative;
@@ -60,6 +62,7 @@ const UserRoute = ({ route }) => {
   const hide = { display: visible ? 'none' : '' }
   const symbol = visible ? '-' : '+'
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const ClearActive = () => {
     dispatch(clearLocations())
@@ -67,6 +70,7 @@ const UserRoute = ({ route }) => {
     dispatch(removeRoute())
     dispatch(removeStart())
     dispatch(removeEnd())
+    dispatch(removeGoogleUrl())
   }
   const Reuse = route => {
     dispatch(setRouteName(route.name))
@@ -79,6 +83,7 @@ const UserRoute = ({ route }) => {
   const ReuseRoute = () => {
     ClearActive()
     Reuse(route)
+    navigate('/')
   }
 
   const deleteRoute = async () => {

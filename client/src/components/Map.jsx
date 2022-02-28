@@ -223,6 +223,7 @@ const Map = () => {
         },
         'waterway-label'
       )
+      if (route.bbox) map.fitBounds(route.bbox, { padding: 50 })
       setMap(map)
     })
     if (locations.length < 2) dispatch(setNotification('Add two addresses plus start/end' +
