@@ -24,27 +24,41 @@ const Layout = styled.div`
   }
   > div {
     width: 90%;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    &::after {
+      content: '${props => props.symbol}';
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0.6rem 1rem 1rem 1.5rem;
+      font-size: 1.5rem;
+      box-size: inherit;
+    }
   }
 `
 const Button = styled.button`
-  float: right;
   position: relative;
   border: 1px solid black;
   border-radius: 4px;
   background-color: white;
   margin-left: 1rem;
+  margin-right: 1rem;
   &:hover {
     background-color: black;
     color: white;
   }
 `
+//const ExpandButton = styled.div`
+//display: inline-block;
+//text-align: right;
+//`
 
 const UserRoute = ({ route }) => {
   const [visible, setVisible] = useState(false)
   const show = { display: visible ? '' : 'none' }
   const hide = { display: visible ? 'none' : '' }
+  const symbol = visible ? '-' : '+'
   const dispatch = useDispatch()
 
   const ClearActive = () => {
@@ -77,10 +91,9 @@ const UserRoute = ({ route }) => {
   }
 
   return (
-    <Layout onClick={() => setVisible(!visible)}>
+    <Layout onClick={() => setVisible(!visible)} symbol={symbol}>
       <div style={hide}>
         <b>{route.name}: </b> {route.DEPOT.start.address.place_name}
-        <Button onClick={() => ReuseRoute()}>Reuse this route</Button>
       </div>
       <div style={show}>
         <div>
