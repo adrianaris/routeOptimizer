@@ -12,6 +12,10 @@ const Button = styled.button`
   background-color: white;
   position: relative;
   margin-right: 0;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `
 
 const RouteName = () => {
@@ -47,7 +51,7 @@ const RouteName = () => {
   }, [addresses, DEPOT, route, routeName])
 
   return (
-    <div><div>Route Name: { routeName.name !== null
+    <div style={{ textAlign: 'center' }}><div>Route Name: { routeName.name !== null
       ? <><b>{routeName.name}</b>
         <Button onClick={() => dispatch(removeRouteName())}>
           ChangeName

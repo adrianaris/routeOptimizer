@@ -75,6 +75,7 @@ const LocationCount = styled.div`
   padding: 0.3rem;
 `
 const OptimizationButton = styled.button`
+  position: absolute;
   margin: 1rem;
   margin-left: 2rem;
   border: 1px solid black;
@@ -230,18 +231,9 @@ const Locations = ({ map }) => {
   }
   return (
     <Layout>
-      {user === null ||
-        <RouteName />
-      }
-      {route.distance &&
-        <div>
-          Distance: <b>{(route.distance / 1000).toFixed(2)}</b> km /
-          Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
-        </div>
-      }
-      <div style={{ textAlign: 'right' }}>
+      <div style={{ textAlign: 'center' }}>
         <Button style={style}>
-          <a href={googleMapsUrl}>open in gmaps</a>
+          <a href={googleMapsUrl}>open in <br />gmaps</a>
         </Button>
         {locations.length < 2 ||
         <OptimizationButton onClick={handleOptimizeClick}>
@@ -250,6 +242,15 @@ const Locations = ({ map }) => {
         </OptimizationButton>
         }
       </div>
+      {user === null ||
+        <RouteName />
+      }
+      {route.distance &&
+        <div style={{ textAlign: 'center' }}>
+          Distance: <b>{(route.distance / 1000).toFixed(2)}</b> km /
+          Duration: <b>{(route.duration / 3600).toFixed(2)}</b> h
+        </div>
+      }
       <StartEnd flyToLocation={flyToLocation} />
       <LocationCount>Locations-count: <b>{locations.length}</b>
       <Button onClick={handleClearLocations}>clear locations</Button>

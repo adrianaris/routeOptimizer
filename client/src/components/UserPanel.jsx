@@ -8,6 +8,16 @@ import Notification from './Notification'
 
 const Layout = styled.div`
   position: relative;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: black;
+  }
   top: 9rem;
   margin: auto;
   display: flex;
