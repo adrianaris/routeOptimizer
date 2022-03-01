@@ -306,8 +306,8 @@ const Locations = ({ map }) => {
               : <>{index === locations.length ||
                   <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
                 }
-                {user === null ||
-                  <NavigationButton index={index} />
+                {center !== undefined &&
+                  <NavigationButton center={center} />
                 }</>
             }
           </div>

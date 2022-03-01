@@ -1,4 +1,8 @@
 import routesServices from '../services/routes'
+import { clearLocations } from '../reducers/addressesReducer'
+import { removeRoute } from '../reducers/routeReducer'
+import { removeStart, removeEnd } from '../reducers/startendReducer'
+import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 
 const months = ['jan', 'feb', 'march', 'april',
   'mai', 'june', 'july', 'aug',
@@ -103,7 +107,14 @@ export const updateRoute = route => {
 }
 
 export const setNewRoute = () => {
-  return { type: 'NEW_ROUTE' }
+  return dispatch => {
+    dispatch({ type: 'NEW_ROUTE' })
+    dispatch(clearLocations())
+    dispatch(removeRoute())
+    dispatch(removeStart())
+    dispatch(removeEnd())
+    dispatch(removeGoogleUrl())
+  }
 }
 
 export const setOldRouteName = data => {

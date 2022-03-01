@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setRouteName, removeRouteName, saveRoute, updateRoute } from '../reducers/routeNameReducer'
+import { setRouteName, removeRouteName, saveRoute, updateRoute, setNewRoute } from '../reducers/routeNameReducer'
 //import { setNotification } from '../reducers/notificationReducer'
 import useField from '../hooks/useField'
 import styled from 'styled-components'
@@ -56,7 +56,9 @@ const RouteName = () => {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}><div>Route Name: { routeName.name !== null
+    <div style={{ textAlign: 'center' }}>
+      <div onClick={() => dispatch(setNewRoute())}>create new route</div>
+      <div>Route Name: { routeName.name !== null
       ? <Button onClick={handleChangeName}>
           <b>{routeName.name}</b>
         </Button>

@@ -16,21 +16,18 @@ const Button = styled.button`
   }
 `
 
-const NavigationButton = ({ index }) => {
+const NavigationButton = ({ center }) => {
   const navigator = useSelector(state => state.user).navigator
-  const DEPOT = useSelector(state => state.DEPOT)
   const userDATA = useSelector(state => state.userDATA)
-  const locations = useSelector(state => state.addresses).features.concat(DEPOT.end)
+  console.log(center)
 
-  const destination = index === locations.length - 1
-    ? DEPOT.end.center[1] + ',' + DEPOT.end.center[0]
-    : locations[index].center[1] + ',' + locations[index].center[0]
+  const destination = center[1] + ',' + center[0]
   const origin = userDATA.latitude + ',' + userDATA.longitude
 
   const linkToNavigator = navigator === 'waze'
     ? 'https://www.waze.com/ul?ll=' +
-      `${locations[index].center[1]}%2C` +
-      `${locations[index].center[0]}&navigate=yes`
+      `${center[1]}%2C` +
+      `${center[0]}&navigate=yes`
     : `https://www.google.com/maps/dir/?api=1&origin=${origin}` +
       `&destination=${destination}`
 
