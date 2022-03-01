@@ -45,7 +45,7 @@ const UserPanel = () => {
    * I should actualy just populate the user reducer when logging in
    * instead of using this hook
    */
-  const [routes, addRoute] = getRoutes('/routes')
+  const [routes, rmRoute] = getRoutes('/routes')
   const [visible, setVisible] = useState(false)
   const show = visible ? 'flex' : 'none'
   const hide = visible ? 'none' : 'flex'
@@ -54,7 +54,6 @@ const UserPanel = () => {
     <Layout>
       <h1>user panel</h1>
       <Notification />
-      <button onClick={() => addRoute}>addRoute</button>
       <h3>user info</h3>
       <Button onClick={() => setVisible(!visible)}>
         {!visible ? 'Change Password' : 'Changed My Mind'}
@@ -63,7 +62,7 @@ const UserPanel = () => {
       <UserInfo display={hide} />
       <h3>saved routes</h3>
       {routes.map(route => (
-        <UserRoute key={route.id} route={route} />
+        <UserRoute key={route.id} route={route} rmRoute={rmRoute} />
       ))}
     </Layout>
   )

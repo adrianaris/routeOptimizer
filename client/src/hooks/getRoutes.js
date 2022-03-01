@@ -23,14 +23,14 @@ const getRoutes = url => {
     getUserRoutes().then(routes => setRoutes(routes))
   }, [])
 
-  const addRoute = route  => {
-    const newRoutes = routes.concat(route)
+  const rmRoute = id => {
+    const newRoutes = routes.map(r => r.id !== id)
+    console.log(newRoutes)
     setRoutes(newRoutes)
-    return axiosLogged.post(`${url}/save`, route)
   }
 
   return [
-    routes, addRoute
+    routes, rmRoute
   ]
 }
 

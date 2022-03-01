@@ -11,7 +11,7 @@ const saveAddress = async locations => {
         address: locations[i],
         placeId: locations[i].id
       })
-      newAddress.save()
+      if (newAddress.address && newAddress.placeId) newAddress.save()
     }
   }
 }

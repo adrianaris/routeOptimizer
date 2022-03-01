@@ -56,13 +56,14 @@ const Button = styled.button`
 //text-align: right;
 //`
 
-const UserRoute = ({ route }) => {
+const UserRoute = ({ route, rmRoute }) => {
   const [visible, setVisible] = useState(false)
   const show = { display: visible ? '' : 'none' }
   const hide = { display: visible ? 'none' : '' }
   const symbol = visible ? '-' : '+'
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
 
   const ClearActive = () => {
     dispatch(clearLocations())
@@ -88,8 +89,8 @@ const UserRoute = ({ route }) => {
 
   const deleteRoute = async () => {
     try {
-      const response = await routesServices.deleteRoute(route.id)
-      console.log(response)
+      await routesServices.deleteRoute(route.id)
+      rmRoute(route.id)
     } catch (error) {
       console.log(error)
     }
@@ -98,23 +99,34 @@ const UserRoute = ({ route }) => {
   return (
     <Layout onClick={() => setVisible(!visible)} symbol={symbol}>
       <div style={hide}>
-        <b>{route.name}: </b> {route.DEPOT.start.address.place_name}
+        <b>{route.name}: </b>
+        {route.DEPOT.start &&
+        <>{route.DEPOT.start.address.place_name}</>
+        }
       </div>
       <div style={show}>
         <div>
           <b>Name:</b> {route.name} /
+          {route.route[0].distance && <>
           <b> Distance:</b> {(route.route[0].distance / 1000).toFixed(2)} km /
           <b> Duration:</b> {(route.route[0].duration / 3600).toFixed(2)} h
+          </>}
         </div>
-        <div><b>Start:</b> {route.DEPOT.start.address.place_name}</div>
-        <div><b>End:</b> {route.DEPOT.end.address.place_name}</div>
-        <ol>
-          {route.addresses.map(elem => (
-            <li key={elem._id}>
-              {elem.address.address.place_name}
-              </li>
-          ))}
-        </ol>
+        {route.DEPOT.start &&
+          <div><b>Start:</b> {route.DEPOT.start.address.place_name}</div>
+        }
+        {route.DEPOT.end &&
+          <div><b>End:</b> {route.DEPOT.end.address.place_name}</div>
+        }
+        {route.addresses &&
+          <ol>
+            {route.addresses.map(elem => (
+              <li key={elem._id}>
+                {elem.address.address.place_name}
+                </li>
+            ))}
+          </ol>
+        }
         <Button onClick={deleteRoute}>deleteRoute</Button>
         <Button onClick={ReuseRoute}>Reuse this route</Button>
       </div>

@@ -49,8 +49,8 @@ routeRouter.post('/save', async (request, response) => {
   const newRoute = new Route({
       name: request.body.name,
       DEPOT: {
-        start: start._id,
-        end: end._id
+        start: start ? start._id : null,
+        end: end ? end._id : null,
       },
       addresses: addresses,
       user: user._id,
@@ -106,8 +106,8 @@ routeRouter.put('/:id', async (request, response) => {
   const route = {
     name: request.body.name,
     DEPOT: {
-      start: start._id,
-      end: end._id
+      start: start ? start._id : null,
+      end: end ? end._id : null
     },
     addresses: addresses,
     route: request.body.route 
