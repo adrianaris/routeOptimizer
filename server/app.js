@@ -25,6 +25,7 @@ mongoose.connect(config.MONGODB_URI, {
 })
 
 app.use(cors())
+app.use(express.static('build'))
 app.use(express.json({limit: '100mb'})) //100mb because express has 1mb default limit(I think)
 
 app.use(middleware.tokenExtractor)
