@@ -4,6 +4,7 @@
  */
 import { useState, useEffect } from 'react'
 import axiosLogged from '../axiosConfig/axiosLogged'
+import routesServices from '../services/routes'
 
 const getRoutes = url => {
   const [routes, setRoutes] = useState([])
@@ -11,6 +12,10 @@ const getRoutes = url => {
   const getUserRoutes = async () => {
     const response = await axiosLogged.get(url)
     return response.data
+  }
+
+  const rmRoute = id => {
+    routesServices.deleteRoute(id)
   }
 
   /**
@@ -21,13 +26,8 @@ const getRoutes = url => {
    */
   useEffect(() => {
     getUserRoutes().then(routes => setRoutes(routes))
-  }, [])
+  }, [rmRoute])
 
-  const rmRoute = id => {
-    const newRoutes = routes.map(r => r.id !== id)
-    console.log(newRoutes)
-    setRoutes(newRoutes)
-  }
 
   return [
     routes, rmRoute

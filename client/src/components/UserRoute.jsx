@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { clearLocations, addLocation } from '../reducers/addressesReducer'
-import { removeRouteName, setRouteName } from '../reducers/routeNameReducer'
+import { removeRouteName, setRouteName, setNewRoute } from '../reducers/routeNameReducer'
 import { removeRoute, createRoute } from '../reducers/routeReducer'
 import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setOldRouteName } from '../reducers/routeNameReducer'
-import routesServices from '../services/routes'
 import { useNavigate } from 'react-router-dom'
 
 const Layout = styled.div`
@@ -62,6 +61,7 @@ const UserRoute = ({ route, rmRoute }) => {
   const hide = { display: visible ? 'none' : '' }
   const symbol = visible ? '-' : '+'
   const dispatch = useDispatch()
+  const routeName = useSelector(state => state.routeName)
   const navigate = useNavigate()
 
 
@@ -89,8 +89,9 @@ const UserRoute = ({ route, rmRoute }) => {
 
   const deleteRoute = async () => {
     try {
-      await routesServices.deleteRoute(route.id)
-      rmRoute(route.id)
+      const id = route.id
+      await rmRoute(id)
+      if (id === routeName.routeID) dispatch(setNewRoute())
     } catch (error) {
       console.log(error)
     }

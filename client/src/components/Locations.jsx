@@ -285,7 +285,7 @@ const Locations = ({ map }) => {
       <Button onClick={handleClearLocations}>clear locations</Button>
       </LocationCount>
       <Olist>
-        {locations.concat(DEPOT.end).map(({ id, place_name, jobDone, center }, index) => (
+        {locations.length === 0 || locations.concat(DEPOT.end).map(({ id, place_name, jobDone, center }, index) => (
           <div
             key={id + index}
             style={{ background: jobDone ? 'gray' : '' }}
@@ -300,7 +300,9 @@ const Locations = ({ map }) => {
               </>
               {place_name}
             </p>
-            <Button onClick={() => handleRemove(index)}>Remove</Button>
+            {index === locations.length ||
+              <Button onClick={() => handleRemove(index)}>Remove</Button>
+            }
             {jobDone === true
               ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
               : <>{index === locations.length ||
