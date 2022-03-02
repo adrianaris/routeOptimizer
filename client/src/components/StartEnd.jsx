@@ -17,6 +17,7 @@ const Layout = styled.div`
     border-radius: 8px;
     padding: 0.5rem;
     margin-top: 0.5rem;
+    cursor: pointer;
     > button {
     margin-left: 3em;
     }
@@ -27,15 +28,7 @@ const Layout = styled.div`
     }
   }
 `
-const StartGeo = styled.span`
-  display: inline-block;
-  padding: 0.5rem;
-  > div {
-    border: 1px solid black;
-    border-radius: 8px;
-  }
-`
-const EndGeo = styled.span`
+const GeoContainer = styled.span`
   display: inline-block;
   padding: 0.5rem;
   > div {
@@ -114,7 +107,7 @@ const StartEnd = ({ flyToLocation }) => {
       <div
         onClick={() => flyToLocation(DEPOT.start.center)}
       ><p><b>Start:  </b>{DEPOT.start.place_name}
-        <StartGeo
+        <GeoContainer
           style={startGeoStyle}
           ref={startGeocoderContainer} /></p>
       <Button
@@ -130,7 +123,7 @@ const StartEnd = ({ flyToLocation }) => {
       <div
         onClick={() => flyToLocation(DEPOT.end.center)}
       ><p><b>End:  </b>{DEPOT.end.place_name}
-        <EndGeo
+        <GeoContainer
           style={endGeoStyle}
           ref={endGeocoderContainer} /></p>
       <Button

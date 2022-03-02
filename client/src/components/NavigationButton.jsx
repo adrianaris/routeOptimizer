@@ -17,9 +17,9 @@ const Button = styled.button`
 `
 
 const NavigationButton = ({ center }) => {
-  const navigator = useSelector(state => state.user).navigator
+  const user = useSelector(state => state.user)
+  const navigator = user ? user.navigator : 'waze'
   const userDATA = useSelector(state => state.userDATA)
-  console.log(center)
 
   const destination = center[1] + ',' + center[0]
   const origin = userDATA.latitude + ',' + userDATA.longitude
