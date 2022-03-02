@@ -18,7 +18,7 @@ const App = () => {
   })
 
   return (
-    <Router>
+    <Router basename={`/${process.env.PUBLIC_URL}`}>
       <MenuBar />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
