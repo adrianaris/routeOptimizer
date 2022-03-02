@@ -82,7 +82,6 @@ export const saveRoute = route => {
   return async dispatch => {
     try {
       const response = await routesServices.saveRoute(route)
-      console.log(response)
       dispatch({
         type: 'SAVE_ROUTE_TO_SERVER',
         data: response

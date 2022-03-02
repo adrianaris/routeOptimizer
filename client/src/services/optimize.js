@@ -39,7 +39,6 @@ const optimize = async locations => {
     duration: data.trips[0].duration,
     bbox: turfBbox(turfLineString(locations.map(elem => elem.center)))
   }
-  console.log(routeGeoJSON)
 
   return { routeGeoJSON, orderedIndexArray, waypoints }
 }

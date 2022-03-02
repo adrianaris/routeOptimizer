@@ -188,7 +188,7 @@ const Map = () => {
             'line-cap': 'round',
           },
           paint: {
-            'line-color': '#3887be',
+            'line-color': '#000',
             'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 22, 12],
           },
         },
@@ -216,7 +216,7 @@ const Map = () => {
             'text-keep-upright': false,
           },
           paint: {
-            'text-color': '#3887be',
+            'text-color': '#000',
             'text-halo-color': 'hsl(55, 11%, 96%)',
             'text-halo-width': 3,
           },

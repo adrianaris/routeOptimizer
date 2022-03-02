@@ -42,11 +42,9 @@ const RouteName = () => {
     }
     if (!routeName.routeID) {
       dispatch(saveRoute(routeToSave))
-      console.log('save')
     } else if (routeName.modified !== false) {
       routeToSave.id = routeName.routeID
       dispatch(updateRoute(routeToSave))
-      console.log('update')
     }
   }, [addresses, DEPOT, route, routeName])
 
