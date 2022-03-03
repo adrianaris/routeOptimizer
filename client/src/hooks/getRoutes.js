@@ -16,6 +16,9 @@ const getRoutes = url => {
 
   const rmRoute = id => {
     routesServices.deleteRoute(id)
+    setRoutes(routes.filter(route => {
+      if (route.id !== id) return route
+    }))
   }
 
   /**
@@ -26,7 +29,7 @@ const getRoutes = url => {
    */
   useEffect(() => {
     getUserRoutes().then(routes => setRoutes(routes))
-  }, [rmRoute])
+  }, [])
 
 
   return [

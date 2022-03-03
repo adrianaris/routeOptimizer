@@ -33,7 +33,7 @@ const optimize = async locations => {
 
   const routeGeoJSON = {
     ...turfFeatureCollection([
-    turfFeature({ ...data.trips[0].geometry })
+      turfFeature({ ...data.trips[0].geometry })
     ]),
     distance: data.trips[0].distance,
     duration: data.trips[0].duration,

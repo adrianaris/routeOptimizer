@@ -32,7 +32,7 @@ const turfAddressesReducer = (state = turfFeatureCollection([]), action) => {
     }
     const newState = { ...state, features: state.features.filter(
       elem => elem.jobDone === true
-      ).concat(orderedLocations)
+    ).concat(orderedLocations)
     }
     return newState
   }
