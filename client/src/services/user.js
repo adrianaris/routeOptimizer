@@ -2,7 +2,6 @@ import axios from 'axios'
 import axiosLogged from '../axiosConfig/axiosLogged'
 const URL = `${process.env.REACT_APP_API_URL}/api/user`
 
-console.log(process.env.REACT_APP_API_URL)
 const login = async credentials => {
   const response = await axios.post(`${URL}/login`, credentials)
   return response.data

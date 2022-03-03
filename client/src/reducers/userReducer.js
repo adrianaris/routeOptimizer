@@ -1,5 +1,11 @@
 import userServices from '../services/user'
 import { setNotification } from './notificationReducer'
+import axiosLogged from '../axiosConfig/axiosLogged'
+
+const setToken = value => {
+  const token = `bearer ${value}`
+  axiosLogged.defaults.headers.common['Authorization'] = token
+}
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
@@ -21,6 +27,7 @@ export const Register = credentials => {
       })
       dispatch(setNotification(`welcome ${user.name}`, 10))
       window.localStorage.setItem('foxINCuser', JSON.stringify(user))
+      setToken(user.token)
     } catch (error) {
       if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))
@@ -40,6 +47,7 @@ export const Login = credentials => {
         'foxINCuser', JSON.stringify(user)
       )
       dispatch(setNotification(`welcome ${user.name}`, 10))
+      setToken(user.token)
     } catch (error) {
       if (!error.response) dispatch(setNotification(`${error.message}`, 10))
       dispatch(setNotification(`${error.response.data.error}`, 10))

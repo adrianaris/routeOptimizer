@@ -1,8 +1,16 @@
 import axios from 'axios'
 
+let token = null
 const loggedUser = window.localStorage.getItem('foxINCuser')
-const token = loggedUser ? `bearer ${JSON.parse(loggedUser).token}` : null
+if (loggedUser) {
+  token = `bearer ${JSON.parse(loggedUser).token}`
+}
 
+export const setToken = value => {
+  token = `bearer ${value}`
+}
+
+console.log(token)
 const axiosLogged = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`
 })
