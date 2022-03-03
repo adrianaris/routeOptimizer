@@ -8,7 +8,7 @@ import {
 
 
 const optimize = async locations => {
-  axios.post('/api/address', locations)
+  axios.post(`${process.env.REACT_APP_API_URL}/api/address`, locations)
   const token = process.env.REACT_APP_MAPBOX_TOKEN
   const coordinates = locations.map(({ center }) => center.join(','))
 

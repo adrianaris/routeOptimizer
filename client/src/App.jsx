@@ -6,7 +6,7 @@ import Map from './components/Map'
 import LoginPage from './components/Login'
 import UserPanel from './components/UserPanel'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes, Route
 } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ const App = () => {
   })
 
   return (
-    <Router basename={`/${process.env.PUBLIC_URL}`}>
+    <Router>
       <MenuBar />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
