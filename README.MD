@@ -26,7 +26,7 @@
         </ol>
 </p><br />
 
-At the core this app solves the <strong>Traveling Salesman Problem</strong>. Since this web app has a presentational purpose I did not venture to offer a solution for Vehicle Routing Problem but I can morph it into that should I decide too.
+At the core this app solves the <strong>Traveling Salesman Problem</strong>. Since this web app has a presentational purpose I did not venture to offer a solution for Vehicle Routing Problem but I can morph it into that should I decide to.
 
 It uses the Mapbox api to render the Map and to geocode, on the frontend.
 
