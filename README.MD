@@ -3,11 +3,12 @@
 </p>
 
 <p>
-    First of all I would like to thank <a href="https://github.com/Angelxv01">Angel</a> for his initial contribution. While I was trying to put almost all the logic on the backend he was quicker than me in finding a solution for optimizing 12 addresses, through api calls directly from the frontend, and I setled with that for the basic functionality.
+    This is a basic fullstack MERN web app. It offers the user the possibility to plan and optimize a list of addresses for deliveries (or whatever).
 </p>
 <br />
+
 <p>
-    This is a basic fullstack MERN web app. It offers the user the possibility to plan and optimize a list of addresses for deliveries (or whatever).
+    First of all I would like to thank <a href="https://github.com/Angelxv01">Angel</a> for his initial contribution. While I was trying to put almost all the logic on the backend he was quicker than me in finding a solution for optimizing 12 addresses, through api calls directly from the frontend, and I setled with that for the basic functionality.
 </p>
 <br />
 <p>
