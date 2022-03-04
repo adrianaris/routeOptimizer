@@ -11,7 +11,7 @@
 </p>
 <br />
 <p>
-    The ideea for this app came to me while I had a job to deliver 350 addresses in 3-4 days allover Belgium. Since the list of addresses was completly random and because it was so big I could not have them reordered manually in a decent amount of time.
+    The ideea for this app came to me while I had a job to deliver 350 addresses in 3-4 days allover Belgium. Since the list of addresses was completly random and because it was so big I could not have it reordered manually in a decent amount of time.
 </p>
 <br />
 <p>
