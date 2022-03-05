@@ -5,6 +5,7 @@ import MenuBar from './components/MenuBar'
 import Map from './components/Map'
 import LoginPage from './components/Login'
 import UserPanel from './components/UserPanel'
+import About from './components/About'
 import {
   HashRouter as Router,
   Routes, Route
@@ -23,6 +24,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/userpanel" element={<UserPanel />} />
+        <Route path="/about" element={<About />} />
         <Route path="/" element={<Map />} />
       </Routes>
     </Router>
