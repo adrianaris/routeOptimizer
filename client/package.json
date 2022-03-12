@@ -20,7 +20,19 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "workbox-background-sync": "^6.5.1",
+    "workbox-broadcast-update": "^6.5.1",
+    "workbox-cacheable-response": "^6.5.1",
+    "workbox-core": "^6.5.1",
+    "workbox-expiration": "^6.5.1",
+    "workbox-google-analytics": "^6.5.1",
+    "workbox-navigation-preload": "^6.5.1",
+    "workbox-precaching": "^6.5.1",
+    "workbox-range-requests": "^6.5.1",
+    "workbox-routing": "^6.5.1",
+    "workbox-strategies": "^6.5.1",
+    "workbox-streams": "^6.5.1"
   },
   "scripts": {
     "predeploy": "npm run build",

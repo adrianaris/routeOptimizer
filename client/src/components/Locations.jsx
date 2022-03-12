@@ -22,6 +22,7 @@ import NavigationButton from './NavigationButton'
 const Layout = styled.div`
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
   ::-webkit-scrollbar {
     width: 3px;
   }
@@ -259,7 +260,7 @@ const Locations = ({ map }) => {
   }
   return (
     <Layout>
-      <div ref={topPosition} />
+      <span ref={topPosition} />
       <div style={{ textAlign: 'center' }}>
         <Button style={style}>
           <a href={googleMapsUrl}>open in <br />gmaps</a>
@@ -315,7 +316,6 @@ const Locations = ({ map }) => {
           </div>
         ))}
       </Olist>
-      <div ref={bottomPosition} />
        <Top>
         <div onClick={scrollTop}>
           <svg viewBox="0 0 80 80">
@@ -328,6 +328,7 @@ const Locations = ({ map }) => {
           </svg>
         </div>
       </Top>
+      <span ref={bottomPosition} />
  </Layout>
   )
 }
