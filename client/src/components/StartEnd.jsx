@@ -7,7 +7,7 @@ import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendRe
 import { removeRoute } from '../reducers/routeReducer'
 import _ from 'lodash'
 
-//import TestBackendButton from './TestBackendButton'
+import DonwloadButton from './tests/testDownloadButton'
 
 const Layout = styled.div`
   position: relative;
@@ -104,6 +104,7 @@ const StartEnd = ({ flyToLocation }) => {
 
   return (
     <Layout>
+      <DonwloadButton />
       <div
         onClick={() => flyToLocation(DEPOT.start.center)}
       ><p>
