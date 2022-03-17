@@ -1,11 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { default as state } from './testState.json'
+
+console.log(state)
 
 const DonwloadButton = () => {
-  const locations = useSelector(state => state.addresses).features
+  const state = useSelector(state => state)
   const downloadFile = () => {
     const linkElem = document.createElement('a')
-    const file = new Blob([JSON.stringify(locations)], {
+    const file = new Blob([JSON.stringify(state)], {
       type: 'application/json'
     })
     linkElem.href = URL.createObjectURL(file)
