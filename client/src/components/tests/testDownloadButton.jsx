@@ -1,8 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { default as state } from './testState.json'
-
-console.log(state)
 
 const DonwloadButton = () => {
   const state = useSelector(state => state)

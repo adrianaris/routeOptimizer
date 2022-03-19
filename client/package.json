@@ -1,6 +1,15 @@
 {
   "homepage": "https://adrianaris.github.io/routeOptimizer",
   "name": "routeOptimizer-front",
+  "jest": {
+    "verbose": true,
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "!mapbox-gl": "<rootDir>/node_modules/mapbox-gl/"
+    }
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
