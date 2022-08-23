@@ -10,7 +10,6 @@ export const setToken = value => {
   token = `bearer ${value}`
 }
 
-console.log(token)
 const axiosLogged = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`
 })

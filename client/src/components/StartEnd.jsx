@@ -7,8 +7,6 @@ import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendRe
 import { removeRoute } from '../reducers/routeReducer'
 import _ from 'lodash'
 
-import DonwloadButton from './tests/testDownloadButton'
-
 const Layout = styled.div`
   position: relative;
   margin: auto;
@@ -34,6 +32,10 @@ const GeoContainer = styled.span`
   > div {
     border: 1px solid black;
     border-radius: 8px;
+    z-index: inherit;
+    .suggestions {
+      z-index: inherit;
+    }
   }
 `
 const Button = styled.button`
@@ -68,13 +70,15 @@ const StartEnd = ({ flyToLocation }) => {
     display: startVisible ? '' : 'none'
   }
   const startGeoStyle = {
-    display: startVisible ? 'none' : ''
+    display: startVisible ? 'none' : '',
+    zIndex: '1001'
   }
   const endStyle = {
     display: endVisible ? '' : 'none'
   }
   const endGeoStyle = {
-    display: endVisible ? 'none' : ''
+    display: endVisible ? 'none' : '',
+    zIndex: '1000'
   }
 
   const dispatch = useDispatch()
@@ -104,7 +108,6 @@ const StartEnd = ({ flyToLocation }) => {
 
   return (
     <Layout>
-      <DonwloadButton />
       <div
         onClick={() => flyToLocation(DEPOT.start.center)}
       ><p>
