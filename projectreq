@@ -55,7 +55,7 @@ Route planner web app requirements:
 two-dimensional Euclidian plane
 
 2 Type of graph:
-!!! google uses aa hierarchical structure on top of the graph.
+!!! google uses a hierarchical structure on top of the graph.
 !!! they also probably use some algo that can be made more efficient by keeping segments of popular routes in a cache.
 	- Single source shortest path:
 		- Undirected graph
@@ -71,9 +71,9 @@ two-dimensional Euclidian plane
 
 
 
-Basically everything I wrote under requirements, untill this, is solved by google OR Tools: 
+Basically everything I wrote under requirements, untill this, is solved by google OR Tools:
 	https://developers.google.com/optimization/routing/tsp#python
-	-I'm not sure if this will be TSP or VRP problem. 
+	-I'm not sure if this will be TSP or VRP problem.
 		This question should find answer after starting the work(it shouldn't be hard to transition between them)
 
 

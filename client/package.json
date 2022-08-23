@@ -1,6 +1,6 @@
 {
-  "homepage": "https://adrianaris.github.io/routeOptimizer",
-  "name": "routeOptimizer-front",
+  "homepage": "https://adrianserbanescu.com/routeOptimizer",
+  "name": "fox",
   "jest": {
     "verbose": true,
     "modulePaths": [
@@ -11,7 +11,7 @@
     }
   },
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.4",
     "@reduxjs/toolkit": "^1.7.2",
