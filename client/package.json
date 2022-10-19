@@ -1,5 +1,4 @@
 {
-  "homepage": "https://adrianserbanescu.com/routeOptimizer",
   "name": "fox",
   "jest": {
     "moduleNameMapper": {
@@ -48,7 +47,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -76,7 +76,8 @@
     "eslint": "^8.7.0",
     "gh-pages": "^3.2.3",
     "redux-devtools-extension": "^2.13.9",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "serve": "^14.0.1"
   },
   "proxy": "http://localhost:4000"
 }

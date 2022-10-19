@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import getRoutes from '../hooks/getRoutes'
+import routesServices from '../services/routes'
 import UserRoute from './UserRoute'
 import UserInfo from './UserInfo'
 import ChangePassword from './ChangePassword'
@@ -41,11 +42,10 @@ const Button = styled.button`
 `
 
 const UserPanel = () => {
-  /**
-   * I should actualy just populate the user reducer when logging in
-   * instead of using this hook
-   */
-  const [routes, rmRoute] = getRoutes('/routes')
+  const routes = useSelector(state => state.user).routes
+  const rmRoute = id => {
+    routesServices.deleteRoute(id) // This weird function is here due to refactoring in a hurry
+  }
   const [visible, setVisible] = useState(false)
   const show = visible ? 'flex' : 'none'
   const hide = visible ? 'none' : 'flex'

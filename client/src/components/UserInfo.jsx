@@ -52,6 +52,7 @@ const UserInfo = ({ display }) => {
   const style = { display: visible ? '' : 'none' }
   const dispatch = useDispatch()
 
+
   useEffect(() => {
     if (user.name !== name || user.username !== username || user.navigator !== navigator) {
       setVisible(true)
