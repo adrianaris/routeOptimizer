@@ -1,0 +1,4 @@
+node_modules/
+
+.herokuAuth
+.env
