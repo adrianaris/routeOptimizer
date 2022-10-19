@@ -57,15 +57,15 @@ const RouteName = () => {
     <div style={{ textAlign: 'center' }}>
       <div onClick={() => dispatch(setNewRoute())}>create new route</div>
       <div>Route Name: { routeName.name !== null
-      ? <Button onClick={handleChangeName}>
+        ? <Button onClick={handleChangeName}>
           <b>{routeName.name}</b>
         </Button>
-      : <>
-        <input {...input} onKeyPress={handleEnter} />
-        <Button onClick={() => dispatch(setRouteName(input.value))}>
+        : <>
+          <input {...input} onKeyPress={handleEnter} />
+          <Button onClick={() => dispatch(setRouteName(input.value))}>
           set
-        </Button></>
-    }</div>
+          </Button></>
+      }</div>
     </div>
   )
 }

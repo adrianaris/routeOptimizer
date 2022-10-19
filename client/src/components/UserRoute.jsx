@@ -109,8 +109,8 @@ const UserRoute = ({ route, rmRoute }) => {
         <div>
           <b>Name:</b> {route.name} /
           {route.route[0].distance && <>
-          <b> Distance:</b> {(route.route[0].distance / 1000).toFixed(2)} km /
-          <b> Duration:</b> {(route.route[0].duration / 3600).toFixed(2)} h
+            <b> Distance:</b> {(route.route[0].distance / 1000).toFixed(2)} km /
+            <b> Duration:</b> {(route.route[0].duration / 3600).toFixed(2)} h
           </>}
         </div>
         {route.DEPOT.start &&
@@ -124,7 +124,7 @@ const UserRoute = ({ route, rmRoute }) => {
             {route.addresses.map(elem => (
               <li key={elem._id}>
                 {elem.address.address.place_name}
-                </li>
+              </li>
             ))}
           </ol>
         }

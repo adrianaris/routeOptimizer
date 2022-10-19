@@ -2,10 +2,6 @@
   "homepage": "https://adrianserbanescu.com/routeOptimizer",
   "name": "fox",
   "jest": {
-    "verbose": true,
-    "modulePaths": [
-      "<rootDir>"
-    ],
     "moduleNameMapper": {
       "!mapbox-gl": "<rootDir>/node_modules/mapbox-gl/"
     }
@@ -51,7 +47,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint ./src",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +72,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "cypress": "^10.10.0",
     "eslint": "^8.7.0",
     "gh-pages": "^3.2.3",
     "redux-devtools-extension": "^2.13.9",

@@ -283,7 +283,7 @@ const Locations = ({ map }) => {
       }
       <StartEnd flyToLocation={flyToLocation} />
       <LocationCount>Locations-count: <b>{locations.length}</b>
-      <Button onClick={handleClearLocations}>clear locations</Button>
+        <Button onClick={handleClearLocations}>clear locations</Button>
       </LocationCount>
       <Olist>
         {locations.length === 0 || locations.concat(DEPOT.end).map(({ id, place_name, jobDone, center }, index) => (
@@ -308,15 +308,15 @@ const Locations = ({ map }) => {
               ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
               : <>{index === locations.length ||
                   <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
-                }
-                {center !== undefined &&
+              }
+              {center !== undefined &&
                   <NavigationButton center={center} />
-                }</>
+              }</>
             }
           </div>
         ))}
       </Olist>
-       <Top>
+      <Top>
         <div onClick={scrollTop}>
           <svg viewBox="0 0 80 80">
             <path d="M29.996,24.08c-0.977,0.978-2.561,0.978-3.535,0L15.365,12.985L4.268,24.081C3.78,24.568,3.14,24.812,2.5,24.812s-1.28-0.244-1.768-0.731c-0.977-0.978-0.977-2.56,0-3.535L15.364,5.915l14.63,14.629C30.972,21.521,30.972,23.104,29.996,24.08z" />
@@ -329,7 +329,7 @@ const Locations = ({ map }) => {
         </div>
       </Top>
       <span ref={bottomPosition} />
- </Layout>
+    </Layout>
   )
 }
 

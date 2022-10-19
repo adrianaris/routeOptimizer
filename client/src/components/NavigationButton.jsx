@@ -31,15 +31,15 @@ const NavigationButton = ({ center }) => {
     : `https://www.google.com/maps/dir/?api=1&origin=${origin}` +
       `&destination=${destination}`
 
-    return (
-      <Button>
-        <a
-          href={linkToNavigator}
-          target="_blank"
-          rel="noopener noreferrer"
-        >GoToNavigator</a>
-      </Button>
-    )
+  return (
+    <Button>
+      <a
+        href={linkToNavigator}
+        target="_blank"
+        rel="noopener noreferrer"
+      >GoToNavigator</a>
+    </Button>
+  )
 }
 
 export default NavigationButton
