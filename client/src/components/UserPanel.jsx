@@ -43,7 +43,6 @@ const Button = styled.button`
 
 const UserPanel = () => {
   const routes = useSelector(state => state.user).routes
-  console.log(routes)
   const rmRoute = id => {
     routesServices.deleteRoute(id) // This weird function is here due to refactoring in a hurry
   }

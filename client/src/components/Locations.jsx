@@ -305,9 +305,9 @@ const Locations = ({ map }) => {
               <Button onClick={() => handleRemove(index)}>Remove</Button>
             }
             {jobDone === true
-              ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
+              ? <Button id="remove" onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
               : <>{index === locations.length ||
-                  <Button onClick={() => handleJobDone(index, true)}>jobDone</Button>
+                  <Button id="jobdone" onClick={() => handleJobDone(index, true)}>jobDone</Button>
               }
               {center !== undefined &&
                   <NavigationButton center={center} />

@@ -32,11 +32,18 @@ describe('Route Optimizer', function() {
   })
 
   it('removing location', function() {
-    cy.get('div').contains('Locations-count:').within(() => {
-      cy.get('p').invoke('text').as('count')
+    cy.contains('Locations-count:').within(() => {
+      return cy.get('b').then($b => {
+        cy.wrap($b.text()).as('count')
+      })
     })
-    cy.contains('Locations-count').parent().within(() => {
-      cy.get('p').invoke('text').contains((Number.parseInt(count) - 1).toString())
+    cy.get('[id=remove]')
+    cy.contains('Locations-count').within(() => {
+      cy.get('b').then($b => {
+        cy.get('@count').then(count => {
+          expect($b.text()).to.equal(count)
+        })
+      })
     })
   })
 })
