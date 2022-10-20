@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 
 const StyledUl = styled.ul`
-  z-index: 5;
   list-style: none;
   position: fixed;
   right: 9%;

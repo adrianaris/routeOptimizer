@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import foxINClogo from '../svgs/Fox-vector-logo.svg'
 
 const NavBar = styled.div`
-  z-index: 5;
+  z-index: 1004;
   background-color: ${props => props.background};
   position: fixed;
   margin: auto;

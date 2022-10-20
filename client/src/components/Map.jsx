@@ -29,10 +29,15 @@ const Geocoder = styled.div`
   position: relative;
   padding: 0.5rem;
   margin: 3px auto;
+  z-index: 1002;
   > div {
     border: 2px solid black;
     border-radius: 8px;
     margin: auto;
+    z-index: inherit;
+    .suggestions {
+    z-index: inherit;
+    }
   }
   @media (max-width: 640px) {
     width: 100%;

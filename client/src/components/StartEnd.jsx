@@ -29,12 +29,14 @@ const Layout = styled.div`
 const GeoContainer = styled.span`
   display: inline-block;
   padding: 0.5rem;
+  > span {
+    z-index: inherit;
+  }
   > div {
     border: 1px solid black;
     border-radius: 8px;
     z-index: inherit;
     .suggestions {
-      z-index: inherit;
     }
   }
 `

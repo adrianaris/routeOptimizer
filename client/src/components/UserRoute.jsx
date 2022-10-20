@@ -77,8 +77,8 @@ const UserRoute = ({ route, rmRoute }) => {
     dispatch(setRouteName(route.name))
     dispatch(addLocation(route.addresses.map(elem => elem.address.address)))
     dispatch(createRoute(route.route[0])) // I should change the backend model for this
-    dispatch(addStart(route.DEPOT.start.address)) //same
-    dispatch(addEnd(route.DEPOT.end.address))
+    dispatch(addStart(route.DEPOT.start ? route.DEPOT.start.address : {})) //same
+    dispatch(addEnd(route.DEPOT.end ? route.DEPOT.end.address : {}))
     dispatch(setOldRouteName({ name: route.name, routeID: route.id }))
   }
   const ReuseRoute = () => {
@@ -98,7 +98,7 @@ const UserRoute = ({ route, rmRoute }) => {
   }
 
   return (
-    <Layout onClick={() => setVisible(!visible)} symbol={symbol}>
+    <Layout key={route.id} onClick={() => setVisible(!visible)} symbol={symbol}>
       <div style={hide}>
         <b>{route.name}: </b>
         {route.DEPOT.start &&
