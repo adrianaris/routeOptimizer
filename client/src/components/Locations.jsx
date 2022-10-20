@@ -302,10 +302,10 @@ const Locations = ({ map }) => {
               {place_name}
             </p>
             {index === locations.length ||
-              <Button onClick={() => handleRemove(index)}>Remove</Button>
+              <Button id="remove" onClick={() => handleRemove(index)}>Remove</Button>
             }
             {jobDone === true
-              ? <Button id="remove" onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
+              ? <Button onClick={() => handleJobDone(index, false)}>Undo jobDone</Button>
               : <>{index === locations.length ||
                   <Button id="jobdone" onClick={() => handleJobDone(index, true)}>jobDone</Button>
               }

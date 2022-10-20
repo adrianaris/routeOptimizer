@@ -31,17 +31,21 @@ describe('Route Optimizer', function() {
     cy.contains('route Test 21/2/2022')
   })
 
+  it('add location', function() {
+
+  })
+
   it('removing location', function() {
     cy.contains('Locations-count:').within(() => {
       return cy.get('b').then($b => {
         cy.wrap($b.text()).as('count')
       })
     })
-    cy.get('[id=remove]')
+    cy.get('[id=remove]').eq(0).click()
     cy.contains('Locations-count').within(() => {
       cy.get('b').then($b => {
         cy.get('@count').then(count => {
-          expect($b.text()).to.equal(count)
+          expect(Number.parseInt($b.text())).to.equal(count - 1)
         })
       })
     })
