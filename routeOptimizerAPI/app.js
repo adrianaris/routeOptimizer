@@ -17,7 +17,8 @@ logger(`connecting to ${config.MONGODB_URI}`)
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  autoIndex: true,
 }).then(() => {
   logger('connected to MongoDB')
 }).catch(error => {

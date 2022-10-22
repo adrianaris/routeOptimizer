@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Route = require('../models/route')
 const userRouter = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -147,6 +148,27 @@ userRouter.put('/update', async (request, response) => {
     navigator: updatedUser.navigator,
     creationDate: updatedUser.creationDate
   })
+})
+
+userRouter.delete('/delete', async (request, response) => {
+  const token = request.token
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  
+  const user = await User.findById(decodedToken.id) 
+  if (!user) {
+    return response.status(401).json({ error: 'no user with this id' })
+  }
+  
+  for (let i in user.routes) {
+    const route = user.routes[i]
+    if (route) await Route.findByIdAndRemove(user.routes[i])
+  }
+  
+  await User.findByIdAndRemove(decodedToken.id)
+  response.status(204).end()
 })
 
 module.exports = userRouter

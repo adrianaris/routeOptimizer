@@ -5,7 +5,6 @@ const routeSchema = new mongoose.Schema({
     name: {
       type: String,
       required: true,
-      unique: true
     },
     DEPOT: {
       start: {
@@ -29,10 +28,12 @@ const routeSchema = new mongoose.Schema({
     ],
     user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true,
         },
     route: Array
 })
+routeSchema.index({ name: 1, user: 1 }, { unique: true })
 
 routeSchema.set('toJSON', {
     transform: (document, returnedObject) => {

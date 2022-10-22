@@ -32,6 +32,7 @@ const RouteName = () => {
     }
   }
 
+  console.log(routeName)
   useEffect(() => {
     if (routeName.name === null ) return
     const routeToSave = {
