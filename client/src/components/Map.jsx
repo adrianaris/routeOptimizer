@@ -262,7 +262,7 @@ const Map = () => {
       </div>
       <StyledDiv>
         <Notification />
-        <Geocoder ref={geocoderContainer} />
+        <Geocoder id="mainGeocoder" ref={geocoderContainer} />
         <Locations map={map} />
       </StyledDiv>
     </FlexContainer>
