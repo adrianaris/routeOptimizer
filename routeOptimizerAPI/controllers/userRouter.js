@@ -166,6 +166,16 @@ userRouter.delete('/delete', async (request, response) => {
     const route = user.routes[i]
     if (route) await Route.findByIdAndRemove(user.routes[i])
   }
+
+  const passwordCorrect = user === null
+    ? false
+    : await bcrypt.compare(request.body.password, user.passwordHash)
+
+  if (!passwordCorrect) {
+    return response.status(401).json({
+      error: 'invalid password'
+    })
+  }
   
   await User.findByIdAndRemove(decodedToken.id)
   response.status(204).end()
