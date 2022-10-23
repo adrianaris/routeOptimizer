@@ -7,7 +7,7 @@ import userServices from '../services/user'
 
 const Layout = styled.div`
   position: relative;
-  width: 50%;
+  width: 500px;
   min-width: 300px;
   display: ${props => props.display};
   flex-direction: column;
@@ -50,7 +50,7 @@ const ChangePassword = ({ setVisible, display }) => {
       setVisible(false)
     } catch (error) {
       console.log(error)
-      dispatch(setNotification('password change failed', 10))
+      dispatch(setNotification('Password change failed.', 10))
     }
 
     oldPass.execute.clear()

@@ -7,7 +7,7 @@ import { UpdateU } from '../reducers/userReducer'
 
 const Layout = styled.div`
   position: relative;
-  width: 50%;
+  width: 500px;
   min-width: 300px;
   display: ${props => props.display};
   flex-wrap: wrap;
@@ -51,8 +51,6 @@ const UserInfo = ({ display }) => {
   const [visible, setVisible] = useState(false)
   const style = { display: visible ? '' : 'none' }
   const dispatch = useDispatch()
-
-  console.log(user)
 
   useEffect(() => {
     if (user.name !== name || user.username !== username || user.navigator !== navigator) {

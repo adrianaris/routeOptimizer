@@ -5,6 +5,7 @@ import routesServices from '../services/routes'
 import UserRoute from './UserRoute'
 import UserInfo from './UserInfo'
 import ChangePassword from './ChangePassword'
+import DeleteAccount from './DeleteAccount'
 import Notification from './Notification'
 
 const Layout = styled.div`
@@ -29,6 +30,7 @@ const Layout = styled.div`
   > h1 {
     padding-bottom: 5rem;
   }
+  padding: 1rem;
 `
 const Button = styled.button`
   position: relative;
@@ -42,7 +44,9 @@ const Button = styled.button`
 `
 
 const UserPanel = () => {
-  const routes = useSelector(state => state.user).routes
+  const user = useSelector(state => state.user)
+  const userName = user.name
+  const routes = user.routes
   const rmRoute = id => {
     routesServices.deleteRoute(id) // This weird function is here due to refactoring in a hurry
   }
@@ -64,6 +68,7 @@ const UserPanel = () => {
       {routes.map(route => (
         <UserRoute key={route.id} route={route} rmRoute={rmRoute} />
       ))}
+      <DeleteAccount userName={userName} />
     </Layout>
   )
 }

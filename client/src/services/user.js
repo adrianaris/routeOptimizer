@@ -22,4 +22,9 @@ const updatePass = async credentials => {
   return response.data
 }
 
-export default { login, register, updateU, updatePass }
+const deleteAccount = async credentials => {
+  const response = await axiosLogged.post('user/delete', credentials)
+  return response.data
+}
+
+export default { login, register, updateU, updatePass, deleteAccount }

@@ -150,8 +150,9 @@ userRouter.put('/update', async (request, response) => {
   })
 })
 
-userRouter.delete('/delete', async (request, response) => {
+userRouter.post('/delete', async (request, response) => {
   const token = request.token
+  const password = request.body.password ? request.body.password : ''
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
@@ -161,15 +162,10 @@ userRouter.delete('/delete', async (request, response) => {
   if (!user) {
     return response.status(401).json({ error: 'no user with this id' })
   }
-  
-  for (let i in user.routes) {
-    const route = user.routes[i]
-    if (route) await Route.findByIdAndRemove(user.routes[i])
-  }
 
   const passwordCorrect = user === null
     ? false
-    : await bcrypt.compare(request.body.password, user.passwordHash)
+    : await bcrypt.compare(password, user.passwordHash)
 
   if (!passwordCorrect) {
     return response.status(401).json({
@@ -177,6 +173,11 @@ userRouter.delete('/delete', async (request, response) => {
     })
   }
   
+  for (let i in user.routes) {
+    const route = user.routes[i]
+    if (route) await Route.findByIdAndRemove(user.routes[i])
+  }
+
   await User.findByIdAndRemove(decodedToken.id)
   response.status(204).end()
 })

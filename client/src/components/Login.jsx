@@ -41,7 +41,7 @@ const LoginPage = () => {
   const name = useField('text')
   const password = useField('password')
   const navigate = useNavigate()
-  const [navigator, setNavigator] = useState('waze')
+  const [navigator, setNavigator] = useState('gmaps')
 
   const navigatorOptions = [
     {
