@@ -1,0 +1,23 @@
+name: Deployment pipeline
+  
+on:
+  push:
+    branches:
+      -main
+    pull_requests:
+      branches: [main]
+      types: [open, synchronize]
+        
+jobs:
+  simple_deployment_pipeline:
+  if: ${{ github.event_name == 'push'}}
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - name: npm install
+      run: npm install
+    - name: lint
+      run: npm run lint
