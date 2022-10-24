@@ -46,7 +46,7 @@ const DeleteAccount = ({ userName }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <input {...password}/>
-          <Button type='submit'>delete</Button>
+          <Button type='submit'>Delete</Button>
         </form>
       </div>
     </>

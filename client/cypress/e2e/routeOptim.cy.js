@@ -1,33 +1,46 @@
 /* eslint-disable no-undef */
 
 describe('Route Optimizer', function() {
-  it('web app launches and logs-in', function() {
+  it('web app launches and log-in fails', function() {
     cy.visit('http://localhost:3000')
     cy.contains('MENU').click()
     cy.contains('LOGIN').click()
-    cy.get('input').first().type('adrianaris')
-    cy.get('input').last().type('admin')
+    cy.get('input').first().type('test')
+    cy.get('input').last().type('test')
     cy.get('button').contains('Login').click()
-    cy.contains('Welcome adrianaris')
+    cy.contains('invalid username or password')
   })
 
-  it('add location', function() {
-    cy.get('[id=mainGeocoder]').within(() => {
-      cy.get('input').type('brus')
+  it('register new user', function() {
+    cy.get('button').contains('Register').click()
+    cy.get('input').first().clear().type('test')
+    cy.get('input').eq(1).clear().type('test')
+    cy.get('input').last().clear().type('test')
+    cy.get('button').contains('Register').click()
+    cy.contains('Welcome test')
+  })
+
+  it('add locations', function() {
+    const Locations = ['Brussels', 'Antwerp', 'Ghent']
+    cy.wrap(Locations).each(location => {
+      cy.get('[id=mainGeocoder]').within(() => {
+        cy.get('input').clear()
+        cy.focused().type(location)
+      })
+      cy.contains(location).eq(0).click()
+      cy.contains(location)
     })
-    cy.contains('Brussels').eq(0).click()
-    cy.contains('Brussels')
     cy.contains('Locations-count').within(() => {
       cy.get('b').then($b => {
-        expect($b.text()).to.equal('1')
+        expect($b.text()).to.equal(Locations.length.toString())
       })
     })
-  })
-
-  it('jobDone', function() {
     cy.contains('jobDone').click()
     cy.contains('Undo jobDone').click()
-    cy.contains('jobDone')
+    cy.get('[id=optimizer]').click()
+    cy.contains('Distance')
+    cy.contains('Duration')
+    cy.contains('open in gmaps')
   })
 
   it('removing location', function() {
@@ -46,22 +59,29 @@ describe('Route Optimizer', function() {
     })
   })
 
-  it('DEPOT gets initialized, new route created and saved', function() {
+  it('route created, saved and can be reused', function() {
     const months = ['jan', 'feb', 'march', 'april',
       'mai', 'june', 'july', 'aug',
       'sept', 'oct', 'nov', 'dec']
     const date = new Date()
     const routeName = `route ${date.getDate()}/${months[date.getMonth()]}/${date.getFullYear()}`
 
-    cy.contains(routeName)
+    cy.contains('create new route').click()
+    cy.contains(routeName).click()
+    cy.get('[id=routeName]').clear().type('new')
+    cy.get('button').contains('set').click()
     cy.contains('MENU').click()
     cy.contains('USERPANEL').click()
+    cy.contains(routeName).click()
+    cy.get('button').contains('Reuse this route').click()
     cy.contains(routeName)
   })
 
-  it('reuse route', function() {
-    cy.contains('route Test 21/2/2022').click()
-    cy.get('button').contains('Reuse this route').click()
-    cy.contains('route Test 21/2/2022')
+  it('delete user', function() {
+    cy.contains('MENU').click()
+    cy.contains('USERPANEL').click()
+    cy.get('input').last().type('test')
+    cy.get('button').contains('Delete').click()
+    cy.contains('Account test has been deleted.')
   })
 })

@@ -61,7 +61,7 @@ const RouteName = () => {
           <b>{routeName.name}</b>
         </Button>
         : <>
-          <input {...input} onKeyPress={handleEnter} />
+          <input id='routeName' {...input} onKeyPress={handleEnter} />
           <Button onClick={() => dispatch(setRouteName(input.value))}>
           set
           </Button></>

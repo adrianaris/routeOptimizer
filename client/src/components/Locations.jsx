@@ -266,7 +266,7 @@ const Locations = ({ map }) => {
           <a href={googleMapsUrl}>open in <br />gmaps</a>
         </Button>
         {locations.length < 2 ||
-        <OptimizationButton onClick={handleOptimizeClick}>
+        <OptimizationButton id="optimizer" onClick={handleOptimizeClick}>
           OPTIMIZE<br />
           ROUTE
         </OptimizationButton>
