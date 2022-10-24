@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import routesServices from '../services/routes'
 import UserRoute from './UserRoute'
 import UserInfo from './UserInfo'
 import ChangePassword from './ChangePassword'
@@ -47,9 +46,6 @@ const UserPanel = () => {
   const user = useSelector(state => state.user)
   const userName = user.name
   const routes = user.routes
-  const rmRoute = id => {
-    routesServices.deleteRoute(id) // This weird function is here due to refactoring in a hurry
-  }
   const [visible, setVisible] = useState(false)
   const show = visible ? 'flex' : 'none'
   const hide = visible ? 'none' : 'flex'
@@ -66,7 +62,7 @@ const UserPanel = () => {
       <UserInfo display={hide} />
       <h3>saved routes</h3>
       {routes.map(route => (
-        <UserRoute key={route.id} route={route} rmRoute={rmRoute} />
+        <UserRoute key={route.id} route={route} />
       ))}
       <DeleteAccount userName={userName} />
     </Layout>

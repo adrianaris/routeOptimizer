@@ -4,9 +4,9 @@ const route = featureCollection([])
 
 const routeReducer = (state = route, action) => {
   switch (action.type) {
-  case 'SET_ROUTE':
+  case 'SET_ROUTE_TRAJECTORY':
     return action.data
-  case 'REMOVE_ROUTE': {
+  case 'REMOVE_ROUTE_TRAJECTORY': {
     return route
   }
   default:
@@ -16,13 +16,13 @@ const routeReducer = (state = route, action) => {
 
 export const createRoute = route => {
   return {
-    type: 'SET_ROUTE',
+    type: 'SET_ROUTE_TRAJECTORY',
     data: route
   }
 }
 
 export const removeRoute = () => {
-  return { type: 'REMOVE_ROUTE' }
+  return { type: 'REMOVE_ROUTE_TRAJECTORY' }
 }
 
 export default routeReducer

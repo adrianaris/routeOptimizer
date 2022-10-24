@@ -3,6 +3,7 @@ import { clearLocations } from '../reducers/addressesReducer'
 import { removeRoute } from '../reducers/routeReducer'
 import { removeStart, removeEnd } from '../reducers/startendReducer'
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
+import { AddRoute, ChangeRoute } from './userReducer'
 
 const months = ['jan', 'feb', 'march', 'april',
   'mai', 'june', 'july', 'aug',
@@ -82,9 +83,10 @@ export const saveRoute = route => {
   return async dispatch => {
     try {
       const response = await routesServices.saveRoute(route)
+      dispatch(AddRoute(response))
       dispatch({
         type: 'SAVE_ROUTE_TO_SERVER',
-        data: response
+        data: response.id
       })
     } catch (error) {
       console.log('network issues: route is not saved')
@@ -95,7 +97,8 @@ export const saveRoute = route => {
 export const updateRoute = route => {
   return async dispatch => {
     try {
-      await routesServices.updateRoute(route)
+      const response = await routesServices.updateRoute(route)
+      dispatch(ChangeRoute(response))
       dispatch({
         type: 'UPDATE_ROUTE'
       })

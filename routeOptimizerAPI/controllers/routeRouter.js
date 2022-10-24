@@ -58,11 +58,15 @@ routeRouter.post('/save', async (request, response) => {
   })
 
   const savedRoute = await newRoute.save()
+  const populatedRoute = await Route.findById(savedRoute._id)
+    .populate('addresses.address')
+    .populate('DEPOT.start')
+    .populate('DEPOT.end')
   
   user.routes = user.routes.concat(savedRoute._id)
   await User.findByIdAndUpdate(user._id, user)
 
-  response.status(201).json(savedRoute._id)
+  response.status(201).json(populatedRoute)
 })
 
 routeRouter.delete('/:id', async (request, response) => {
@@ -114,6 +118,9 @@ routeRouter.put('/:id', async (request, response) => {
   }
   
   const updatedRoute = await Route.findByIdAndUpdate(request.params.id, route)
+    .populate('addresses.address')
+    .populate('DEPOT.start')
+    .populate('DEPOT.end')
   
   response.json(updatedRoute)
 })

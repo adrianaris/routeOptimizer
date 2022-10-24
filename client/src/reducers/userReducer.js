@@ -1,4 +1,5 @@
 import userServices from '../services/user'
+import routesServices from '../services/routes'
 import { setNotification } from './notificationReducer'
 import axiosLogged from '../axiosConfig/axiosLogged'
 
@@ -13,6 +14,24 @@ const userReducer = (state = null, action) => {
   case 'LOG_IN': return action.data
   case 'UPDATE_USER': return action.data
   case 'LOG_OUT': return null
+  case 'ADD_ROUTE': {
+    const routes = state.routes.concat(action.data)
+    return { ...state, routes: routes }
+  }
+  case 'REMOVE_ROUTE': {
+    const routes = state.routes.filter(r => r.id !== action.data)
+    return { ...state, routes: routes }
+  }
+  case 'CHANGE_ROUTE': {
+    const routes = state.routes.map(r => {
+      if (r.name === action.data.name) {
+        r = action.data
+      }
+      return r
+    })
+
+    return { ...state, routes: routes }
+  }
   default: return state
   }
 }
@@ -79,6 +98,35 @@ export const Logout = () => {
     dispatch({
       type: 'LOG_OUT'
     })
+  }
+}
+
+export const RemoveRoute = id => {
+  return async dispatch => {
+    try {
+      await  routesServices.deleteRoute(id)
+      dispatch({
+        type: 'REMOVE_ROUTE',
+        data: id
+      })
+    } catch (error) {
+      console.error(error)
+      dispatch(setNotification('Failed to delete route', 10))
+    }
+  }
+}
+
+export const AddRoute = route => {
+  return {
+    type: 'ADD_ROUTE',
+    data: route
+  }
+}
+
+export const ChangeRoute = route => {
+  return {
+    type: 'CHANGE_ROUTE',
+    data: route
   }
 }
 

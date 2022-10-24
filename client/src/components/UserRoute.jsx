@@ -8,6 +8,7 @@ import { removeStart, removeEnd, addStart, addEnd } from '../reducers/startendRe
 import { removeGoogleUrl } from '../reducers/googleUrlReducer'
 import { setOldRouteName } from '../reducers/routeNameReducer'
 import { useNavigate } from 'react-router-dom'
+import { RemoveRoute } from '../reducers/userReducer'
 
 const Layout = styled.div`
   position: relative;
@@ -55,7 +56,7 @@ const Button = styled.button`
 //text-align: right;
 //`
 
-const UserRoute = ({ route, rmRoute }) => {
+const UserRoute = ({ route }) => {
   const [visible, setVisible] = useState(false)
   const show = { display: visible ? '' : 'none' }
   const hide = { display: visible ? 'none' : '' }
@@ -87,10 +88,17 @@ const UserRoute = ({ route, rmRoute }) => {
     navigate('/')
   }
 
+  const rmRoute = id => {
+    dispatch(RemoveRoute(id))
+    if (routeName.name === route.name) {
+      dispatch(setNewRoute())
+    }
+  }
+
   const deleteRoute = async () => {
     try {
       const id = route.id
-      await rmRoute(id)
+      rmRoute(id)
       if (id === routeName.routeID) dispatch(setNewRoute())
     } catch (error) {
       console.log(error)
