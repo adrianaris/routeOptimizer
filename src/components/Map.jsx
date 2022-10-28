@@ -258,11 +258,11 @@ const Map = () => {
         {route.features.length > 0 &&
           <OverviewButton map={map} />
         }
-        <MapContainer ref={mapContainer} />
+        <MapContainer ref={mapContainer} data-testid="map-container" />
       </div>
       <StyledDiv>
         <Notification />
-        <Geocoder id="mainGeocoder" ref={geocoderContainer} />
+        <Geocoder id="mainGeocoder" ref={geocoderContainer} data-testid="geo-container" />
         <Locations map={map} />
       </StyledDiv>
     </FlexContainer>
