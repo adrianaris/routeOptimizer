@@ -31,17 +31,19 @@ const Toggable = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => {
     return {
       toggleVisibility,
-      closeOnClickOutside
+      closeOnClickOutside,
+      visible
     }
   })
 
   return (
     <div>
       <Button
+        ref={props.innerRef}
         onClick={toggleVisibility}>
         {props.buttonLabel}
       </Button>
-      <div style={Display} ref={props.innerRef}>
+      <div style={Display} data-testid='toggable-child'>
         {props.children}
       </div>
     </div>

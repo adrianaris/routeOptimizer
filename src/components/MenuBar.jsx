@@ -53,7 +53,7 @@ const MenuBar = () => {
   const background = location.pathname === '/' ? '' : 'white'
 
   const handleClickOutside = event => {
-    if (clickRef.current && !clickRef.current.contains(event.target)) {
+    if (clickRef.current && !clickRef.current.contains(event.target) ) {
       NavBoxRef.current.closeOnClickOutside()
     }
   }
