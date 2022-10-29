@@ -1,16 +1,7 @@
 name: Client pipeline
-  
-on:
-  push:
-    branches:
-      -main
-    pull_requests:
-      branches: [main]
-      types: [open, synchronize]
-        
+on: [push, pull_request]
 jobs:
   simple_deployment_pipeline:
-    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
