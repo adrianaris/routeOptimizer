@@ -77,13 +77,9 @@ describe('Route Optimizer', function() {
     cy.contains(routeName)
   })
 
-  it('user panel', function() {
-    cy.visit('http://localhost:3000/#/userpanel')
-    cy.contains('user panel')
-    cy.contains('Name: test')
-  })
-
   it('delete user', function() {
+    cy.contains('MENU').click()
+    cy.contains('USERPANEL').click()
     cy.get('input').last().type('test')
     cy.get('button').contains('Delete').click()
     cy.contains('Account test has been deleted.')

@@ -49,7 +49,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "tests": "npm test -- --watchAll=false && npm run cypress:run"
   },
   "eslintConfig": {
     "extends": [
