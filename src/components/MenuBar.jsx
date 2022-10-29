@@ -65,7 +65,7 @@ const MenuBar = () => {
   return (
     <NavBar position={position} background={background}>
       <StyledLink to="/">
-        <img src={foxINClogo} alt="foxINC" />
+        <img src={foxINClogo} alt="foxINC" data-testid="logo-svg" />
       </StyledLink>
       <Welcome>Welcome {user ? user.username : ''}</Welcome>
       <StyledToggable buttonLabel='MENU' ref={NavBoxRef} innerRef={clickRef}>

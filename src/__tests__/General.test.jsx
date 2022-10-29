@@ -53,6 +53,20 @@ describe('NavBar', () => {
     const navBox = screen.getByTestId('toggable-child')
     expect(navBox).not.toHaveStyle('display: none')
   })
+
+  it('NavBox is not displayed after navigate', () => {
+    fireEvent.click(screen.getByText('MENU'))
+    fireEvent.click(screen.getByText('ABOUT'))
+
+    const navBox = screen.getByTestId('toggable-child')
+    expect(navBox).toHaveStyle('display: none')
+
+    expect(screen.queryByTestId('map-container')).toBeNull()
+
+    fireEvent.click(screen.getByTestId('logo-svg'))
+    const mapDiv = screen.getByTestId('map-container')
+    expect(mapDiv).toBeDefined()
+  })
 })
 
 describe('RouteName', () => {
@@ -65,5 +79,28 @@ describe('RouteName', () => {
 describe('Locations', () => {
   it('Renders Locations', () => {
     expect(screen.getByText('Locations-count:')).toBeDefined()
+  })
+})
+
+describe('UserPanel', () => {
+  beforeEach(() => {
+    fireEvent.click(screen.getByText('MENU'))
+    fireEvent.click(screen.getByText('USERPANEL'))
+  })
+
+  afterEach(() => {
+    fireEvent.click(screen.getByTestId('logo-svg'))
+  })
+
+  it('ChangePassword form is not displayed', () => {
+    const form = screen.getByTestId('changePass-wrapperDiv')
+    expect(form).toHaveStyle('display: none')
+  })
+
+  it('ChangePassword form shown and hidden', () => {
+    fireEvent.click(screen.getByText('Change Password'))
+    expect(screen.getByTestId('changePass-wrapperDiv')).not.toHaveStyle('display: none')
+    fireEvent.click(screen.getByText('Changed My Mind'))
+    expect(screen.getByTestId('changePass-wrapperDiv')).toHaveStyle('display: none')
   })
 })

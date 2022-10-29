@@ -21,7 +21,7 @@ describe('Route Optimizer', function() {
   })
 
   it('add locations', function() {
-    const Locations = ['Brussels', 'Antwerp', 'Ghent']
+    const Locations = ['Brussels']
     cy.wrap(Locations).each(location => {
       cy.get('[id=mainGeocoder]').within(() => {
         cy.get('input').clear()
@@ -66,7 +66,7 @@ describe('Route Optimizer', function() {
     const date = new Date()
     const routeName = `route ${date.getDate()}/${months[date.getMonth()]}/${date.getFullYear()}`
 
-    cy.contains('create new route').click()
+    cy.contains('Create new route').click()
     cy.contains(routeName).click()
     cy.get('[id=routeName]').clear().type('new')
     cy.get('button').contains('set').click()
@@ -77,9 +77,13 @@ describe('Route Optimizer', function() {
     cy.contains(routeName)
   })
 
+  it('user panel', function() {
+    cy.visit('http://localhost:3000/#/userpanel')
+    cy.contains('user panel')
+    cy.contains('Name: test')
+  })
+
   it('delete user', function() {
-    cy.contains('MENU').click()
-    cy.contains('USERPANEL').click()
     cy.get('input').last().type('test')
     cy.get('button').contains('Delete').click()
     cy.contains('Account test has been deleted.')

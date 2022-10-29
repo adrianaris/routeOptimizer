@@ -59,19 +59,19 @@ const ChangePassword = ({ setVisible, display }) => {
   }
 
   return (
-    <Layout display={display}>
-      <form onSubmit={handleSubmit}>
+    <Layout display={display} data-testid="changePass-wrapperDiv">
+      <form onSubmit={handleSubmit} data-testid="changePass-form">
         <FormInnerDiv>
           <b>Old Password: </b>
-          <input {...oldPass} />
+          <input {...oldPass} data-testid="oldPass" />
         </FormInnerDiv>
         <FormInnerDiv>
           <b>New Password: </b>
-          <input {...newPass1} />
+          <input {...newPass1} data-testid="newPass1" />
         </FormInnerDiv>
         <FormInnerDiv>
           <b>Retype New Password: </b>
-          <input {...newPass2} />
+          <input {...newPass2} data-testid="newPass2" />
         </FormInnerDiv>
         <FormInnerDiv>
           <Button type='submit'>Submit</Button>

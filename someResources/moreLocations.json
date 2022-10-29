@@ -1,0 +1,918 @@
+[
+    {
+        "id": "place.3610765655216780",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q58780"
+        },
+        "text_en-GB": "Hasselt",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Hasselt, Limburg, Belgium",
+        "text": "Hasselt",
+        "language": "en",
+        "place_name": "Hasselt, Limburg, Belgium",
+        "bbox": [
+            5.21193,
+            50.867498,
+            5.414913,
+            50.98158
+        ],
+        "center": [
+            5.3378043,
+            50.9303735
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.3378043,
+                50.9303735
+            ]
+        },
+        "context": [
+            {
+                "id": "region.10377063311690640",
+                "short_code": "BE-VLI",
+                "wikidata": "Q1095",
+                "text_en-GB": "Limburg",
+                "language_en-GB": "en",
+                "text": "Limburg",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645382667923,
+        "key": 0.9727675918558683,
+        "jobDone": false
+    },
+    {
+        "id": "place.10179115809696410",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q1309"
+        },
+        "text_en-GB": "Maastricht",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Maastricht, Limburg, Netherlands",
+        "text": "Maastricht",
+        "language": "en",
+        "place_name": "Maastricht, Limburg, Netherlands",
+        "bbox": [
+            5.638866,
+            50.803807,
+            5.762925,
+            50.912003
+        ],
+        "center": [
+            5.68333,
+            50.86667
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.68333,
+                50.86667
+            ]
+        },
+        "context": [
+            {
+                "id": "region.15626503249690640",
+                "short_code": "NL-LI",
+                "wikidata": "Q1093",
+                "text_en-GB": "Limburg",
+                "language_en-GB": "en",
+                "text": "Limburg",
+                "language": "en"
+            },
+            {
+                "id": "country.13545879598622050",
+                "wikidata": "Q55",
+                "short_code": "nl",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.21444937145140686,
+        "jobDone": false
+    },
+    {
+        "id": "place.115770",
+        "type": "Feature",
+        "place_type": [
+            "region",
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "short_code": "DE-BE",
+            "wikidata": "Q64"
+        },
+        "text_en-GB": "Berlin",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Berlin, Germany",
+        "text": "Berlin",
+        "language": "en",
+        "place_name": "Berlin, Germany",
+        "bbox": [
+            13.088359904,
+            52.338260903,
+            13.761131097,
+            52.675502098
+        ],
+        "center": [
+            13.3888599,
+            52.5170365
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                13.3888599,
+                52.5170365
+            ]
+        },
+        "context": [
+            {
+                "id": "country.8762",
+                "short_code": "de",
+                "wikidata": "Q183",
+                "text_en-GB": "Germany",
+                "language_en-GB": "en",
+                "text": "Germany",
+                "language": "en"
+            }
+        ],
+        "key": 0.7886853155613183,
+        "jobDone": false,
+        "orderTime": 1667049735271
+    },
+    {
+        "id": "place.10577725752647760",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q9828"
+        },
+        "text_en-GB": "Deurne",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Deurne, North Brabant, Netherlands",
+        "text": "Deurne",
+        "language": "en",
+        "place_name": "Deurne, North Brabant, Netherlands",
+        "bbox": [
+            5.721718,
+            51.421614,
+            5.884059,
+            51.504138
+        ],
+        "center": [
+            5.7947,
+            51.4639
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.7947,
+                51.4639
+            ]
+        },
+        "context": [
+            {
+                "id": "region.11128705027413150",
+                "short_code": "NL-NB",
+                "wikidata": "Q1101",
+                "text_en-GB": "North Brabant",
+                "language_en-GB": "en",
+                "text": "North Brabant",
+                "language": "en"
+            },
+            {
+                "id": "country.13545879598622050",
+                "wikidata": "Q55",
+                "short_code": "nl",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "key": 0.3641978176964238,
+        "jobDone": false,
+        "orderTime": 1667049735271
+    },
+    {
+        "id": "place.10557897125594720",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q9832"
+        },
+        "text_en-GB": "Eindhoven",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Eindhoven, North Brabant, Netherlands",
+        "text": "Eindhoven",
+        "language": "en",
+        "place_name": "Eindhoven, North Brabant, Netherlands",
+        "bbox": [
+            5.356725,
+            51.400048,
+            5.548853,
+            51.497077
+        ],
+        "center": [
+            5.48417,
+            51.43444
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.48417,
+                51.43444
+            ]
+        },
+        "context": [
+            {
+                "id": "region.11128705027413150",
+                "short_code": "NL-NB",
+                "wikidata": "Q1101",
+                "text_en-GB": "North Brabant",
+                "language_en-GB": "en",
+                "text": "North Brabant",
+                "language": "en"
+            },
+            {
+                "id": "country.13545879598622050",
+                "wikidata": "Q55",
+                "short_code": "nl",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.7745928397439423,
+        "jobDone": false
+    },
+    {
+        "id": "place.8328847427705930",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q26430"
+        },
+        "text_en-GB": "Tilburg",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Tilburg, North Brabant, Netherlands",
+        "text": "Tilburg",
+        "language": "en",
+        "place_name": "Tilburg, North Brabant, Netherlands",
+        "bbox": [
+            4.947841,
+            51.529576,
+            5.135447,
+            51.617851
+        ],
+        "center": [
+            5.07,
+            51.57
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                5.07,
+                51.57
+            ]
+        },
+        "context": [
+            {
+                "id": "region.11128705027413150",
+                "short_code": "NL-NB",
+                "wikidata": "Q1101",
+                "text_en-GB": "North Brabant",
+                "language_en-GB": "en",
+                "text": "North Brabant",
+                "language": "en"
+            },
+            {
+                "id": "country.13545879598622050",
+                "wikidata": "Q55",
+                "short_code": "nl",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "key": 0.718002025902621,
+        "jobDone": false,
+        "orderTime": 1667049735271
+    },
+    {
+        "id": "place.17058028746783290",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q40844"
+        },
+        "text_en-GB": "Breda",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Breda, North Brabant, Netherlands",
+        "text": "Breda",
+        "language": "en",
+        "place_name": "Breda, North Brabant, Netherlands",
+        "bbox": [
+            4.686006,
+            51.485548,
+            4.84573,
+            51.643198
+        ],
+        "center": [
+            4.78333,
+            51.58333
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.78333,
+                51.58333
+            ]
+        },
+        "context": [
+            {
+                "id": "region.11128705027413150",
+                "short_code": "NL-NB",
+                "wikidata": "Q1101",
+                "text_en-GB": "North Brabant",
+                "language_en-GB": "en",
+                "text": "North Brabant",
+                "language": "en"
+            },
+            {
+                "id": "country.13545879598622050",
+                "wikidata": "Q55",
+                "short_code": "nl",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "key": 0.8334122198313747,
+        "jobDone": false,
+        "orderTime": 1667049735271
+    },
+    {
+        "id": "place.13854421078813520",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q12892"
+        },
+        "text_en-GB": "Antwerp",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Antwerp, Antwerp, Belgium",
+        "text": "Antwerp",
+        "language": "en",
+        "place_name": "Antwerp, Antwerp, Belgium",
+        "bbox": [
+            4.240662,
+            51.143438,
+            4.497881,
+            51.377641
+        ],
+        "center": [
+            4.3997081,
+            51.2211097
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.3997081,
+                51.2211097
+            ]
+        },
+        "context": [
+            {
+                "id": "region.9941923600813520",
+                "short_code": "BE-VAN",
+                "wikidata": "Q1116",
+                "text_en-GB": "Antwerp",
+                "language_en-GB": "en",
+                "text": "Antwerp",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.029375264431573456,
+        "jobDone": false
+    },
+    {
+        "id": "poi.695784809581",
+        "type": "Feature",
+        "place_type": [
+            "poi"
+        ],
+        "relevance": 1,
+        "properties": {
+            "landmark": true,
+            "address": "Leopold II-Laan 2",
+            "foursquare": "4b7e2ca7f964a52030e52fe3"
+        },
+        "text_en-GB": "Sint-Niklaas Railway Station",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Sint-Niklaas Railway Station, Leopold II-Laan 2, Sint-Niklaas, East Flanders 9100, Belgium",
+        "text": "Sint-Niklaas Railway Station",
+        "language": "en",
+        "place_name": "Sint-Niklaas Railway Station, Leopold II-Laan 2, Sint-Niklaas, East Flanders 9100, Belgium",
+        "center": [
+            4.144264,
+            51.171582
+        ],
+        "geometry": {
+            "coordinates": [
+                4.144264,
+                51.171582
+            ],
+            "type": "Point"
+        },
+        "context": [
+            {
+                "id": "postcode.3225537408419400",
+                "text_en-GB": "9100",
+                "text": "9100"
+            },
+            {
+                "id": "place.10712637408483290",
+                "wikidata": "Q13127",
+                "text_en-GB": "Sint-Niklaas",
+                "language_en-GB": "en",
+                "text": "Sint-Niklaas",
+                "language": "en"
+            },
+            {
+                "id": "region.6677865445789420",
+                "short_code": "BE-VOV",
+                "wikidata": "Q1114",
+                "text_en-GB": "East Flanders",
+                "language_en-GB": "en",
+                "text": "East Flanders",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "key": 0.8484835118903091,
+        "jobDone": false,
+        "orderTime": 1667049735271
+    },
+    {
+        "id": "place.4436821325570110",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q12994"
+        },
+        "text_en-GB": "Bruges",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Bruges, West Flanders, Belgium",
+        "text": "Bruges",
+        "language": "en",
+        "place_name": "Bruges, West Flanders, Belgium",
+        "matching_text": "Bruggy",
+        "matching_place_name": "Bruggy, West Flanders, Belgium",
+        "bbox": [
+            3.134176,
+            51.158071,
+            3.310191,
+            51.363255
+        ],
+        "center": [
+            3.226772,
+            51.2085526
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                3.226772,
+                51.2085526
+            ]
+        },
+        "context": [
+            {
+                "id": "region.2038775234976150",
+                "short_code": "BE-VWV",
+                "wikidata": "Q1113",
+                "text_en-GB": "West Flanders",
+                "language_en-GB": "en",
+                "text": "West Flanders",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.8285645593060071,
+        "jobDone": false
+    },
+    {
+        "id": "place.8836228170979400",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q12996"
+        },
+        "text_en-GB": "Ostend",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Ostend, West Flanders, Belgium",
+        "text": "Ostend",
+        "language": "en",
+        "place_name": "Ostend, West Flanders, Belgium",
+        "bbox": [
+            2.84034,
+            51.184557,
+            3.004327,
+            51.243614
+        ],
+        "center": [
+            2.919496,
+            51.2258565
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                2.919496,
+                51.2258565
+            ]
+        },
+        "context": [
+            {
+                "id": "region.2038775234976150",
+                "short_code": "BE-VWV",
+                "wikidata": "Q1113",
+                "text_en-GB": "West Flanders",
+                "language_en-GB": "en",
+                "text": "West Flanders",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.025242946732284777,
+        "jobDone": false
+    },
+    {
+        "id": "place.10376984788798520",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q13121"
+        },
+        "text_en-GB": "Aalst",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Aalst, East Flanders, Belgium",
+        "text": "Aalst",
+        "language": "en",
+        "place_name": "Aalst, East Flanders, Belgium",
+        "bbox": [
+            3.9824,
+            50.89937,
+            4.163944,
+            50.994851
+        ],
+        "center": [
+            4.0392147,
+            50.9383226
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.0392147,
+                50.9383226
+            ]
+        },
+        "context": [
+            {
+                "id": "region.6677865445789420",
+                "short_code": "BE-VOV",
+                "wikidata": "Q1114",
+                "text_en-GB": "East Flanders",
+                "language_en-GB": "en",
+                "text": "East Flanders",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645382685559,
+        "key": 0.8039668332668117,
+        "jobDone": false
+    },
+    {
+        "id": "place.6307651566353330",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q83407"
+        },
+        "text_en-GB": "Mons",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Mons, Hainaut, Belgium",
+        "text": "Mons",
+        "language": "en",
+        "place_name": "Mons, Hainaut, Belgium",
+        "bbox": [
+            3.854584,
+            50.37775,
+            4.08492,
+            50.513791
+        ],
+        "center": [
+            3.951958,
+            50.4549568
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                3.951958,
+                50.4549568
+            ]
+        },
+        "context": [
+            {
+                "id": "region.10359670837171810",
+                "short_code": "BE-WHT",
+                "wikidata": "Q1129",
+                "text_en-GB": "Hainaut",
+                "language_en-GB": "en",
+                "text": "Hainaut",
+                "language": "en"
+            },
+            {
+                "id": "country.1494593798110250",
+                "wikidata": "Q31",
+                "short_code": "be",
+                "text_en-GB": "Belgium",
+                "language_en-GB": "en",
+                "text": "Belgium",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1645035185502,
+        "key": 0.6919736065966111,
+        "jobDone": false
+    },
+    {
+        "id": "place.22464570",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q1794"
+        },
+        "text_en-GB": "Frankfurt",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Frankfurt, Hesse, Germany",
+        "text": "Frankfurt",
+        "language": "en",
+        "place_name": "Frankfurt, Hesse, Germany",
+        "bbox": [
+            8.472769,
+            50.015249,
+            8.800382,
+            50.22713
+        ],
+        "center": [
+            8.682092,
+            50.110644
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                8.682092,
+                50.110644
+            ]
+        },
+        "context": [
+            {
+                "id": "region.50234",
+                "short_code": "DE-HE",
+                "wikidata": "Q1199",
+                "text_en-GB": "Hesse",
+                "language_en-GB": "en",
+                "text": "Hesse",
+                "language": "en"
+            },
+            {
+                "id": "country.8762",
+                "short_code": "de",
+                "wikidata": "Q183",
+                "text_en-GB": "Germany",
+                "language_en-GB": "en",
+                "text": "Germany",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1667051208830,
+        "key": 0.4647570238338954,
+        "jobDone": false
+    },
+    {
+        "id": "place.57272378",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q2090"
+        },
+        "text_en-GB": "Nuremberg",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Nuremberg, Bavaria, Germany",
+        "text": "Nuremberg",
+        "language": "en",
+        "place_name": "Nuremberg, Bavaria, Germany",
+        "bbox": [
+            10.98874,
+            49.331433,
+            11.282603,
+            49.540753
+        ],
+        "center": [
+            11.077298,
+            49.453872
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                11.077298,
+                49.453872
+            ]
+        },
+        "context": [
+            {
+                "id": "region.123962",
+                "short_code": "DE-BY",
+                "wikidata": "Q980",
+                "text_en-GB": "Bavaria",
+                "language_en-GB": "en",
+                "text": "Bavaria",
+                "language": "en"
+            },
+            {
+                "id": "country.8762",
+                "short_code": "de",
+                "wikidata": "Q183",
+                "text_en-GB": "Germany",
+                "language_en-GB": "en",
+                "text": "Germany",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1667051219281,
+        "key": 0.8998433267348422,
+        "jobDone": false
+    },
+    {
+        "id": "place.14354600",
+        "type": "Feature",
+        "place_type": [
+            "place"
+        ],
+        "relevance": 1,
+        "properties": {
+            "wikidata": "Q2680952"
+        },
+        "text_en-GB": "Rotterdam",
+        "language_en-GB": "en",
+        "place_name_en-GB": "Rotterdam, South Holland, Netherlands",
+        "text": "Rotterdam",
+        "language": "en",
+        "place_name": "Rotterdam, South Holland, Netherlands",
+        "bbox": [
+            4.37931,
+            51.861667,
+            4.601803,
+            51.994281
+        ],
+        "center": [
+            4.47775,
+            51.924442
+        ],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                4.47775,
+                51.924442
+            ]
+        },
+        "context": [
+            {
+                "id": "region.25768",
+                "short_code": "NL-ZH",
+                "wikidata": "Q694",
+                "text_en-GB": "South Holland",
+                "language_en-GB": "en",
+                "text": "South Holland",
+                "language": "en"
+            },
+            {
+                "id": "country.8872",
+                "short_code": "nl",
+                "wikidata": "Q55",
+                "text_en-GB": "Netherlands",
+                "language_en-GB": "en",
+                "text": "Netherlands",
+                "language": "en"
+            }
+        ],
+        "orderTime": 1667051227950,
+        "key": 0.6652367408066504,
+        "jobDone": false
+    }
+]

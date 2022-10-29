@@ -1,4 +1,4 @@
-export const initState = [
+export const locations = [
   {
     id: 'poi.326417589071',
     type: 'Feature',
