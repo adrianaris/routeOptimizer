@@ -19,7 +19,7 @@ const NewRouteButton = () => {
   const dispatch = useDispatch()
 
   return (
-    <Button onClick={() => dispatch(setNewRoute())}>NewRoute</Button>
+    <Button onClick={() => dispatch(setNewRoute())}>Create new route</Button>
   )
 }
 

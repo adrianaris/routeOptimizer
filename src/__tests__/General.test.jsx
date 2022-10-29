@@ -57,7 +57,7 @@ describe('NavBar', () => {
 
 describe('RouteName', () => {
   it('Renders RouteName', () => {
-    const el = screen.getByText('create new route')
+    const el = screen.getByText('Create new route')
     expect(el).toBeDefined()
   })
 })

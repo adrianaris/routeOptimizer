@@ -36,18 +36,17 @@ const StyledNavLink = styled(NavLink)`
   }
 `
 
-const NavBox = props => {
-  const { showDisplay } = props
+const NavBox = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   return (
     <StyledUl>
-      <li><StyledNavLink to="/" onClick={showDisplay}>MAP</StyledNavLink></li>
-      <li><StyledNavLink to="/about" onClick={showDisplay}>ABOUT</StyledNavLink></li>
+      <li><StyledNavLink to="/">MAP</StyledNavLink></li>
+      <li><StyledNavLink to="/about">ABOUT</StyledNavLink></li>
       {user === null
-        ? <li><StyledNavLink to="/login" onClick={showDisplay}>LOGIN</StyledNavLink></li>
-        : <><li><StyledNavLink to="/userpanel" onClick={showDisplay}>USERPANEL</StyledNavLink></li>
+        ? <li><StyledNavLink to="/login">LOGIN</StyledNavLink></li>
+        : <><li><StyledNavLink to="/userpanel">USERPANEL</StyledNavLink></li>
           <li><StyledNavLink to="/" onClick={()=>dispatch(Logout())}>LOGOUT</StyledNavLink></li></>
       }
     </StyledUl>

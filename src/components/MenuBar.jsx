@@ -45,9 +45,6 @@ const MenuBar = () => {
   const user = useSelector(state => state.user)
   const NavBoxRef = useRef()
   const clickRef = useRef()
-  const showDisplay = () => {
-    NavBoxRef.current.toggleVisibility()
-  }
   const location = useLocation()
   const position = location.pathname === '/' ? 'relative' : 'fixed'
   const background = location.pathname === '/' ? '' : 'white'
@@ -72,7 +69,7 @@ const MenuBar = () => {
       </StyledLink>
       <Welcome>Welcome {user ? user.username : ''}</Welcome>
       <StyledToggable buttonLabel='MENU' ref={NavBoxRef} innerRef={clickRef}>
-        <NavBox showDisplay={showDisplay} />
+        <NavBox />
       </StyledToggable>
     </NavBar>
   )
