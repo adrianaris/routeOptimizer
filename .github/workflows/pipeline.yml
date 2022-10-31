@@ -12,16 +12,13 @@ jobs:
         run: npm install
       - name: lint
         run: npm run lint
-      - name: build
-        run: npm run build
       - name: tests
         uses: cypress-io/github-action@v2
         with:
           command: npm run tests
           start: npm start
           wait-on: http://localhost:3000
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: gh-pages
         if: success()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          command: npm run deploy
