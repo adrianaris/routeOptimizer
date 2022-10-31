@@ -20,5 +20,4 @@ jobs:
           wait-on: http://localhost:3000
       - name: gh-pages
         if: success()
-        with:
-          command: npm run deploy
+        run: npm run deploy
