@@ -21,7 +21,7 @@ describe('Route Optimizer', function() {
   })
 
   it('add locations', function() {
-    const Locations = ['Brussels']
+    const Locations = ['Brussels', 'Gent']
     cy.wrap(Locations).each(location => {
       cy.get('[id=mainGeocoder]').within(() => {
         cy.get('input').clear()
