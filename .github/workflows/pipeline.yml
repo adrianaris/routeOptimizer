@@ -18,3 +18,8 @@ jobs:
           command: npm run tests
           start: npm start
           wait-on: http://localhost:3000
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          command: npm run build
+          publish_dir: ./build
