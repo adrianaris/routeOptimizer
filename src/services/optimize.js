@@ -42,7 +42,7 @@ const optimize = async locations => {
 
     return { routeGeoJSON, orderedIndexArray, waypoints }
   } catch (error) {
-    throw error.message
+    throw new Error(error.message)
   }
 }
 

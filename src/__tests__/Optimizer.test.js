@@ -10,10 +10,6 @@ describe('optimize', () => {
     expect(optimized.orderedIndexArray.length).toBe(locations.length)
   })
   it('optimization fails if more than 12 addresses', async () => {
-    try {
-      await optimize(moreLocations)
-    } catch (error) {
-      expect(error).toBe('Request failed with status code 422')
-    }
+    return await expect(optimize(moreLocations)).rejects.toThrow()
   })
 })
