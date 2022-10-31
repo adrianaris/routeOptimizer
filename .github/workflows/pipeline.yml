@@ -12,7 +12,7 @@ jobs:
         run: npm install
       - name: lint
         run: npm run lint
-      - build:
+      - name: build
         run: npm run build
       - name: tests
         uses: cypress-io/github-action@v2
