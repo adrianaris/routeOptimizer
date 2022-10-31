@@ -18,6 +18,8 @@ jobs:
           command: npm run tests
           start: npm start
           wait-on: http://localhost:3000
-      - name: gh-pages
+      - name: deploy
         if: success()
-        run: npm run deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
