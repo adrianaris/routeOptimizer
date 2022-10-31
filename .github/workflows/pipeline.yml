@@ -7,11 +7,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '16'
       - name: npm install
         run: npm install
       - name: lint
         run: npm run lint
+      - build:
+        run: npm run build
       - name: tests
         uses: cypress-io/github-action@v2
         with:
@@ -22,5 +24,4 @@ jobs:
         if: success()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          command: npm run build
           publish_dir: ./build
