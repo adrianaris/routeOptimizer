@@ -17,7 +17,12 @@ describe('Register User', function() {
     cy.contains('Welcome test')
   })
 
-  it('route created, saved and can be reused and deleted', function() {
+  it('route created, saved and can be reused and deleted', {
+    retries: {
+      runMode: 3,
+      openMode: 1
+    },
+  }, function() {
     const months = ['jan', 'feb', 'march', 'april',
       'mai', 'june', 'july', 'aug',
       'sept', 'oct', 'nov', 'dec']
