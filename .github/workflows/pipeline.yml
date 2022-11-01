@@ -20,7 +20,7 @@ jobs:
           wait-on: http://localhost:3000
       - name: build
         if: success()
-        run: npm runt build
+        run: npm run build
       - name: deploy
         if: success()
         uses: JamesIves/github-pages-deploy-action@v4
