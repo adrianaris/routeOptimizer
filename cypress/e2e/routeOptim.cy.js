@@ -52,7 +52,7 @@ describe('Register User', function() {
   })
 })
 
-describe.only('Add/Remove locations', function() {
+describe('Add/Remove locations', function() {
   it('add locations', {
     retries: {
       runMode: 2,
