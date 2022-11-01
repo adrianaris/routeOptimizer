@@ -18,9 +18,11 @@ jobs:
           command: npm run tests
           start: npm start
           wait-on: http://localhost:3000
-      - name: deploy
+      - name: build
         if: success()
         run: npm runt build
+      - name: deploy
+        if: success()
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
