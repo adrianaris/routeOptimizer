@@ -52,21 +52,24 @@ describe('Register User', function() {
   })
 })
 
-describe('Add/Remove locations', function() {
+describe.only('Add/Remove locations', function() {
   it('add locations', {
     retries: {
-      runMode: 3,
+      runMode: 2,
       openMode: 1
     },
   }, function() {
     cy.visit('http://localhost:3000')
-    const Locations = ['Brussels', 'Gent']
+    const Locations = ['Brussels', 'Ghent']
     cy.wrap(Locations).each(location => {
       cy.get('[id=mainGeocoder]').within(() => {
-        cy.get('input').clear().type(location)
+        cy.get('input').type(location)
       })
       cy.contains(location).eq(0).click()
       cy.contains(location)
+      cy.get('[id=mainGeocoder]').within(() => {
+        cy.get('input').clear()
+      })
     })
     cy.contains('Locations-count').within(() => {
       cy.get('b').then($b => {

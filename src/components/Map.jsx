@@ -136,6 +136,10 @@ const Map = () => {
      */
     dispatch(removeGoogleUrl())
     dispatch(addLocation([coordinates]))
+    if (_.isEmpty(DEPOT.start) && _.isEmpty(DEPOT.end)) {
+      dispatch(addStart(coordinates))
+      dispatch(addEnd(coordinates))
+    }
   }
 
   useEffect(() => {
@@ -245,7 +249,7 @@ const Map = () => {
         dispatch(addEnd(setDEPOT))
       })()
     }
-  }, [])
+  }, [userDATA])
 
   geocoder.on('result', (event) => {
     addSearchLocation(event.result)
