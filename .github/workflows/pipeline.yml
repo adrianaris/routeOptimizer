@@ -35,7 +35,7 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     needs: [deployment_pipeline]
-    if: ${{ github.event_name == 'push' && !contains(joint(github.event.commits.*.message, ' '), '#skip')}}
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip')}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
