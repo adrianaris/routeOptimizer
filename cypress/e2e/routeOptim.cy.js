@@ -119,7 +119,12 @@ describe('user settings', function() {
     cy.get('button').contains('Save Changes').parent().should('not.be.visible')
   })
 
-  it('change settings', function() {
+  it('change settings', {
+    retries: {
+      runMode: 3,
+      openMode: 1
+    },
+  }, function() {
     cy.get('[data-testid=changeNameButton').click()
     cy.get('[data-testid=changeNameInput').clear().type('name')
     cy.get('button').contains('set').click()
@@ -138,7 +143,12 @@ describe('user settings', function() {
     cy.contains('Username: username')
   })
 
-  it('change password', function() {
+  it('change password', {
+    retries: {
+      runMode: 3,
+      openMode: 1
+    },
+  }, function() {
     cy.get('button').contains('Change Password').click()
     cy.contains('Changed My Mind')
     cy.get('[data-testid=oldPass]').clear().type('test')
