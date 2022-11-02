@@ -101,7 +101,57 @@ describe('Add/Remove locations', function() {
   })
 })
 
-describe('delete user', function() {
+describe('user settings', function() {
+  before(() => {
+    cy.visit('http://localhost:3000/#/login')
+    cy.get('input').first().type('test')
+    cy.get('input').last().type('test')
+    cy.get('button').contains('Login').click()
+    cy.contains('MENU').click()
+    cy.contains('USERPANEL').click()
+  })
+
+  it('button SaveChanges not displayed if no change is set', function() {
+    cy.get('[data-testid=changeNameButton').click()
+    cy.get('[data-testid=changeNameInput').clear().type('test')
+    cy.get('button').contains('set').click()
+
+    cy.get('button').contains('Save Changes').parent().should('not.be.visible')
+  })
+
+  it('change settings', function() {
+    cy.get('[data-testid=changeNameButton').click()
+    cy.get('[data-testid=changeNameInput').clear().type('name')
+    cy.get('button').contains('set').click()
+
+    cy.get('[data-testid=changeUsernameButton').click()
+    cy.get('[data-testid=changeUsernameInput').clear().type('username')
+    cy.get('button').contains('set').click()
+
+    cy.get('[data-testid=changeNavigatorButton').click()
+
+    cy.get('button').contains('Save Changes').click()
+
+    cy.contains('update successful')
+    cy.contains('Waze')
+    cy.contains('Name: name')
+    cy.contains('Username: username')
+  })
+
+  it('change password', function() {
+    cy.get('button').contains('Change Password').click()
+    cy.contains('Changed My Mind')
+    cy.get('[data-testid=oldPass]').clear().type('test')
+    cy.get('[data-testid=newPass1]').clear().type('abc')
+    cy.get('[data-testid=newPass2]').clear().type('abc')
+    cy.get('button').contains('Submit').click()
+    cy.contains('password updated successfully')
+    cy.contains('Change Password')
+
+    cy.contains('MENU').click()
+    cy.contains('LOGOUT').click()
+  })
+
   it('login works', {
     retries: {
       runMode: 3,
@@ -109,23 +159,25 @@ describe('delete user', function() {
     },
   }, function() {
     cy.visit('http://localhost:3000/#/login')
-    cy.get('input').first().type('test')
-    cy.get('input').last().type('test')
+    cy.get('input').first().type('username')
+    cy.get('input').last().type('abc')
     cy.get('button').contains('Login').click()
-    cy.contains('Welcome test')
+    cy.contains('Welcome username')
   })
+
   it('delete user', function() {
     cy.contains('MENU').click()
     cy.contains('USERPANEL').click()
-    cy.get('input').last().type('test')
+    cy.get('input').last().type('abc')
     cy.get('button').contains('Delete').click()
-    cy.contains('Account test has been deleted.')
+    cy.contains('Account name has been deleted.')
   })
+
   it('login with deleted user fails', function() {
     cy.contains('MENU').click()
     cy.contains('LOGIN').click()
-    cy.get('input').first().type('test')
-    cy.get('input').last().type('test')
+    cy.get('input').first().type('username')
+    cy.get('input').last().type('abc')
     cy.get('button').contains('Login').click()
     cy.contains('invalid username or password')
   })

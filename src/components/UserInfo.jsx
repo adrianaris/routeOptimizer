@@ -95,22 +95,28 @@ const UserInfo = ({ display }) => {
       {name
         ? <div>
           Name: <b>{name}</b>
-          <Button onClick={() => setName()}>Change</Button>
+          <Button onClick={() => setName()}
+            data-testid="changeNameButton">Change</Button>
         </div>
         : <div>
           Name: <input { ...nameInput }
-            onKeyPress={() => handleEnter(event, setName)}/>
+            onKeyPress={() => handleEnter(event, setName)}
+            data-testid="changeNameInput"
+          />
           <Button onClick={() => setName(nameInput.value)}>set</Button>
         </div>
       }
       {username
         ? <div>
             Username: <b>{username}</b>
-          <Button onClick={() => setUsername()}>Change</Button>
+          <Button onClick={() => setUsername()}
+            data-testid='changeUsernameButton'>Change</Button>
         </div>
         : <div>
           Username: <input { ...usernameInput }
-            onKeyPress={() => handleEnter(event, setUsername)}/>
+            onKeyPress={() => handleEnter(event, setUsername)}
+            data-testid='changeUsernameInput'
+          />
           <Button onClick={() => setUsername(usernameInput.value)}>set</Button>
         </div>
       }
@@ -118,7 +124,8 @@ const UserInfo = ({ display }) => {
         Navigator: <b>
           {navigator === 'gmaps' ? 'GoogleMaps' : 'Waze'}
         </b>
-        <Button onClick={() => handleSetNavigator()}>Change</Button>
+        <Button onClick={() => handleSetNavigator()}
+          data-testid='changeNavigatorButton'>Change</Button>
       </div>
       <div style={style}>
         <Button onClick={() => handleUpdateUser()}>Save Changes
