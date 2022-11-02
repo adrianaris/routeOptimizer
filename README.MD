@@ -30,7 +30,7 @@ At the core this app solves the <strong>Traveling Salesman Problem</strong>. Sin
 
 It uses the Mapbox api to render the Map and to geocode, on the frontend.
 
-In the backend it uses the Mapbox distance matrix api and Apify batch geocoding api. 
+In the <a href="https://github.com/adrianaris/routeOptimizerAPI">backend</a> it uses the Mapbox distance matrix api and Apify batch geocoding api. 
 Since the matrix api has a limit of 25x25 (25 coordinates with property destination and source at once, per call) I had to split this call into smaller chuncks (12 destinations + 12 sources) and reconstruct the matrix myself in order to be able to optimize more addresses.
 
 The apify batch geocoding api has the purpose of giving me the possibility to geocode an entire list of addresses (like from a file) and feed the result to the Mapbox matrix api.
