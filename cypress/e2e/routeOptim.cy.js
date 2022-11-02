@@ -52,13 +52,13 @@ describe('Register User', function() {
   })
 })
 
-describe('Add/Remove locations', function() {
-  it('add locations', {
-    retries: {
-      runMode: 2,
-      openMode: 1
-    },
-  }, function() {
+describe('Add/Remove locations', {
+  retries: {
+    runMode: 2,
+    openMode: 1
+  },
+}, function() {
+  it('add locations', function() {
     cy.visit('http://localhost:3000')
     const Locations = ['Brussels', 'Ghent']
     cy.wrap(Locations).each(location => {
@@ -84,7 +84,12 @@ describe('Add/Remove locations', function() {
     cy.contains('open in gmaps')
   })
 
-  it('removing location', function() {
+  it('removing location', {
+    retries: {
+      runMode: 2,
+      openMode: 1
+    },
+  }, function() {
     cy.contains('Locations-count:').within(() => {
       return cy.get('b').then($b => {
         cy.wrap($b.text()).as('count')
