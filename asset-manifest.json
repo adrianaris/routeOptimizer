@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/routeOptimizer/static/css/main.ab0e19d2.css",
-    "main.js": "/routeOptimizer/static/js/main.95afceb0.js",
+    "main.css": "/routeOptimizer/static/css/main.ea6fccec.css",
+    "main.js": "/routeOptimizer/static/js/main.ce758d8a.js",
     "service-worker.js": "/routeOptimizer/service-worker.js",
     "static/media/Fox-vector-logo.svg": "/routeOptimizer/static/media/Fox-vector-logo.5f213a39915f8d43a5bbb7ffb612b37a.svg",
     "index.html": "/routeOptimizer/index.html",
-    "main.ab0e19d2.css.map": "/routeOptimizer/static/css/main.ab0e19d2.css.map",
-    "main.95afceb0.js.map": "/routeOptimizer/static/js/main.95afceb0.js.map"
+    "main.ea6fccec.css.map": "/routeOptimizer/static/css/main.ea6fccec.css.map",
+    "main.ce758d8a.js.map": "/routeOptimizer/static/js/main.ce758d8a.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab0e19d2.css",
-    "static/js/main.95afceb0.js"
+    "static/css/main.ea6fccec.css",
+    "static/js/main.ce758d8a.js"
   ]
 }
