@@ -1,0 +1,27 @@
+services:
+  api:
+    image: routeOptim-api-dev
+    build:
+      context: ./routeOptimizerAPI/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./routeOptimizerAPI/:/usr/src/app
+    container_name: routeOptim-api-dev
+  app:
+    image: routeOptim-front-dev
+    build:
+      context: ./routeOptimizer/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./routeOptimizer/:/usr/src/app
+    container_name: routeOptim-front-dev
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      -./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - app
+      - api
