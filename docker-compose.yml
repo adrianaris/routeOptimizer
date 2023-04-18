@@ -1,28 +1,24 @@
 services:
   api:
-    image: routeoptim-api-dev
+    image: routeoptim-api
     build:
       context: ./routeOptimizerAPI/
-      dockerfile: dev.Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ./routeOptimizerAPI/:/usr/src/app
-    container_name: routeoptim-api-dev
+    container_name: routeoptim-api
   app:
-    environment:
-      - HOST = app 
-    image: routeoptim-front-dev
+    image: routeoptim-front
     build:
       context: ./routeOptimizer/
-      dockerfile: dev.Dockerfile
-    ports:
-      - 3000:3000
+      dockerfile: Dockerfile
     volumes:
       - ./routeOptimizer/:/usr/src/app
-    container_name: routeoptim-front-dev
+    container_name: routeoptim-front
   nginx:
     image: nginx:1.20.1
     volumes:
-      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:80
     container_name: reverse-proxy-routeoptim
